@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dino Bros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+
+    <div class="container-principal">
+
+        <div class="principal">
+            <h1 id="titulo" data-titulo="Pixel Adventure"></h1>
+
+            <form action="#" class="panel-jugador">
+
+                <button tabindex="1" id="boton-jugar">Jugar</button>
+                <button tabindex="2" id="boton-puntuaciones">Puntuaciones</button>
+            </form>
+        </div>
+
+        <div class="secundario ocultar">
+            <form action="#" class="formulario-datos-jugador">
+                <label>
+                    Ingrese Nombre jugador:
+                    <input type="text" name="nombre-jugador" id="nombre-jugador" placeholder="#jugador 1">
+                    <button id="iniciar-juego">JUGAR</button>
+                </label>
+            </form>
+        </div>
+
+        <div class="tercero ocultar">
+            <h1>score</h1>
+        </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+
+    <script src="/assets/js/clases/sprite.js"></script>
+    <script src="/assets/js/clases/jugador.js"></script>
+    <script src="/assets/js/clases/escenario.js"></script>
+    <script src="/assets/js/clases/plataforma.js"></script>
+    <script src="/assets/js/clases/fondo.js"></script>
+    <script src="/assets/js/clases/juego.js"></script>
+    <script src="/assets/js/utils.js" > </script>
+    <script src="/assets/js/index.js"></script>
+</body>
+
+</html>
