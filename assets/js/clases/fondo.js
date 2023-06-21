@@ -59,6 +59,10 @@ class Fondo extends Sprite {
 		this.contadorCuadros = 0;
 	}
 
+
+	
+
+
 	dibujar() {
 		//fondo
 		ctx.drawImage(this.imagenes.fondo, 0, 0, this.imagenes.fondo.width, this.imagenes.fondo.height, 0, 0, canvas.width, canvas.height);

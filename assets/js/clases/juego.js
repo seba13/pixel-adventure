@@ -292,6 +292,10 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				offset: {
+					x: 10,
+					y: 0,
+				},
 				imagenes: this.tilesetJugador,
 				escalaSprite: 4
 			});

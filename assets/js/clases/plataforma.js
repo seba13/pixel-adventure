@@ -32,25 +32,20 @@ class Plataforma extends Sprite {
 			},
 		};
 	}
-	
-
 
 	dibujarElementosPlataforma() {
-
-		if(this.tile.arbol.arbol_1.pintar) {
-			this.dibujarArbol1()
+		if (this.tile.arbol.arbol_1.pintar) {
+			this.dibujarArbol1();
 		}
-		if(this.tile.arbol.arbol_2.pintar) {
-			this.dibujarArbol2()
+		if (this.tile.arbol.arbol_2.pintar) {
+			this.dibujarArbol2();
 		}
-		if(this.tile.arbusto.arbusto_1.pintar) {
-			this.dibujarArbusto1()
+		if (this.tile.arbusto.arbusto_1.pintar) {
+			this.dibujarArbusto1();
 		}
-		if(this.tile.arbusto.arbusto_2.pintar) {
-			this.dibujarArbusto2()
+		if (this.tile.arbusto.arbusto_2.pintar) {
+			this.dibujarArbusto2();
 		}
-
-
 	}
 
 	dibujar() {
@@ -64,8 +59,7 @@ class Plataforma extends Sprite {
 
 		this.dibujarPlataforma();
 
-
-		this.dibujarElementosPlataforma()
+		this.dibujarElementosPlataforma();
 	}
 
 	dibujarArbol1() {
@@ -211,6 +205,9 @@ class Plataforma extends Sprite {
 			this.width = anchoPlataforma - this.offset.x - 16;
 		}
 
+
+
+
 		// ctx.fillStyle = 'rgba(255,0,0,.2)';
 
 		// for (let j = 0; j < this.posicion.y / (this.altoPixel * this.escalaSprite); j++) {
@@ -259,7 +256,7 @@ class Plataforma extends Sprite {
 		if (
 			juego.personaje.posicion.y + juego.personaje.height <= this.posicion.y &&
 			juego.personaje.posicion.y + juego.personaje.height + juego.personaje.velocidad.y >= this.posicion.y &&
-			juego.personaje.posicion.x + juego.personaje.width >= this.posicion.x &&
+			juego.personaje.posicion.x + juego.personaje.width - (juego.personaje.offset.x * juego.personaje.escalaSprite) >= this.posicion.x &&
 			juego.personaje.posicion.x <= this.posicion.x + this.width
 		) {
 			juego.personaje.velocidad.y = 0;

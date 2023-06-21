@@ -1,21 +1,27 @@
 class Jugador extends Sprite {
-	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, escalaSprite, contadorLimiteCuadros = 24 }) {
+	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, escalaSprite, offset = {x:0, y:0} }) {
 		super({ posicion, velocidad, imagenes, escalaSprite });
 
         
-		this.width = 32 * this.escalaSprite;
+		this.offset = offset;
+		this.width = 32 * this.escalaSprite - (this.offset.x*this.escalaSprite);
 		this.height = 32 * this.escalaSprite;
 		this.estado = 'inactivo'
 		this.ultimaDireccion = 'derecha'
 		this.cuadroActual = 0;
+		this.cicloAnimacion = 0 //cuenta cuando se ha completado un ciclo de animacion
 		this.contadorCuadros = 0;
-		this.contadorLimiteCuadros = contadorLimiteCuadros;
 		//numero de frames
 		this.mapa = {
 			inactivo: {
 				x:0,
 				y:0,
 				frames: 2,
+			},
+			parpadear: {
+				x: 0,
+				y: 32,
+				frames: 2
 			},
 			caminando: {
 				x: 0,
@@ -38,23 +44,20 @@ class Jugador extends Sprite {
 				frames: 4
 			}
 		}
-		this.mapa.inactivo.contadorLimiteCuadros = 120 / this.mapa.inactivo.frames
-		this.mapa.caminando.contadorLimiteCuadros = 120 / this.mapa.caminando.frames
+
+		// definir cada cuantas iteraciones se cambia el fotograma
+		this.mapa.inactivo.contadorLimiteCuadros = 90 / this.mapa.inactivo.frames
+		this.mapa.parpadear.contadorLimiteCuadros = 60 / this.mapa.parpadear.frames
+		this.mapa.caminando.contadorLimiteCuadros = 60 / this.mapa.caminando.frames
 		this.mapa.corriendo.contadorLimiteCuadros = 15 / this.mapa.corriendo.frames
-		this.mapa.saltando.contadorLimiteCuadros = 120 / this.mapa.saltando.frames
-		this.mapa.saltando.caida = 120 / this.mapa.caida.frames
+		this.mapa.saltando.contadorLimiteCuadros = 60 / this.mapa.saltando.frames
+		this.mapa.saltando.caida = 60 / this.mapa.caida.frames
 
-		// this.mapa.inactivo.contadorLimiteCuadros = this.mapa.inactivo.contadorLimiteCuadros.bind(this.mapa.inactivo);
-		// this.mapa.caminandoDerecha.contadorLimiteCuadros = this.mapa.caminandoDerecha.contadorLimiteCuadros.bind(this.mapa.caminandoDerecha);
-		// this.mapa.corriendoDerecha.contadorLimiteCuadros = this.mapa.corriendoDerecha.contadorLimiteCuadros.bind(this.mapa.corriendoDerecha);
-		
-
-        // this.posicion.y = canvas.height - this.height
+	
 	}
 
 	dibujar() {
-		// ctx.fillStyle = 'red';
-		// ctx.fillRect(this.posicion.x, this.posicion.y, this.width, this.height);
+		
 
 		let flip = 0
 		if(this.ultimaDireccion === 'izquierda') {
@@ -73,13 +76,16 @@ class Jugador extends Sprite {
 			this.mapa[this.estado].y,
 			32,
 			32,
-			this.posicion.x * flip,
+			(this.posicion.x - this.offset.x*this.escalaSprite) * flip ,
 			this.posicion.y,
 			32 * this.escalaSprite * flip,
 			32 * this.escalaSprite
 		)
 		
 		ctx.restore();
+
+		// ctx.fillStyle = 'rgba(255,0,0,.2)';
+		// ctx.fillRect(this.posicion.x - (this.offset.x * this.escalaSprite)/2, this.posicion.y, this.width, this.height);
 
 	}
 
@@ -91,6 +97,7 @@ class Jugador extends Sprite {
 				this.cuadroActual++
 			}else {
 				this.cuadroActual = 0
+				this.cicloAnimacion++ // propiedad para cambiar animacion de estado inactivo a parpadear (function cambiarEstado())
 			}
 		}
 
@@ -116,7 +123,7 @@ class Jugador extends Sprite {
 
 
 
-
+	// cambia la velocidad para mover el personaje e indica la direccion (derecha o izquierda)
 	cambiarVelocidad() {
 		// personaje moviendose a la derecha
 		if (juego.controles['ArrowRight'].presionada) {
@@ -129,6 +136,9 @@ class Jugador extends Sprite {
 			this.ultimaDireccion = 'izquierda'
 			this.velocidad.x = -5;
 		} 
+		// movimiento en el eje Y se ve desde la clase juego
+		// debido a que es donde se activa el evento keydown
+
 		// personaje estático
 		else {
 			this.velocidad.x = 0;
@@ -136,24 +146,43 @@ class Jugador extends Sprite {
 	}
 
 
+	// Cambia el estado que referencia al sprite de animacion
 	cambiarEstado() {
 
-		if (juego.controles['ArrowRight'].presionada) {
-			this.ultimaDireccion = 'derecha'
-			
+		if (juego.controles['ArrowRight'].presionada || juego.controles['ArrowLeft'].presionada) {
 
-			if(this.estado != 'corriendo') {
-				this.estado = 'corriendo'
-				this.cuadroActual = 0
+			if(juego.controles["ArrowRight"].presionada) {
+				this.ultimaDireccion = 'derecha'
+			}else 
+			if(juego.controles['ArrowLeft'].presionada)
+			{
+				this.ultimaDireccion = 'izquierda'
 			}
-		} else if (juego.controles['ArrowLeft'].presionada) {
-			this.ultimaDireccion = 'izquierda'
-			
-			if(this.estado != 'corriendo') {
-				this.estado = 'corriendo'
-				this.cuadroActual = 0
+
+			if(this.velocidad.y < 0){
+				if(this.estado != 'saltando') {
+					this.estado = 'saltando'
+					this.cuadroActual = 0
+				}
+			}else
+			// cuando se está presionando el boton saltar y está cayendo por la gravedad
+			if(this.velocidad.y > juego.gravedad) {
+				if(this.estado != 'caida') {
+					this.estado = 'caida'
+					this.cuadroActual = 0
+				}
+			}else{
+				if(this.estado != 'corriendo') {
+					this.estado = 'corriendo'
+					this.cuadroActual = 0
+				}
 			}
-		}else 
+
+
+			// siempre comenzara por la animacion inactiva
+			this.cicloAnimacion = 0
+		}
+		else 
 		if(juego.controles['ArrowUp'].presionada){
 			// cuando se está presionando el boton saltar y se está elevenado
 			if(this.velocidad.y < 0){
@@ -175,8 +204,12 @@ class Jugador extends Sprite {
 					this.estado = 'inactivo'
 					this.cuadroActual = 0
 				}
+				
 			}
 			
+
+			// siempre comenzara por la animacion inactiva
+			this.cicloAnimacion = 0
 		}
 		// cuando se deja de pulsar cualquier boton
 		else {
@@ -190,8 +223,27 @@ class Jugador extends Sprite {
 			// cuando ya ha caido al suelo o no se ha realizado alguna acción
 			else
 			if(this.estado != 'inactivo') {
-				this.estado = 'inactivo'
-				this.cuadroActual = 0
+				if(this.cicloAnimacion < 2) {
+					this.estado = 'inactivo'
+					this.cuadroActual = 0
+				}else {
+
+					// si cicloAnimacion > 2 cambiar a la animacion inactiva
+					if(this.cicloAnimacion > 2) {
+						this.cicloAnimacion = 0
+					}
+				}
+				// this.cicloAnimacion = 0
+			}else {
+
+				// si cicloAnimacion es 2 cambiar a la animacion pestañear
+				if(this.cicloAnimacion == 2 ) {
+
+					if(this.estado != 'parpadear') {
+						this.estado = 'parpadear'
+						this.cuadroActual = 0
+					}
+				}
 			}
 		}
 	}
@@ -214,7 +266,7 @@ class Jugador extends Sprite {
 		}
 
 
-		// cambia la velocidad para mover el persona e indica la direccion (derecha o izquierda)
+		// cambia la velocidad para mover el personaje e indica la direccion (derecha o izquierda)
 		this.cambiarVelocidad()
 
 		// Cambia el estado que referencia al sprite de animacion

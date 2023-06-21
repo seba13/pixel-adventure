@@ -62,14 +62,14 @@ span{
     background-color: transparent;
     border: none;
     font-size: 4em;
-    color: #adb5bd; 
+    color: #fb8500; 
     outline: none;
 }
 
 .panel-jugador button:focus, .panel-jugador button:hover{
 
     /* color: red; */
-    border-bottom: 1px solid #adb5bd;
+    border-bottom: 1px solid #ffb703;
     animation: boton-seleccionado .5s linear infinite;
 }
 
@@ -84,7 +84,7 @@ span{
 @keyframes boton-seleccionado {
     
     to{
-        color: #6c757d;
+        color: #ffb703;
         
     }
 
