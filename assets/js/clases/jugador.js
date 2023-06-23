@@ -46,12 +46,12 @@ class Jugador extends Sprite {
 		}
 
 		// definir cada cuantas iteraciones se cambia el fotograma
-		this.mapa.inactivo.contadorLimiteCuadros = 90 / this.mapa.inactivo.frames
-		this.mapa.parpadear.contadorLimiteCuadros = 60 / this.mapa.parpadear.frames
-		this.mapa.caminando.contadorLimiteCuadros = 60 / this.mapa.caminando.frames
-		this.mapa.corriendo.contadorLimiteCuadros = 15 / this.mapa.corriendo.frames
-		this.mapa.saltando.contadorLimiteCuadros = 60 / this.mapa.saltando.frames
-		this.mapa.saltando.caida = 60 / this.mapa.caida.frames
+		this.mapa.inactivo.contadorLimiteCuadros = 160 / this.mapa.inactivo.frames
+		this.mapa.parpadear.contadorLimiteCuadros = 160 / this.mapa.parpadear.frames
+		this.mapa.caminando.contadorLimiteCuadros = 160 / this.mapa.caminando.frames
+		this.mapa.corriendo.contadorLimiteCuadros = 160 / this.mapa.corriendo.frames
+		this.mapa.saltando.contadorLimiteCuadros = 160 / this.mapa.saltando.frames
+		this.mapa.saltando.caida = 160 / this.mapa.caida.frames
 
 	
 	}
@@ -184,6 +184,11 @@ class Jugador extends Sprite {
 		}
 		else 
 		if(juego.controles['ArrowUp'].presionada){
+
+			// siempre comenzara por la animacion inactiva
+			this.cicloAnimacion = 0
+
+
 			// cuando se está presionando el boton saltar y se está elevenado
 			if(this.velocidad.y < 0){
 				if(this.estado != 'saltando') {
@@ -208,8 +213,7 @@ class Jugador extends Sprite {
 			}
 			
 
-			// siempre comenzara por la animacion inactiva
-			this.cicloAnimacion = 0
+			
 		}
 		// cuando se deja de pulsar cualquier boton
 		else {
@@ -259,11 +263,18 @@ class Jugador extends Sprite {
 		this.posicion.y += this.velocidad.y;
 		this.posicion.x += this.velocidad.x;
 
+		if(this.posicion.y  - this.velocidad.y > canvas.height) {
+			
+		juego.finalizar()
+
+
+		}else
 		if (this.posicion.y + this.velocidad.y < canvas.height - this.height) {
 			this.velocidad.y += juego.gravedad;
-		} else {
-			this.velocidad.y = 0;
 		}
+
+		
+
 
 
 		// cambia la velocidad para mover el personaje e indica la direccion (derecha o izquierda)

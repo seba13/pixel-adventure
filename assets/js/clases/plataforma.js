@@ -1,5 +1,5 @@
 class Plataforma extends Sprite {
-	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, escalaSprite, width, offset }) {
+	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, escalaSprite = 1, width, offset }) {
 		super({ posicion, velocidad, imagenes, escalaSprite, offset });
 
 		// OFFSET ignorar espacio transparente de imagenes
@@ -30,10 +30,30 @@ class Plataforma extends Sprite {
 					pintar: false,
 				},
 			},
+			cascada: {
+				x: this.width,
+				pintar: false,
+			},
 		};
+
+		
+
+		this.cascada = {
+			frameActual: this.imagenes.tilesetCascada.cascada_1,
+			cascada_1: this.imagenes.tilesetCascada.cascada_1,
+			cascada_2: this.imagenes.tilesetCascada.cascada_2,
+			cascada_3: this.imagenes.tilesetCascada.cascada_3,
+			cascada_4: this.imagenes.tilesetCascada.cascada_4,
+			cascada_5: this.imagenes.tilesetCascada.cascada_5,
+		};
+
+		this.contadorLimiteCuadros = 36;
+		this.contadorCuadros = 0;
 	}
 
 	dibujarElementosPlataforma() {
+		this.contadorCuadros++;
+
 		if (this.tile.arbol.arbol_1.pintar) {
 			this.dibujarArbol1();
 		}
@@ -45,6 +65,36 @@ class Plataforma extends Sprite {
 		}
 		if (this.tile.arbusto.arbusto_2.pintar) {
 			this.dibujarArbusto2();
+		}
+		if (this.tile.cascada.pintar) {
+
+			this.dibujarCascada();
+
+			if (this.contadorCuadros % this.contadorLimiteCuadros == 0) {
+				this.alternarFrame();
+			}
+		}
+	}
+
+	alternarFrame() {
+		switch (this.cascada.frameActual) {
+			case this.cascada.cascada_1:
+				this.cascada.frameActual = this.cascada.cascada_2;
+				break;
+			case this.cascada.cascada_2:
+				this.cascada.frameActual = this.cascada.cascada_3;
+				break;
+			case this.cascada.cascada_3:
+				this.cascada.frameActual = this.cascada.cascada_4;
+				break;
+			case this.cascada.cascada_4:
+				this.cascada.frameActual = this.cascada.cascada_5;
+				break;
+			case this.cascada.cascada_5:
+				this.cascada.frameActual = this.cascada.cascada_1;
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -62,6 +112,21 @@ class Plataforma extends Sprite {
 		this.dibujarElementosPlataforma();
 	}
 
+	dibujarCascada() {
+
+		ctx.drawImage(
+			this.cascada.frameActual,
+			0,
+			0,
+			this.cascada.frameActual.width,
+			this.cascada.frameActual.height,
+			this.tile.cascada.x,
+			this.tile.cascada.y,
+			this.cascada.frameActual.width * juego.proporciones.plataforma.cascada,
+			this.cascada.frameActual.height  * juego.proporciones.plataforma.cascada,
+		);
+	}
+
 	dibujarArbol1() {
 		ctx.drawImage(
 			this.imagenes.tilesetArbol_1,
@@ -70,9 +135,9 @@ class Plataforma extends Sprite {
 			this.imagenes.tilesetArbol_1.width,
 			this.imagenes.tilesetArbol_1.height,
 			this.tile.arbol.arbol_1.x,
-			this.posicion.y - this.imagenes.tilesetArbol_1.height * this.escalaSprite,
-			this.imagenes.tilesetArbol_1.width * this.escalaSprite,
-			this.imagenes.tilesetArbol_1.height * this.escalaSprite,
+			this.posicion.y - this.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1,
+			this.imagenes.tilesetArbol_1.width * juego.proporciones.plataforma.arbol_1,
+			this.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1,
 		);
 	}
 
@@ -84,9 +149,9 @@ class Plataforma extends Sprite {
 			this.imagenes.tilesetArbol_2.width,
 			this.imagenes.tilesetArbol_2.height,
 			this.tile.arbol.arbol_2.x,
-			this.posicion.y - this.imagenes.tilesetArbol_2.height * this.escalaSprite,
-			this.imagenes.tilesetArbol_2.width * this.escalaSprite,
-			this.imagenes.tilesetArbol_2.height * this.escalaSprite,
+			this.posicion.y - this.imagenes.tilesetArbol_2.height * juego.proporciones.plataforma.arbol_2,
+			this.imagenes.tilesetArbol_2.width * juego.proporciones.plataforma.arbol_2,
+			this.imagenes.tilesetArbol_2.height * juego.proporciones.plataforma.arbol_2,
 		);
 	}
 
@@ -98,9 +163,9 @@ class Plataforma extends Sprite {
 			this.imagenes.tilesetArbusto_1.width,
 			this.imagenes.tilesetArbusto_1.height,
 			this.tile.arbusto.arbusto_1.x,
-			this.posicion.y - this.imagenes.tilesetArbusto_1.height * this.escalaSprite,
-			this.imagenes.tilesetArbusto_1.width * this.escalaSprite,
-			this.imagenes.tilesetArbusto_1.height * this.escalaSprite,
+			this.posicion.y - this.imagenes.tilesetArbusto_1.height  * juego.proporciones.plataforma.arbusto_1,
+			this.imagenes.tilesetArbusto_1.width * juego.proporciones.plataforma.arbusto_1,
+			this.imagenes.tilesetArbusto_1.height  * juego.proporciones.plataforma.arbusto_1,
 		);
 	}
 
@@ -112,16 +177,16 @@ class Plataforma extends Sprite {
 			this.imagenes.tilesetArbusto_2.width,
 			this.imagenes.tilesetArbusto_2.height,
 			this.tile.arbusto.arbusto_2.x,
-			this.posicion.y - this.imagenes.tilesetArbusto_2.height * this.escalaSprite,
-			this.imagenes.tilesetArbusto_2.width * this.escalaSprite,
-			this.imagenes.tilesetArbusto_2.height * this.escalaSprite,
+			this.posicion.y - this.imagenes.tilesetArbusto_2.height * juego.proporciones.plataforma.arbusto_2,
+			this.imagenes.tilesetArbusto_2.width * juego.proporciones.plataforma.arbusto_2,
+			this.imagenes.tilesetArbusto_2.height * juego.proporciones.plataforma.arbusto_2,
 		);
 	}
 
 	dibujarPlataforma() {
-		let columnas = Math.ceil(this.width / (this.anchoPixel * this.escalaSprite));
+		let columnas = Math.ceil(this.width / (this.anchoPixel * juego.proporciones.plataforma.suelo));
 
-		let filas = Math.ceil((canvas.height - this.posicion.y) / (this.altoPixel * this.escalaSprite)) + 1;
+		let filas = Math.ceil((canvas.height - this.posicion.y) / (this.altoPixel  * juego.proporciones.plataforma.suelo)) + 1;
 
 		let mapa = [
 			[
@@ -191,22 +256,19 @@ class Plataforma extends Sprite {
 					0,
 					this.anchoPixel * 1,
 					this.altoPixel,
-					this.posicion.x + this.anchoPixel * j * this.escalaSprite - this.offset.x,
-					this.posicion.y + this.anchoPixel * i * this.escalaSprite - this.offset.y * this.escalaSprite,
+					this.posicion.x + this.anchoPixel * j * juego.proporciones.plataforma.suelo - this.offset.x,
+					this.posicion.y + this.anchoPixel * i * juego.proporciones.plataforma.suelo - this.offset.y * juego.proporciones.plataforma.suelo,
 					this.anchoPixel * this.escalaSprite,
 					this.altoPixel * this.escalaSprite,
 				);
 			}
 		}
 
-		let anchoPlataforma = mapa[0].reduce((acc, imgActual) => acc + imgActual.width * this.escalaSprite, 0);
+		let anchoPlataforma = mapa[0].reduce((acc, imgActual) => acc + imgActual.width * juego.proporciones.plataforma.suelo, 0);
 
 		if (this.width < anchoPlataforma) {
 			this.width = anchoPlataforma - this.offset.x - 16;
 		}
-
-
-
 
 		// ctx.fillStyle = 'rgba(255,0,0,.2)';
 
@@ -230,7 +292,7 @@ class Plataforma extends Sprite {
 		// }
 
 		if (
-			(juego.controles['ArrowRight'].presionada && juego.personaje.posicion.x > canvas.width * 0.6) ||
+			(juego.controles['ArrowRight'].presionada && juego.personaje.posicion.x > canvas.width * 0.5) ||
 			(juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x < 200)
 		) {
 			juego.personaje.velocidad.x = 0;
@@ -241,6 +303,7 @@ class Plataforma extends Sprite {
 				this.tile.arbol.arbol_2.x -= 5;
 				this.tile.arbusto.arbusto_1.x -= 5;
 				this.tile.arbusto.arbusto_2.x -= 5;
+				this.tile.cascada.x -= 5;
 			}
 			if (juego.controles['ArrowLeft'].presionada) {
 				this.posicion.x += 5;
@@ -248,6 +311,7 @@ class Plataforma extends Sprite {
 				this.tile.arbol.arbol_2.x += 5;
 				this.tile.arbusto.arbusto_1.x += 5;
 				this.tile.arbusto.arbusto_2.x += 5;
+				this.tile.cascada.x += 5;
 			}
 		}
 	}
@@ -256,7 +320,7 @@ class Plataforma extends Sprite {
 		if (
 			juego.personaje.posicion.y + juego.personaje.height <= this.posicion.y &&
 			juego.personaje.posicion.y + juego.personaje.height + juego.personaje.velocidad.y >= this.posicion.y &&
-			juego.personaje.posicion.x + juego.personaje.width - (juego.personaje.offset.x * juego.personaje.escalaSprite) >= this.posicion.x &&
+			juego.personaje.posicion.x + juego.personaje.width - juego.personaje.offset.x * juego.proporciones.personaje >= this.posicion.x &&
 			juego.personaje.posicion.x <= this.posicion.x + this.width
 		) {
 			juego.personaje.velocidad.y = 0;

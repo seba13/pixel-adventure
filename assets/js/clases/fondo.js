@@ -15,30 +15,30 @@ class Fondo extends Sprite {
 		// MONTAÑA 1
 		this.imagenes.montaña_1.frameActual = this.imagenes.montaña_1.frame_1;
 		this.imagenes.montaña_1.posicion.x = 0;
-		this.imagenes.montaña_1.posicion.y = canvas.height - this.imagenes.montaña_1.frameActual.height * this.imagenes.montaña_1.escalaSprite;
+		this.imagenes.montaña_1.posicion.y = canvas.height - this.imagenes.montaña_1.frameActual.height * juego.proporciones.fondo.montaña_1;
 
 		// MONTAÑA 2
 		this.imagenes.montaña_2.frameActual = this.imagenes.montaña_2.frame_1;
 		this.imagenes.montaña_2.posicion.x = canvas.width;
-		this.imagenes.montaña_2.posicion.y = canvas.height - this.imagenes.montaña_2.frameActual.height * this.imagenes.montaña_2.escalaSprite;
+		this.imagenes.montaña_2.posicion.y = canvas.height - this.imagenes.montaña_2.frameActual.height * juego.proporciones.fondo.montaña_2;
 
 		// MONTAÑA 3
 		this.imagenes.montaña_3.frameActual = this.imagenes.montaña_3.frame_1;
 		this.imagenes.montaña_3.posicion.x = this.imagenes.montaña_3.frameActual.width / 4;
 		this.imagenes.montaña_3.posicion.y =
-			canvas.height - this.imagenes.montaña_3.frameActual.height * this.imagenes.montaña_3.escalaSprite + this.imagenes.montaña_3.offset.y;
+			canvas.height - this.imagenes.montaña_3.frameActual.height * juego.proporciones.fondo.montaña_3 + this.imagenes.montaña_3.offset.y;
 
 		// MONTAÑA 4
 		this.imagenes.montaña_4.frameActual = this.imagenes.montaña_4.frame_1;
 		this.imagenes.montaña_4.posicion.x = canvas.width;
-		this.imagenes.montaña_4.posicion.y = canvas.height - this.imagenes.montaña_4.frameActual.height * this.imagenes.montaña_4.escalaSprite + this.imagenes.montaña_4.offset.y;
+		this.imagenes.montaña_4.posicion.y = canvas.height - this.imagenes.montaña_4.frameActual.height * juego.proporciones.fondo.montaña_4 + this.imagenes.montaña_4.offset.y;
 
 		// MONTAÑA 5
 		this.imagenes.montaña_5.frameActual = this.imagenes.montaña_5.frame_1;
 		this.imagenes.montaña_5.posicion.x =
-			(this.imagenes.montaña_5.frameActual.width * this.imagenes.montaña_5.escalaSprite) / (200 * this.escalaSprite);
+			(this.imagenes.montaña_5.frameActual.width * juego.proporciones.fondo.montaña_5) / (200 * this.escalaSprite);
 		this.imagenes.montaña_5.posicion.y =
-			canvas.height - this.imagenes.montaña_5.frameActual.height * this.imagenes.montaña_5.escalaSprite + this.imagenes.montaña_5.offset.y;
+			canvas.height - this.imagenes.montaña_5.frameActual.height * juego.proporciones.fondo.montaña_5 + this.imagenes.montaña_5.offset.y;
 
 		// NUBE 1
 		this.imagenes.nube_1.frameActual = this.imagenes.nube_1.frame_1;
@@ -48,12 +48,12 @@ class Fondo extends Sprite {
 		// NUBE 2
 		this.imagenes.nube_2.frameActual = this.imagenes.nube_2.frame_1;
 		this.imagenes.nube_2.posicion.x = 0;
-		this.imagenes.nube_2.posicion.y = canvas.height - this.imagenes.nube_2.frameActual.height * this.imagenes.nube_2.escalaSprite;
+		this.imagenes.nube_2.posicion.y = canvas.height - this.imagenes.nube_2.frameActual.height * juego.proporciones.fondo.nube_2;
 
 		// NUBE 3
 		this.imagenes.nube_3.frameActual = this.imagenes.nube_3.frame_1;
 		this.imagenes.nube_3.posicion.y =
-			canvas.height - this.imagenes.nube_3.frameActual.height * this.imagenes.nube_3.escalaSprite + this.imagenes.nube_2.offset.y;
+			canvas.height - this.imagenes.nube_3.frameActual.height * juego.proporciones.fondo.nube_3 + this.imagenes.nube_3.offset.y;
 
 		this.contadorLimiteCuadros = contadorLimiteCuadros;
 		this.contadorCuadros = 0;

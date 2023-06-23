@@ -13,9 +13,10 @@
 
 <body>
 
-    <div class="container-principal">
-
-        <div class="principal">
+   
+    <div class="container-principal animacion-aparecer">
+        <div class="container__alertas"></div>
+        <div class="principal animacion-aparecer">
             <h1 id="titulo" data-titulo="Pixel Adventure"></h1>
 
             <form action="#" class="panel-jugador">
@@ -26,23 +27,42 @@
         </div>
 
         <div class="secundario ocultar">
+            
             <form action="#" class="formulario-datos-jugador">
-                <label>
+                <label class="label-nombre-jugador">
                     Ingrese Nombre jugador:
-                    <input type="text" name="nombre-jugador" id="nombre-jugador" placeholder="#jugador 1">
-                    <button id="iniciar-juego">JUGAR</button>
+                    <input type="text" name="nombre-jugador" id="nombre-jugador" placeholder="#jugador 1" class="input-nombre-jugador" autocomplete="off">
                 </label>
+                <button id="iniciar-juego" class="boton-partida">JUGAR</button>
+                <button class="boton-partida boton-volver-jugar">MENU PRINCIPAL</button>
             </form>
         </div>
-
-        <div class="tercero ocultar">
-            <h1>score</h1>
+        
+        <div class="loader ocultar"></div>
+        <div class="terciario ocultar">
+            <div class="container__puntuaciones">
+				<div class="container__titulo-puntuaciones">
+					<div class="titulo-puntuaciones">
+						<h2>PUNTUACIONES</h2>
+					</div>
+					<div class="subtitulo-puntuaciones">
+						<h3># JUGADOR</h3>
+						<h3>NOMBRE</h3>
+						<h3>FECHA</h3>
+						<h3>PUNTUACIÓN</h3>
+					</div>
+				</div>
+				<ul class="lista__puntuaciones">
+                </ul>
+			</div>
+            <button class="boton-partida boton-volver-puntuaciones">MENU PRINCIPAL</button>
         </div>
     </div>
 
     <canvas id="canvas"></canvas>
 
-
+    <script src="/assets/js/puntuaciones.js"></script>
+    <script src="/assets/js/alert.js"></script>
     <script src="/assets/js/clases/sprite.js"></script>
     <script src="/assets/js/clases/jugador.js"></script>
     <script src="/assets/js/clases/escenario.js"></script>

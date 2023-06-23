@@ -24,6 +24,29 @@ class Juego {
 			},
 		};
 
+		this.proporciones = {
+			personaje: 2,
+			escenario: 3,
+			fondo: {
+				montaña_1: 3,
+				montaña_2: 2.5,
+				montaña_3: 3,
+				montaña_4: 3.5,
+				montaña_5: 4.1,
+				nube_1: 2,
+				nube_2: 1.5,
+				nube_3: 3,
+			},
+			plataforma: {
+				suelo: 3,
+				arbol_1: 3,
+				arbol_2: 3,
+				arbusto_1: 3,
+				arbusto_2: 3,
+				cascada: 1,
+			},
+		};
+
 		// imagenes de fondo
 		this.imagenesFondo = {
 			fondo: new Image(),
@@ -188,8 +211,8 @@ class Juego {
 		};
 
 		this.tilesetJugador = {
-			tileset : new Image()
-		}
+			tileset: new Image(),
+		};
 
 		// tileset escenario
 		this.tilesetEscenario = {
@@ -220,6 +243,13 @@ class Juego {
 			tilesetArbol_2: new Image(),
 			tilesetArbusto_1: new Image(),
 			tilesetArbusto_2: new Image(),
+			tilesetCascada: {
+				cascada_1: new Image(),
+				cascada_2: new Image(),
+				cascada_3: new Image(),
+				cascada_4: new Image(),
+				cascada_5: new Image(),
+			},
 		};
 	}
 
@@ -237,80 +267,85 @@ class Juego {
 		let cargado = await Promise.all(cargarAssets);
 
 		if (cargado) {
-			this.fondo = new Fondo({
-				posicion: {
-					x: 0,
-					y: 0,
-				},
-				velocidad: {
-					x: 0,
-					y: 0,
-				},
-				imagenes: this.imagenesFondo,
-				contadorLimiteCuadros: 48,
-				escalaSprite: 1.5,
-				escenario: new Escenario({
-					plataformas: [
-						new Plataforma({
-							posicion: {
-								x: 800,
-								// y: Math.floor((canvas.height - 535) / 32) * 32
-								y: Math.floor(canvas.height - 300),
-							},
-							width: 384 * 4,
-							imagenes: this.tilesetEscenario,
-							escalaSprite: 3,
-							offset: {
-								x: 28,
-								y: 28,
-							},
-						}),
-						// new Plataforma({
-						// 	posicion: {
-						// 		x: 384*4 + 800 + 350,
-						// 		// y: Math.floor((canvas.height - 535) / 32) * 32
-						// 		y: Math.floor((canvas.height - 150) )
-						// 	},
-						// 	width: 380 ,
-						// 	imagenes: this.tilesetEscenario,
-						// 	escalaSprite:3,
-						// 	offset : {
-						// 		x: 16,
-						// 		y: 28
-						// 	}
-						// }),
-					],
-				}),
-			});
-
-			this.personaje = new Jugador({
-				posicion: {
-					x: this.fondo.escenario.plataformas[0].posicion.x + 50,
-					y: 0,
-				},
-				velocidad: {
-					x: 0,
-					y: 0,
-				},
-				offset: {
-					x: 10,
-					y: 0,
-				},
-				imagenes: this.tilesetJugador,
-				escalaSprite: 4
-			});
-
+			this.cargarEscenario();
+			this.cargarPersonaje();
 			this.escucharEventos();
 		}
 
 		return cargado;
 	}
 
+	cargarEscenario() {
+		this.fondo = new Fondo({
+			posicion: {
+				x: 0,
+				y: 0,
+			},
+			velocidad: {
+				x: 0,
+				y: 0,
+			},
+			imagenes: this.imagenesFondo,
+			contadorLimiteCuadros: 48,
+			escalaSprite: 1.5,
+			escenario: new Escenario({
+				plataformas: [
+					new Plataforma({
+						posicion: {
+							x: 800,
+							// y: Math.floor((canvas.height - 535) / 32) * 32
+							y: Math.floor(canvas.height - 300),
+						},
+						width: 384 * 4,
+						imagenes: this.tilesetEscenario,
+						escalaSprite: 3,
+						offset: {
+							x: 28,
+							y: 28,
+						},
+					}),
+
+					// new Plataforma({
+					// 	posicion: {
+					// 		x: 384*4 + 800 + 350,
+					// 		// y: Math.floor((canvas.height - 535) / 32) * 32
+					// 		y: Math.floor((canvas.height - 150) )
+					// 	},
+					// 	width: 380 ,
+					// 	imagenes: this.tilesetEscenario,
+					// 	escalaSprite:3,
+					// 	offset : {
+					// 		x: 16,
+					// 		y: 28
+					// 	}
+					// }),
+				],
+			}),
+		});
+	}
+
+	cargarPersonaje() {
+		this.personaje = new Jugador({
+			posicion: {
+				x: this.fondo.escenario.plataformas[0].posicion.x + 50,
+				y: 0,
+			},
+			velocidad: {
+				x: 0,
+				y: 0,
+			},
+			offset: {
+				x: 10,
+				y: 0,
+			},
+			imagenes: this.tilesetJugador,
+			escalaSprite: 4,
+		});
+	}
+
 	escucharEventos() {
 		document.addEventListener('keydown', this.moverJugador.bind(this));
 		document.addEventListener('keyup', this.detenerJugador.bind(this));
-
-
 
 		this.audios.audioFondo.addEventListener(
 			'ended',
@@ -342,25 +377,6 @@ class Juego {
 			}.bind(this),
 		);
 
-		if (botonInciarJuego) {
-			botonInciarJuego.addEventListener(
-				'click',
-				function () {
-					
-					if(this.gameStart) {
-						this.audios.audioFondo.pause();
-
-						this.audios.audioFondo_2.volume = 0.3;
-						this.audios.audioFondo_2.play();
-
-						this.audios.audioViento.volume = 0.3;
-						this.audios.audioViento.play();
-					}
-
-				}.bind(this),
-			);
-		}
-
 		document.addEventListener(
 			'mousemove',
 			function () {
@@ -370,6 +386,22 @@ class Juego {
 				}
 			}.bind(this),
 		);
+	}
+
+
+
+	reproducirMusicaFondo() {
+
+		if (this.gameStart) {
+			this.audios.audioFondo.pause();
+
+			this.audios.audioFondo_2.volume = 0.3;
+			this.audios.audioFondo_2.play();
+
+			this.audios.audioViento.volume = 0.3;
+			this.audios.audioViento.play();
+		}
+
 	}
 
 	moverJugador(e) {
@@ -421,6 +453,13 @@ class Juego {
 		this.tilesetEscenario.tilesetSuelo.suelo_3_2.src = '/assets/img/fondo/tilesets/tileset-suelo-3-2.png';
 		this.tilesetEscenario.tilesetSuelo.suelo_3_3.src = '/assets/img/fondo/tilesets/tileset-suelo-3-3.png';
 		this.tilesetEscenario.tilesetSuelo.suelo_3_4.src = '/assets/img/fondo/tilesets/tileset-suelo-3-4.png';
+
+		//cascada
+		this.tilesetEscenario.tilesetCascada.cascada_1.src = '/assets/img/fondo/cascada/cascada-1.png';
+		this.tilesetEscenario.tilesetCascada.cascada_2.src = '/assets/img/fondo/cascada/cascada-2.png';
+		this.tilesetEscenario.tilesetCascada.cascada_3.src = '/assets/img/fondo/cascada/cascada-3.png';
+		this.tilesetEscenario.tilesetCascada.cascada_4.src = '/assets/img/fondo/cascada/cascada-4.png';
+		this.tilesetEscenario.tilesetCascada.cascada_5.src = '/assets/img/fondo/cascada/cascada-5.png';
 
 		let imagenes = Object.values(this.tilesetEscenario).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -490,6 +529,15 @@ class Juego {
 				if (objActual.frame_2 && objActual.frame_2 instanceof Image) {
 					arr.push(objActual.frame_2);
 				}
+				if (objActual.frame_3 && objActual.frame_3 instanceof Image) {
+					arr.push(objActual.frame_3);
+				}
+				if (objActual.frame_4 && objActual.frame_4 instanceof Image) {
+					arr.push(objActual.frame_4);
+				}
+				if (objActual.frame_5 && objActual.frame_5 instanceof Image) {
+					arr.push(objActual.frame_5);
+				}
 			}
 			return arr;
 		}, []);
@@ -508,7 +556,6 @@ class Juego {
 	}
 
 	async cargarImagenJugador() {
-
 		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje.png';
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
@@ -529,7 +576,6 @@ class Juego {
 		let arrayImg = await Promise.all(imagenes);
 
 		return arrayImg;
-
 	}
 
 	async cargarAudios() {
@@ -578,5 +624,24 @@ class Juego {
 		if (!this.gameOver) {
 			this.idAnimation = requestAnimationFrame(() => this.animar());
 		}
+	}
+
+	finalizar() {
+		this.gameStart = false;
+		this.cargarEscenario();
+		this.cargarPersonaje();
+		// this.gameStart = false
+
+		this.audios.audioFondo_2.pause();
+		this.audios.audioFondo_2.currentTime = 0;
+
+		this.audios.audioFondo.currentTime = 0;
+		this.audios.audioFondo.play();
+
+		this.audios.audioViento.pause();
+		this.audios.audioViento.currentTime = 0;
+
+		mostrarPuntuacionesFinJuego()
+
 	}
 }
