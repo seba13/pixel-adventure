@@ -578,8 +578,8 @@ class Juego {
 		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje.png';
 		this.tilesetJugador.tilesetVida.src = '/assets/img/personaje/estadisticas/vida.png'
 		this.tilesetJugador.tilesetEnergia.src = '/assets/img/personaje/estadisticas/energia.png'
-		this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego.png'
-		// this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego-2.png'
+		// this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego.png'
+		this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego-2.png'
 
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {

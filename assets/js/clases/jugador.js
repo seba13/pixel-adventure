@@ -275,13 +275,11 @@ class Jugador extends Sprite {
 	cambiarVelocidad() {
 		// personaje moviendose a la derecha
 		if (juego.controles['ArrowRight'].presionada) {
-			console.log('derecha');
 			this.ultimaDireccion = 'derecha';
 			this.velocidad.x = 5;
 		}
 		// personaje moviendo a la izquierda
 		else if (juego.controles['ArrowLeft'].presionada) {
-			console.log('izq');
 			this.ultimaDireccion = 'izquierda';
 			this.velocidad.x = -5;
 		}
@@ -449,6 +447,7 @@ class Jugador extends Sprite {
 				imagenes: {
 					bolaFuego: this.imagenes.bolaFuego,
 				},
+				direccion: this.ultimaDireccion
 			}),
 		);
 	}

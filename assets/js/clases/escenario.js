@@ -25,8 +25,6 @@ class Escenario extends Sprite {
 				posicionY = (Math.floor(Math.random() * 300) + 1) + (ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1) + 50
 			}
 
-			console.log(posicionY);
-
 			this.plataformas.push(
 				new Plataforma({
 					posicion: {

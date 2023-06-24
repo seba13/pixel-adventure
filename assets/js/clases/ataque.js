@@ -4,10 +4,12 @@
 
 class Ataque extends Sprite {
 
-    constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, escalaSprite, offset = { x: 0, y: 0 } }){
+    constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, escalaSprite, offset = { x: 0, y: 0 }, direccion }){
         super({ posicion, velocidad, imagenes, escalaSprite });
 
 
+       
+        this.direcion = direccion;
         // this.posicion.y = 
         this.mapaAtaque = {
 
@@ -15,8 +17,8 @@ class Ataque extends Sprite {
                 ataque: {
                     x: 0,
                     y: 0,
-                    frames: 4,
-                    contadorLimiteCuadros: 24
+                    frames: 60,
+                    contadorLimiteCuadros: 8
                 },
                 impacto: {
                     x: 48 * 5,
@@ -24,7 +26,7 @@ class Ataque extends Sprite {
                     frames: 6,
                     contadorLimiteCuadros: 12
                 },
-                framesTotales: 11,
+                framesTotales: 60,
                 estadoAtaque : 'ataque'
             },
             cuadroActual: 0,
@@ -45,17 +47,47 @@ class Ataque extends Sprite {
 
 
     dibujarAtaque() {
+
+   
+
+
+        let flip = 0;
+		if (this.direcion === 'izquierda') {
+			ctx.save();
+			ctx.scale(-1, 1);
+			flip = -1;
+		} else {
+			ctx.save();
+			ctx.scale(1, 1);
+			flip = 1;
+		}
         ctx.drawImage(
             this.imagenes.bolaFuego,
             this.mapaAtaque.bolaFuego[this.mapaAtaque.bolaFuego.estadoAtaque].x + this.mapaAtaque.bolaFuego.width * this.mapaAtaque.cuadroActual,
             this.mapaAtaque.bolaFuego[this.mapaAtaque.bolaFuego.estadoAtaque].y,
             this.mapaAtaque.bolaFuego.width,
             this.imagenes.bolaFuego.height,
-            this.posicion.x + this.velocidad.x,
+            (this.posicion.x + this.velocidad.x) * flip,
             this.posicion.y,
-            this.mapaAtaque.bolaFuego.width * juego.proporciones.bolaFuego,
+            this.mapaAtaque.bolaFuego.width * juego.proporciones.bolaFuego * flip,
             this.imagenes.bolaFuego.height * juego.proporciones.bolaFuego
         )
+		// ctx.drawImage(
+		// 	this.imagenes.tileset,
+		// 	this.mapa[this.estado].x + 32 * this.cuadroActual,
+		// 	this.mapa[this.estado].y,
+		// 	32,
+		// 	32,
+		// 	(this.posicion.x - this.offset.x * this.escalaSprite) * flip,
+		// 	this.posicion.y,
+		// 	32 * this.escalaSprite * flip,
+		// 	32 * this.escalaSprite,
+		// );
+
+		ctx.restore();
+
+
+       
     }
 
     animarAtaque() {

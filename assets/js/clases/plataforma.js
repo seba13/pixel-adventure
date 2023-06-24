@@ -17,7 +17,7 @@ class Plataforma extends Sprite {
 					offset: {
 						x: 0,
 						y: 0,
-					}
+					},
 				},
 				arbol_2: {
 					x: this.width,
@@ -25,7 +25,7 @@ class Plataforma extends Sprite {
 					offset: {
 						x: 0,
 						y: 0,
-					}
+					},
 				},
 			},
 			arbusto: {
@@ -35,7 +35,7 @@ class Plataforma extends Sprite {
 					offset: {
 						x: 0,
 						y: 8,
-					}
+					},
 				},
 				arbusto_2: {
 					x: this.width, //propiedad se setea desde escenario
@@ -43,7 +43,7 @@ class Plataforma extends Sprite {
 					offset: {
 						x: 0,
 						y: 8,
-					}
+					},
 				},
 			},
 			cascada: {
@@ -51,8 +51,6 @@ class Plataforma extends Sprite {
 				pintar: false,
 			},
 		};
-
-		
 
 		this.cascada = {
 			frameActual: this.imagenes.tilesetCascada.cascada_1,
@@ -83,7 +81,6 @@ class Plataforma extends Sprite {
 			this.dibujarArbusto2();
 		}
 		if (this.tile.cascada.pintar) {
-
 			this.dibujarCascada();
 
 			if (this.contadorCuadros % this.contadorLimiteCuadros == 0) {
@@ -125,11 +122,9 @@ class Plataforma extends Sprite {
 
 		this.dibujarElementosPlataforma();
 		this.dibujarPlataforma();
-
 	}
 
 	dibujarCascada() {
-
 		ctx.drawImage(
 			this.cascada.frameActual,
 			0,
@@ -139,7 +134,7 @@ class Plataforma extends Sprite {
 			this.tile.cascada.x,
 			this.tile.cascada.y,
 			this.cascada.frameActual.width * juego.proporciones.plataforma.cascada,
-			this.cascada.frameActual.height  * juego.proporciones.plataforma.cascada,
+			this.cascada.frameActual.height * juego.proporciones.plataforma.cascada,
 		);
 	}
 
@@ -179,9 +174,9 @@ class Plataforma extends Sprite {
 			this.imagenes.tilesetArbusto_1.width,
 			this.imagenes.tilesetArbusto_1.height,
 			this.tile.arbusto.arbusto_1.x,
-			this.posicion.y - this.imagenes.tilesetArbusto_1.height  * juego.proporciones.plataforma.arbusto_1 + this.tile.arbusto.arbusto_1.offset.y,
+			this.posicion.y - this.imagenes.tilesetArbusto_1.height * juego.proporciones.plataforma.arbusto_1 + this.tile.arbusto.arbusto_1.offset.y,
 			this.imagenes.tilesetArbusto_1.width * juego.proporciones.plataforma.arbusto_1,
-			this.imagenes.tilesetArbusto_1.height  * juego.proporciones.plataforma.arbusto_1,
+			this.imagenes.tilesetArbusto_1.height * juego.proporciones.plataforma.arbusto_1,
 		);
 	}
 
@@ -202,7 +197,7 @@ class Plataforma extends Sprite {
 	dibujarPlataforma() {
 		let columnas = Math.ceil(this.width / (this.anchoPixel * juego.proporciones.plataforma.suelo));
 
-		let filas = Math.ceil((canvas.height - this.posicion.y) / (this.altoPixel  * juego.proporciones.plataforma.suelo)) + 1;
+		let filas = Math.ceil((canvas.height - this.posicion.y) / (this.altoPixel * juego.proporciones.plataforma.suelo)) + 1;
 
 		let mapa = [
 			[
@@ -312,6 +307,16 @@ class Plataforma extends Sprite {
 			(juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x < 200)
 		) {
 			juego.personaje.velocidad.x = 0;
+			
+			juego.personaje.ataques.forEach(ataque => {
+				if(ataque.velocidad.x > 0) {
+					ataque.velocidad.x = 2
+				}else{
+					ataque.velocidad.x = -2
+
+				}
+			})
+
 
 			if (juego.controles['ArrowRight'].presionada) {
 				this.posicion.x += -5;
@@ -320,7 +325,6 @@ class Plataforma extends Sprite {
 				this.tile.arbusto.arbusto_1.x -= 5;
 				this.tile.arbusto.arbusto_2.x -= 5;
 				this.tile.cascada.x -= 5;
-
 			}
 			if (juego.controles['ArrowLeft'].presionada) {
 				this.posicion.x += 5;
@@ -330,6 +334,15 @@ class Plataforma extends Sprite {
 				this.tile.arbusto.arbusto_2.x += 5;
 				this.tile.cascada.x += 5;
 			}
+		}else {
+			juego.personaje.ataques.forEach(ataque => {
+				if(ataque.velocidad.x > 0) {
+					ataque.velocidad.x = 7
+				}else{
+					ataque.velocidad.x = -7
+
+				}
+			})
 		}
 	}
 
