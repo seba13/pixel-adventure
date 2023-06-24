@@ -14,20 +14,36 @@ class Plataforma extends Sprite {
 				arbol_1: {
 					x: this.width, //propiedad se setea desde escenario
 					pintar: false,
+					offset: {
+						x: 0,
+						y: 0,
+					}
 				},
 				arbol_2: {
 					x: this.width,
 					pintar: false,
+					offset: {
+						x: 0,
+						y: 0,
+					}
 				},
 			},
 			arbusto: {
 				arbusto_1: {
 					x: this.width, //propiedad se setea desde escenario
 					pintar: false,
+					offset: {
+						x: 0,
+						y: 8,
+					}
 				},
 				arbusto_2: {
 					x: this.width, //propiedad se setea desde escenario
 					pintar: false,
+					offset: {
+						x: 0,
+						y: 8,
+					}
 				},
 			},
 			cascada: {
@@ -107,9 +123,9 @@ class Plataforma extends Sprite {
 		// 	ctx.fillRect(this.posicion.x, this.posicion.y + this.altoPixel * this.escalaSprite * j, this.width, this.height * this.escalaSprite);
 		// }
 
+		this.dibujarElementosPlataforma();
 		this.dibujarPlataforma();
 
-		this.dibujarElementosPlataforma();
 	}
 
 	dibujarCascada() {
@@ -163,7 +179,7 @@ class Plataforma extends Sprite {
 			this.imagenes.tilesetArbusto_1.width,
 			this.imagenes.tilesetArbusto_1.height,
 			this.tile.arbusto.arbusto_1.x,
-			this.posicion.y - this.imagenes.tilesetArbusto_1.height  * juego.proporciones.plataforma.arbusto_1,
+			this.posicion.y - this.imagenes.tilesetArbusto_1.height  * juego.proporciones.plataforma.arbusto_1 + this.tile.arbusto.arbusto_1.offset.y,
 			this.imagenes.tilesetArbusto_1.width * juego.proporciones.plataforma.arbusto_1,
 			this.imagenes.tilesetArbusto_1.height  * juego.proporciones.plataforma.arbusto_1,
 		);
@@ -177,7 +193,7 @@ class Plataforma extends Sprite {
 			this.imagenes.tilesetArbusto_2.width,
 			this.imagenes.tilesetArbusto_2.height,
 			this.tile.arbusto.arbusto_2.x,
-			this.posicion.y - this.imagenes.tilesetArbusto_2.height * juego.proporciones.plataforma.arbusto_2,
+			this.posicion.y - this.imagenes.tilesetArbusto_2.height * juego.proporciones.plataforma.arbusto_2 + this.tile.arbusto.arbusto_2.offset.y,
 			this.imagenes.tilesetArbusto_2.width * juego.proporciones.plataforma.arbusto_2,
 			this.imagenes.tilesetArbusto_2.height * juego.proporciones.plataforma.arbusto_2,
 		);
@@ -304,6 +320,7 @@ class Plataforma extends Sprite {
 				this.tile.arbusto.arbusto_1.x -= 5;
 				this.tile.arbusto.arbusto_2.x -= 5;
 				this.tile.cascada.x -= 5;
+
 			}
 			if (juego.controles['ArrowLeft'].presionada) {
 				this.posicion.x += 5;

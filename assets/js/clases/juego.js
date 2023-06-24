@@ -26,7 +26,10 @@ class Juego {
 
 		this.proporciones = {
 			personaje: 2,
+			barraVida: 3,
+			barraEnergia: 3,
 			escenario: 3,
+			bolaFuego: 2,
 			fondo: {
 				montaña_1: 3,
 				montaña_2: 2.5,
@@ -212,7 +215,12 @@ class Juego {
 
 		this.tilesetJugador = {
 			tileset: new Image(),
+			tilesetVida: new Image(),
+			tilesetEnergia: new Image(),
+			bolaFuego: new Image(),	
 		};
+
+		
 
 		// tileset escenario
 		this.tilesetEscenario = {
@@ -340,7 +348,12 @@ class Juego {
 			},
 			imagenes: this.tilesetJugador,
 			escalaSprite: 4,
+			ataques: []
+			
 		});
+
+	
+
 	}
 
 	escucharEventos() {
@@ -388,10 +401,7 @@ class Juego {
 		);
 	}
 
-
-
 	reproducirMusicaFondo() {
-
 		if (this.gameStart) {
 			this.audios.audioFondo.pause();
 
@@ -401,16 +411,25 @@ class Juego {
 			this.audios.audioViento.volume = 0.3;
 			this.audios.audioViento.play();
 		}
-
 	}
 
 	moverJugador(e) {
 		// si el juego ha comenzado el jugador se puede mover
-		if (this.gameStart) {
+		if (this.gameStart && this.personaje.vida > 0) {
 			if (this.controles[e.key]) {
 				if (e.key === 'ArrowUp') {
 					if (!this.controles[e.key].presionada) {
 						this.personaje.velocidad.y -= 20;
+					}
+				}
+				if(e.key === ' ') {
+					if(this.personaje.energia > 0) {
+						if (!this.controles[e.key].presionada) {
+							this.personaje.velocidad.x = 0
+							this.personaje.energia -=1
+							this.personaje.crearAtaque()
+						}
+						
 					}
 				}
 				this.controles[e.key].presionada = true;
@@ -557,6 +576,11 @@ class Juego {
 
 	async cargarImagenJugador() {
 		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje.png';
+		this.tilesetJugador.tilesetVida.src = '/assets/img/personaje/estadisticas/vida.png'
+		this.tilesetJugador.tilesetEnergia.src = '/assets/img/personaje/estadisticas/energia.png'
+		this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego.png'
+		// this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego-2.png'
+
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -577,6 +601,11 @@ class Juego {
 
 		return arrayImg;
 	}
+
+
+
+	
+
 
 	async cargarAudios() {
 		this.audios = {
@@ -641,7 +670,6 @@ class Juego {
 		this.audios.audioViento.pause();
 		this.audios.audioViento.currentTime = 0;
 
-		mostrarPuntuacionesFinJuego()
-
+		mostrarPuntuacionesFinJuego();
 	}
 }
