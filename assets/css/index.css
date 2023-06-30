@@ -357,6 +357,9 @@ span{
     animation: spin 1.5s linear infinite;
 }
 
+button {
+    cursor: pointer;
+}
 
 @keyframes spin {
     to {

@@ -57,3 +57,29 @@ async function cargarPuntuaciones() {
 		return err;
 	}
 }
+
+
+
+async function guardarPuntuacion(datosJugador) {
+	const datos = {
+		nombre: datosJugador.nombre,
+		puntuacion: datosJugador.puntuacion,
+		fecha: new Date(),
+	};
+
+	const res = await fetch('/new-score', {
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(datos),
+		method: 'PUT',
+	});
+
+	json = await res.json();
+
+	if (json.success) {
+		return true;
+	}
+	return false;
+}

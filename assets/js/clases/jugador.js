@@ -248,7 +248,7 @@ class Jugador extends Sprite {
 		)
 
 		
-		ctx.font = `${juego.proporciones.texto * 10}px VT323`;
+		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
 		ctx.fillStyle = "white";
 
 		ctx.fillText(`${this.puntuacion}`, 10 + this.imagenes.tilesetPuntuacion.width* juego.proporciones.barraPuntuaciones - (ctx.measureText(this.puntuacion).width) - (this.imagenes.tilesetPuntuacion.width*0.046 * juego.proporciones.barraPuntuaciones ), 10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones -  (this.imagenes.tilesetPuntuacion.height*.1 * juego.proporciones.barraPuntuaciones));
@@ -421,9 +421,9 @@ class Jugador extends Sprite {
 	recibirDaño(dañoRecibido) {
 		this.vida -= dañoRecibido;
 
-		if (this.vida < 2) {
-			this.vida = 4;
-		}
+		// if (this.vida < 2) {
+		// 	this.vida = 4;
+		// }
 
 		this.recibiendoDaño = true;
 		this.parpadeando = true;
@@ -781,7 +781,7 @@ class Jugador extends Sprite {
 		this.animarSprite();
 
 		if (this.posicion.y - this.velocidad.y > canvas.height) {
-			// this.vida = 0;
+			this.vida = 0;
 			this.velocidad.y = 0;
 		} else if (this.posicion.y + this.velocidad.y < canvas.height - this.height) {
 			this.velocidad.y += juego.gravedad;

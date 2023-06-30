@@ -339,14 +339,14 @@ class Enemigo extends Sprite {
 
 		// RECTANGULOS DE PRUEBAS DE COLISIONES
 
-		ctx.fillStyle = 'rgba(255,0,0,.4)';
-		ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y + this.offset.y, this.anchoColision, this.altoColision);
+		// ctx.fillStyle = 'rgba(255,0,0,.4)';
+		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y + this.offset.y, this.anchoColision, this.altoColision);
 
-		ctx.fillStyle = 'rgba(255,0,255, .2)';
-		ctx.fillRect(this.posicionInicial - this.alcancePersecucion, this.posicion.y, this.alcancePersecucion * 2, this.alto);
+		// ctx.fillStyle = 'rgba(255,0,255, .2)';
+		// ctx.fillRect(this.posicionInicial - this.alcancePersecucion, this.posicion.y, this.alcancePersecucion * 2, this.alto);
 
-		ctx.fillStyle = 'rgba(255,255,0,.6)';
-		ctx.fillRect(this.posicionInicial - this.alcance, this.posicion.y, this.alcance * 2, this.alto);
+		// ctx.fillStyle = 'rgba(255,255,0,.6)';
+		// ctx.fillRect(this.posicionInicial - this.alcance, this.posicion.y, this.alcance * 2, this.alto);
 	}
 
 	dibujarMuerte() {

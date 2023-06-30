@@ -299,11 +299,11 @@ class Plataforma extends Sprite {
 			this.width = anchoPlataforma - this.offset.x - 16;
 		}
 
-		ctx.fillStyle = 'rgba(0,0,255,.2)';
+		// ctx.fillStyle = 'rgba(0,0,255,.2)';
 
-		for (let j = 0; j < this.posicion.y / (this.altoPixel * juego.proporciones.plataforma.suelo); j++) {
-			ctx.fillRect(this.posicion.x + this.offset.x, this.posicion.y + this.altoPixel * juego.proporciones.plataforma.suelo * j,this.width - this.offset.x, this.altoPixel * juego.proporciones.plataforma.suelo);
-		}
+		// for (let j = 0; j < this.posicion.y / (this.altoPixel * juego.proporciones.plataforma.suelo); j++) {
+		// 	ctx.fillRect(this.posicion.x + this.offset.x, this.posicion.y + this.altoPixel * juego.proporciones.plataforma.suelo * j,this.width - this.offset.x, this.altoPixel * juego.proporciones.plataforma.suelo);
+		// }
 	}
 
 	moverPlataforma() {

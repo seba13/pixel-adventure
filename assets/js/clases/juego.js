@@ -4,7 +4,6 @@ class Juego {
 		this.gameOver = false;
 		this.idAnimation = null;
 		this.fps = 60;
-		
 
 		// this.proporcionResolucion = Math.min(canvas.width / 1920, canvas.height / 1333);
 		this.proporcionResolucion = Math.round(Math.min(canvas.width / 1920, canvas.height / 1333) * 100) / 100;
@@ -76,6 +75,12 @@ class Juego {
 				cascada: Math.ceil(1 * this.proporcionResolucion),
 			},
 		};
+
+		this.imagenesAyuda = {
+			
+
+
+		}
 
 		// imagenes de fondo
 		this.imagenesFondo = {
@@ -732,12 +737,11 @@ class Juego {
 			}
 
 			if (canvas.width <= 2560) {
-					this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-					this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
-					this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-					this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
+				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+				this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
+				this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+				this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
 			}
-
 		}
 		// // cambiar velocidad por la resolucion
 		// if (canvas.width <= 2560) {
@@ -764,20 +768,36 @@ class Juego {
 	}
 
 	finalizar() {
-		this.gameStart = false;
-		this.cargarEscenario();
-		this.cargarPersonaje();
-		// this.gameStart = false
+		if (this.gameStart) {
+			this.gameStart = false;
 
-		this.audios.audioFondo_2.pause();
-		this.audios.audioFondo_2.currentTime = 0;
+			let datosJugador = {
+				nombre: nombreJugador.value,
+				puntuacion: parseInt(this.personaje.puntuacion),
+			};
 
-		this.audios.audioFondo.currentTime = 0;
-		this.audios.audioFondo.play();
+			this.cargarEscenario();
+			this.cargarPersonaje();
+			// this.gameStart = false
 
-		this.audios.audioViento.pause();
-		this.audios.audioViento.currentTime = 0;
+			this.audios.audioFondo_2.pause();
+			this.audios.audioFondo_2.currentTime = 0;
 
-		mostrarPuntuacionesFinJuego();
+			this.audios.audioFondo.currentTime = 0;
+			this.audios.audioFondo.play();
+
+			this.audios.audioViento.pause();
+			this.audios.audioViento.currentTime = 0;
+
+			guardarPuntuacion(datosJugador).then((res) => {
+				if (res) {
+					mostrarPuntuacionesFinJuego();
+				} else {
+					mostrarPuntuacionesFinJuego();
+				}
+			});
+
+			mostrarPuntuacionesFinJuego();
+		}
 	}
 }
