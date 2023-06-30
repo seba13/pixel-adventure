@@ -313,6 +313,7 @@ class Juego {
 	async cargarAssets() {
 		let cargarAssets = [this.cargarImagenesFondo(), this.cargarTileset(), this.cargarAudios(), this.cargarImagenJugador(), this.cargarImagenesEnemigos()];
 
+
 		let cargado = await Promise.all(cargarAssets);
 
 		if (cargado) {
@@ -652,6 +653,8 @@ class Juego {
 		this.imagenesEnemigos.samurai.src = '/assets/img/enemigos/enemigo-1/samurai.png';
 		this.imagenesEnemigos.muerte.src = '/assets/img/enemigos/muerte/humo-1.png';
 
+
+
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
 				arr.push(objActual);
@@ -668,6 +671,8 @@ class Juego {
 		});
 
 		let arrayImg = await Promise.all(imagenes);
+
+		console.log(imagenes);
 
 		return arrayImg;
 	}
