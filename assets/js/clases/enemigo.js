@@ -38,7 +38,7 @@ class Enemigo extends Sprite {
 
 
 		this.mapaPuntaje.contadorCuadros++
-		if(this.mapaPuntaje.contadorCuadros % (this.mapaPuntaje.contadorLimiteCuadros/juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+		if(this.mapaPuntaje.contadorCuadros % Math.ceil(this.mapaPuntaje.contadorLimiteCuadros/juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
 			if(this.mapaPuntaje.cuadroActual < this.mapaPuntaje.frames - 1) {
 				this.mapaPuntaje.cuadroActual++
 				this.mapaPuntaje.y = this.posicion.y + this.offset.y + this.altoColision - (juego.proporciones.texto * this.mapaPuntaje.tamañoFuente)
