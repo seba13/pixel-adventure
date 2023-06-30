@@ -5,8 +5,9 @@ class Juego {
 		this.idAnimation = null;
 		this.fps = 60;
 
-		this.proporcionResolucion = Math.min(canvas.width / 1920, canvas.height / 1333);
-
+		// this.proporcionResolucion = Math.min(canvas.width / 1920, canvas.height / 1333);
+		this.proporcionResolucion = Math.round(Math.min(canvas.width / 1920, canvas.height / 1333) * 100)/100;
+		
 		this.proporcionesFPS = {
 			proporcionLimiteCuadros: Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
 			proporcionMovimiento: Math.round(((1000 / this.fps) * 1) / (1000 / 165)),

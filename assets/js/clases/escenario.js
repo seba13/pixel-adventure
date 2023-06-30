@@ -14,9 +14,9 @@ class Escenario extends Sprite {
 
 			let posicionY = Math.floor(ultimaPlataforma.posicion.y) + (Math.floor(Math.random() * 200) + 1) * random;
 
-			if (posicionY <= canvas.height * 0.4 || posicionY < ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50) {
+			if (posicionY <= canvas.height * 0.4 || 410) {
 				posicionY = Math.floor(Math.random() * 300) + 1 + ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50;
-			} else if (posicionY >= canvas.height * 0.8 || canvas.height - posicionY < 300) {
+			} else if (posicionY >= canvas.height * 0.8 || canvas.height - posicionY < 410) {
 				posicionY = Math.floor(Math.random() * 300) + 1 + ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50;
 			}
 
@@ -105,6 +105,8 @@ class Escenario extends Sprite {
 				Math.round(Math.random() * (plataforma.posicion.x + plataforma.width - plataforma.posicion.x - plataforma.imagenes.tilesetCascada.cascada_1.width * juego.proporciones.plataforma.cascada)) + plataforma.posicion.x + plataforma.offset.x;
 
 			plataforma.tile.cascada.y = plataforma.posicion.y + 25;
+			plataforma.tile.cascada.y = plataforma.posicion.y + (25* juego.proporcionResolucion);
+			
 			plataforma.tile.cascada.pintar = true;
 		}
 	}
@@ -121,7 +123,9 @@ class Escenario extends Sprite {
 		plataforma.tile.arbusto.arbusto_2.x = plataforma.posicion.x + plataforma.width - plataforma.imagenes.tilesetArbusto_2.width * juego.proporciones.plataforma.arbusto_2;
 
 		plataforma.tile.cascada.x = plataforma.posicion.x + plataforma.width * 0.09;
+		
 		plataforma.tile.cascada.y = plataforma.posicion.y + 25;
+		plataforma.tile.cascada.y = plataforma.posicion.y + (25* juego.proporcionResolucion);
 
 		plataforma.tile.arbol.arbol_1.pintar = true;
 		plataforma.tile.arbol.arbol_2.pintar = true;
