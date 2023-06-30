@@ -8,11 +8,14 @@ class Enemigo extends Sprite {
 
 		if (!this.recibiendoDaño && this.vida > 0) {
 			if (this.rangoPersecucion()) {
+				console.log("PERSEGUIR");
 				this.perseguirJugador();
 			} else {
 				if (this.centrando == false) {
+					
 					// this.realizarGuardia();
 				} else {
+					console.log("CENTRAR");
 					this.centrar();
 				}
 			}
@@ -45,6 +48,7 @@ class Enemigo extends Sprite {
 					this.mapaPuntaje.opacidad -= 0.1;
 				}
 			} else {
+				juego.personaje.agregarPuntaje(this.puntaje)
 				this.liberar = true;
 			}
 		}

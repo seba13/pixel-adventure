@@ -4,6 +4,7 @@ class Juego {
 		this.gameOver = false;
 		this.idAnimation = null;
 		this.fps = 60;
+		
 
 		// this.proporcionResolucion = Math.min(canvas.width / 1920, canvas.height / 1333);
 		this.proporcionResolucion = Math.round(Math.min(canvas.width / 1920, canvas.height / 1333) * 100) / 100;
@@ -44,15 +45,16 @@ class Juego {
 			personaje: Math.ceil(4 * this.proporcionResolucion),
 			barraVida: Math.ceil(3 * this.proporcionResolucion),
 			barraEnergia: Math.ceil(3 * this.proporcionResolucion),
+			barraPuntuaciones: Math.ceil(3 * this.proporcionResolucion),
 			escenario: Math.ceil(3 * this.proporcionResolucion),
 			bolaFuego: Math.ceil(2 * this.proporcionResolucion),
 			impacto: Math.ceil(4 * this.proporcionResolucion),
 			enemigos: {
 				samurai: {
 					proporcion: Math.ceil(4 * this.proporcionResolucion),
-					alcanceVigilar : Math.ceil(100 * this.proporcionResolucion),
+					alcanceVigilar: Math.ceil(100 * this.proporcionResolucion),
 				},
-				 
+
 				humo: Math.ceil(4 * this.proporcionResolucion),
 			},
 			fondo: {
@@ -247,6 +249,7 @@ class Juego {
 			tileset: new Image(),
 			tilesetVida: new Image(),
 			tilesetEnergia: new Image(),
+			tilesetPuntuacion: new Image(),
 			bolaFuego: new Image(),
 			impactoAtaque: new Image(),
 		};
@@ -615,6 +618,7 @@ class Juego {
 		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje-2.png';
 		this.tilesetJugador.tilesetVida.src = '/assets/img/personaje/estadisticas/vida.png';
 		this.tilesetJugador.tilesetEnergia.src = '/assets/img/personaje/estadisticas/energia.png';
+		this.tilesetJugador.tilesetPuntuacion.src = '/assets/img/personaje/estadisticas/puntuacion.png';
 		// this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego.png'
 		this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego-2.png';
 		this.tilesetJugador.impactoAtaque.src = '/assets/img/personaje/ataque/impacto-ataque-3.png';
@@ -705,31 +709,43 @@ class Juego {
 			this.contadorFps = 0;
 			this.contadorTiempoFps = 0;
 
-			(this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165))),
-				(this.proporcionesFPS.proporcionMovimiento = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165))),
-				(this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165))),
-				(this.proporcionesFPS.proporcionSalto = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165)));
-
+			console.log(this.fps);
 			if (this.fps > 90) {
 				this.gravedad = 0.5;
 				this.saltoPersonaje = 20;
+
+				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
+				this.proporcionesFPS.proporcionMovimiento = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
+				this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
+				this.proporcionesFPS.proporcionSalto = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
 			} else if (this.fps <= 90) {
 				this.gravedad = 2.75;
 				this.saltoPersonaje = 46;
 
+				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
+				this.proporcionesFPS.proporcionMovimiento = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
+				this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
+				this.proporcionesFPS.proporcionSalto = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
 				if (canvas.width < 1920) {
 					this.saltoPersonaje = 45.4375;
 				}
 			}
 
-			// cambiar velocidad por la resolucion
-			if (canvas.width < 1920) {
-				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 1920);
-				this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 1920);
-				this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 1920);
-				this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 1920);
+			if (canvas.width <= 2560) {
+					this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+					this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
+					this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+					this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
 			}
+
 		}
+		// // cambiar velocidad por la resolucion
+		// if (canvas.width <= 2560) {
+		// 	this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+		// 	this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
+		// 	this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+		// 	this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
+		// }
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		// this.dibujar();

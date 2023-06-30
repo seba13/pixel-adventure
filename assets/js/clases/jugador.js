@@ -3,6 +3,7 @@ class Jugador extends Sprite {
 		super({ posicion, velocidad, imagenes });
 
 		this.ataques = ataques;
+		this.puntuacion = '0000000'
 		this.vida = 4;
 		this.energia = 4;
 		this.offset = offset;
@@ -189,6 +190,22 @@ class Jugador extends Sprite {
 		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y, this.anchoColision, this.height);
 	}
 
+
+
+	agregarPuntaje(puntuacion) {
+
+		puntuacion = parseInt(this.puntuacion) + puntuacion
+
+		if(puntuacion.toString().length<7){
+
+			let cantidadCeros = 7 - puntuacion.toString().length
+
+			this.puntuacion = '0'.repeat(cantidadCeros) + puntuacion.toString()
+
+		}
+
+	}
+
 	dibujarVidaPersonaje() {
 		if (this.vida == 4) {
 			this.mapaVida.vidaActual = 'fullVida';
@@ -208,12 +225,37 @@ class Jugador extends Sprite {
 			this.mapaVida[this.mapaVida.vidaActual].y,
 			this.imagenes.tilesetVida.width / 5,
 			this.imagenes.tilesetVida.height,
-			10,
-			10,
+			0,
+			10+ this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
 			(this.imagenes.tilesetVida.width / 5) * juego.proporciones.barraVida,
 			this.imagenes.tilesetVida.height * juego.proporciones.barraVida,
 		);
 	}
+
+
+	dibujarPuntuacionPersonaje() {
+
+		ctx.drawImage(
+			this.imagenes.tilesetPuntuacion,
+			0,
+			0,
+			this.imagenes.tilesetPuntuacion.width,
+			this.imagenes.tilesetPuntuacion.height,
+			10,
+			10,
+			this.imagenes.tilesetPuntuacion.width * juego.proporciones.barraPuntuaciones,
+			this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
+		)
+
+		
+		ctx.font = `${juego.proporciones.texto * 10}px VT323`;
+		ctx.fillStyle = "white";
+
+		ctx.fillText(`${this.puntuacion}`, 10 + this.imagenes.tilesetPuntuacion.width* juego.proporciones.barraPuntuaciones - (ctx.measureText(this.puntuacion).width) - (this.imagenes.tilesetPuntuacion.width*0.046 * juego.proporciones.barraPuntuaciones ), 10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones -  (this.imagenes.tilesetPuntuacion.height*.1 * juego.proporciones.barraPuntuaciones));
+		
+
+	}
+
 
 	dibujarEnergiaPersonaje() {
 		if (this.energia == 4) {
@@ -234,8 +276,8 @@ class Jugador extends Sprite {
 			this.mapaEnergia[this.mapaEnergia.energiaActual].y,
 			this.imagenes.tilesetEnergia.width / 5,
 			this.imagenes.tilesetEnergia.height,
-			10 + (this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia - 13 * juego.proporciones.barraEnergia,
-			10,
+			0 + (this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia - 13 * juego.proporciones.barraEnergia,
+			10  + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
 			(this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia,
 			this.imagenes.tilesetEnergia.height * juego.proporciones.barraEnergia,
 		);
@@ -279,6 +321,7 @@ class Jugador extends Sprite {
 		// } else {
 		// 	this.dibujarPersonaje();
 		// }
+		this.dibujarPuntuacionPersonaje()
 		this.dibujarVidaPersonaje();
 		this.dibujarEnergiaPersonaje();
 		this.lanzarAtaques();
