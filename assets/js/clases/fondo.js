@@ -161,6 +161,11 @@ class Fondo extends Sprite {
 		this.escenario.actualizarSprite();
 
 		// Nube 3 inferior (PRIMER PLANO)
+		
+
+	}
+
+	dibujarNube3() {
 		ctx.drawImage(
 			this.imagenes.nube_3.frameActual,
 			0,
