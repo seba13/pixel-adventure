@@ -298,7 +298,13 @@ class Juego {
 	}
 
 	async cargarAssets() {
-		let cargarAssets = [this.cargarImagenesFondo(), this.cargarTileset(), this.cargarAudios(), this.cargarImagenJugador(), this.cargarImagenesEnemigos()];
+		let cargarAssets = [
+			this.cargarImagenesFondo(),
+			this.cargarTileset(),
+			this.cargarAudios(),
+			this.cargarImagenJugador(),
+			this.cargarImagenesEnemigos(),
+		];
 
 		let cargado = await Promise.all(cargarAssets);
 
@@ -327,11 +333,11 @@ class Juego {
 				plataformas: [
 					new Plataforma({
 						posicion: {
-							x: Math.floor(800 * this.proporcionResolucion),
+							x: Math.round(800*this.proporcionResolucion),
 							// y: Math.floor((canvas.height - 535) / 32) * 32
-							y: Math.floor(canvas.height - (300 * this.proporcionResolucion)),
+							y: Math.floor(canvas.height - 300),
 						},
-						width: 384 * 4 * this.proporcionResolucion,
+						width: 384 * 4,
 						imagenes: this.tilesetEscenario,
 						offset: {
 							x: 16,
@@ -369,7 +375,7 @@ class Juego {
 				y: 0,
 			},
 			offset: {
-				x: Math.floor(20 * this.proporciones.personaje/this.proporcionResolucion),
+				x: 20 * this.proporciones.personaje,
 				y: 0,
 			},
 			imagenes: this.tilesetJugador,
@@ -441,29 +447,37 @@ class Juego {
 				if (e.key === 'ArrowUp') {
 					if (this.personaje.velocidad.y >= juego.gravedad) {
 						if (!this.controles[e.key].presionada) {
-							if (this.personaje.dobleSalto && this.personaje.saltando) {
-								this.personaje.velocidad.y = -this.saltoPersonaje;
-								this.personaje.dobleSalto = false;
+
+							if(this.personaje.dobleSalto && this.personaje.saltando) {
+								this.personaje.velocidad.y = - this.saltoPersonaje
+								this.personaje.dobleSalto = false
 							}
 
-							if (!this.personaje.saltando) {
+							if(!this.personaje.saltando){
+
 								console.time('salto');
 
-								this.personaje.saltando = true;
+								this.personaje.saltando = true
 								this.personaje.velocidad.y = -this.saltoPersonaje;
-								this.personaje.dobleSalto = true;
+								this.personaje.dobleSalto = true
 							}
+
+							
+
+
 						}
 					}
 				}
 				if (e.key === ' ') {
 					if (this.personaje.energia > 0) {
+					
 						if (!this.controles[e.key].presionada) {
 							this.personaje.realizandoAtaque = true;
 							this.personaje.crearAtaque();
 							this.personaje.velocidad.x = 0;
 							this.personaje.energia -= 1;
 						}
+						
 					}
 				}
 				this.controles[e.key].presionada = true;
@@ -702,33 +716,33 @@ class Juego {
 			this.contadorFps = 0;
 			this.contadorTiempoFps = 0;
 
-			(this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / this.fps) * 1) / (1000 / 165))),
-				(this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / this.fps) * 1) / (1000 / 165))),
-				(this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / this.fps) * 1) / (1000 / 165))),
-				(this.proporcionesFPS.proporcionSalto = Math.round(((1000 / this.fps) * 1) / (1000 / 165)));
-
-			if (this.fps > 90) {
-				this.gravedad = 0.5;
-				this.saltoPersonaje = 20;
-			} else if (this.fps <= 90) {
-				this.gravedad = 2.75;
-				this.saltoPersonaje = 46;
+			
+			this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionSalto =  Math.round(((1000 / this.fps) * 1) / (1000 / 165))
+			
+			if(this.fps > 90) {
+				this.gravedad = .5
+				this.saltoPersonaje = 20
+			}else
+			if(this.fps <=90) {
+				this.gravedad = 2.75
+				this.saltoPersonaje = 46
 			}
+
 		}
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		// this.dibujar();
 
-		this.fondo.actualizarSprite();
-		
+		this.fondo.actualizarSprite(this.deltaTiempo);
 
 		// this.escenario.actualizarSprite()
 
 		if (this.gameStart) {
 			this.personaje.actualizarSprite(this.deltaTiempo);
 		}
-
-		this.fondo.dibujarNube3()
 
 		if (!this.gameOver) {
 			this.idAnimation = requestAnimationFrame((timestamp) => this.animar(timestamp));
