@@ -39,16 +39,16 @@ class Juego {
 		};
 
 		this.proporciones = {
-			texto: Math.round(2 * this.proporcionResolucion),
-			personaje: Math.round(4 * this.proporcionResolucion),
-			barraVida: Math.round(3 * this.proporcionResolucion),
-			barraEnergia: Math.round(3 * this.proporcionResolucion),
-			escenario: Math.round(3 * this.proporcionResolucion),
-			bolaFuego: Math.round(2 * this.proporcionResolucion),
-			impacto: Math.round(4 * this.proporcionResolucion),
+			texto: Math.ceil(2 * this.proporcionResolucion),
+			personaje: Math.ceil(4 * this.proporcionResolucion),
+			barraVida: Math.ceil(3 * this.proporcionResolucion),
+			barraEnergia: Math.ceil(3 * this.proporcionResolucion),
+			escenario: Math.ceil(3 * this.proporcionResolucion),
+			bolaFuego: Math.ceil(2 * this.proporcionResolucion),
+			impacto: Math.ceil(4 * this.proporcionResolucion),
 			enemigos: {
-				samurai: Math.round(4 * this.proporcionResolucion),
-				humo: Math.round(4 * this.proporcionResolucion),
+				samurai: Math.ceil(4 * this.proporcionResolucion),
+				humo: Math.ceil(4 * this.proporcionResolucion),
 			},
 			fondo: {
 				montaña_1: Math.ceil(3 * this.proporcionResolucion),
@@ -335,9 +335,9 @@ class Juego {
 						posicion: {
 							x: Math.round(800*this.proporcionResolucion),
 							// y: Math.floor((canvas.height - 535) / 32) * 32
-							y: Math.floor(canvas.height - 300),
+							y: Math.floor(canvas.height - Math.floor(300 * this.proporcionResolucion)),
 						},
-						width: 384 * 4,
+						width: Math.floor(384 * 4 * this.proporcionResolucion),
 						imagenes: this.tilesetEscenario,
 						offset: {
 							x: 16,
@@ -721,7 +721,8 @@ class Juego {
 			this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
 			this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
 			this.proporcionesFPS.proporcionSalto =  Math.round(((1000 / this.fps) * 1) / (1000 / 165))
-			
+
+
 			if(this.fps > 90) {
 				this.gravedad = .5
 				this.saltoPersonaje = 20
@@ -729,7 +730,22 @@ class Juego {
 			if(this.fps <=90) {
 				this.gravedad = 2.75
 				this.saltoPersonaje = 46
+
+				if(canvas.width < 1920) {
+					this.saltoPersonaje = 45.4375
+				}
 			}
+
+			// cambiar velocidad por la resolucion
+			if(canvas.width < 1920) {
+				this.proporcionesFPS.proporcionLimiteCuadros = Math.round(canvas.width * this.proporcionesFPS.proporcionLimiteCuadros / 1920)
+				this.proporcionesFPS.proporcionMovimiento = Math.round(canvas.width * this.proporcionesFPS.proporcionMovimiento / 1920)
+				this.proporcionesFPS.proporcionMovimientoEnemigo =  Math.round(canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo / 1920)
+				this.proporcionesFPS.proporcionSalto = Math.round(canvas.width * this.proporcionesFPS.proporcionSalto / 1920)
+			}
+
+
+			
 
 		}
 
