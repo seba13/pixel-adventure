@@ -136,7 +136,7 @@ class Plataforma extends Sprite {
 		this.enemigos.push(
 			new Samurai({
 				posicion: {
-					x: this.posicion.x + (this.width*Math.random() - this.width*.5)+ this.width*.4,
+					x: this.posicion.x + (this.width*Math.random() - this.width*.8)+ this.width*.8,
 					y: this.posicion.y - (juego.imagenesEnemigos.samurai.height/3 * juego.proporciones.enemigos.samurai),
 				},
 				velocidad: {

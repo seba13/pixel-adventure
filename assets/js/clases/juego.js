@@ -718,10 +718,10 @@ class Juego {
 			this.contadorTiempoFps = 0;
 
 			
-			this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
-			this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
-			this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
-			this.proporcionesFPS.proporcionSalto =  Math.round(((1000 / this.fps) * 1) / (1000 / 165))
+			this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionMovimiento = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionSalto =  Math.ceil(((1000 / this.fps) * 1) / (1000 / 165))
 
 
 			if(this.fps > 90) {
@@ -739,10 +739,10 @@ class Juego {
 
 			// cambiar velocidad por la resolucion
 			if(canvas.width < 1920) {
-				this.proporcionesFPS.proporcionLimiteCuadros = Math.round(canvas.width * this.proporcionesFPS.proporcionLimiteCuadros / 1920)
-				this.proporcionesFPS.proporcionMovimiento = Math.round(canvas.width * this.proporcionesFPS.proporcionMovimiento / 1920)
-				this.proporcionesFPS.proporcionMovimientoEnemigo =  Math.round(canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo / 1920)
-				this.proporcionesFPS.proporcionSalto = Math.round(canvas.width * this.proporcionesFPS.proporcionSalto / 1920)
+				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil(canvas.width * this.proporcionesFPS.proporcionLimiteCuadros / 1920)
+				this.proporcionesFPS.proporcionMovimiento = Math.ceil(canvas.width * this.proporcionesFPS.proporcionMovimiento / 1920)
+				this.proporcionesFPS.proporcionMovimientoEnemigo =  Math.ceil(canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo / 1920)
+				this.proporcionesFPS.proporcionSalto = Math.ceil(canvas.width * this.proporcionesFPS.proporcionSalto / 1920)
 			}
 
 

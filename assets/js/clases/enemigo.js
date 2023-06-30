@@ -67,21 +67,25 @@ class Enemigo extends Sprite {
 	}
 
 	realizarGuardia() {
-		// console.log("GUARDIA!!!");
+		console.log("GUARDIA!!!");
 
-		this.tiempo += juego.deltaTiempo;
+		this.tiempo += juego.deltaTiempo/1000;
 		this.velocidad.x = 0;
+
+		console.log(this.tiempo);
 
 		if (this.tiempo > this.tiempoInactivo && this.tiempo < this.tiempoIzquierda) {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 >= this.posicionInicial - this.alcance) {
 				this.ultimaDireccion = 'izquierda';
 				this.velocidad.x = -(juego.proporcionesFPS.proporcionMovimientoEnemigo);
+				console.log("GUARDIA DIR IZQ");
 			}
 		} else if (this.tiempo < this.tiempoIzquierda + this.tiempoInactivo) {
 			this.velocidad.x = 0;
 		} else if (this.tiempo > this.tiempoIzquierda + this.tiempoInactivo && this.tiempo < this.tiempoCentrarIzquierda) {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 + this.anchoColision <= this.posicionInicial) {
 				this.ultimaDireccion = 'derecha';
+				console.log("GUARDIA DIR IZQ CENTRO");
 				this.velocidad.x = (juego.proporcionesFPS.proporcionMovimientoEnemigo);
 			}
 		} else if (this.tiempo < this.tiempoCentrarIzquierda + this.tiempoInactivo) {
@@ -89,6 +93,7 @@ class Enemigo extends Sprite {
 		} else if (this.tiempo < this.tiempoDerecha) {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 + this.anchoColision <= this.posicionInicial + this.alcance) {
 				this.ultimaDireccion = 'derecha';
+				console.log("GUARDIA DIR DER");
 				this.velocidad.x = (juego.proporcionesFPS.proporcionMovimientoEnemigo);
 			}
 		} else if (this.tiempo < this.tiempoDerecha + this.tiempoInactivo) {
@@ -96,6 +101,7 @@ class Enemigo extends Sprite {
 		} else if (this.tiempo < this.tiempoCentrarDerecha) {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 >= this.posicionInicial) {
 				this.ultimaDireccion = 'izquierda';
+				console.log("GUARDIA DIR CENTRO DER");
 				this.velocidad.x = -(juego.proporcionesFPS.proporcionMovimientoEnemigo);
 			}
 		} else {
@@ -124,13 +130,13 @@ class Enemigo extends Sprite {
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 < this.posicionInicial + this.alcancePersecucion
 		) {
 			if (
-				juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision + this.alcanceAtaque <
+				juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision + (this.alcanceAtaque*juego.proporcionResolucion) <
 				this.posicion.x + this.offset.x / 2
 			) {
 				this.ultimaDireccion = 'izquierda';
 				this.velocidad.x = -(juego.proporcionesFPS.proporcionMovimientoEnemigo);
 			} else if (
-				juego.personaje.posicion.x + juego.personaje.offset.x / 2 - this.alcanceAtaque >
+				juego.personaje.posicion.x + juego.personaje.offset.x / 2 - (this.alcanceAtaque*juego.proporcionResolucion) >
 				this.posicion.x + this.offset.x / 2 + this.anchoColision
 			) {
 				this.ultimaDireccion = 'derecha';
@@ -175,7 +181,7 @@ class Enemigo extends Sprite {
 			return;
 		}
 		if (
-			juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision + this.alcanceAtaque >
+			juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision + (this.alcanceAtaque*juego.proporcionResolucion) >
 				this.posicion.x + this.offset.x / 2 &&
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision < this.posicion.x + this.offset.x / 2
 		) {
@@ -192,7 +198,7 @@ class Enemigo extends Sprite {
 			}
 		}
 		if (
-			juego.personaje.posicion.x + juego.personaje.offset.x / 2 - this.alcanceAtaque <
+			juego.personaje.posicion.x + juego.personaje.offset.x / 2 - (this.alcanceAtaque*juego.proporcionResolucion) <
 				this.posicion.x + this.offset.x / 2 + this.anchoColision &&
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 > this.posicion.x + this.offset.x / 2 + this.anchoColision
 		) {
@@ -239,7 +245,7 @@ class Enemigo extends Sprite {
 
 		this.contadorCuadros++;
 
-		if (this.contadorCuadros % Math.floor(this.mapa[this.estado].contadorLimiteCuadros/ juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+		if (this.contadorCuadros % Math.ceil(this.mapa[this.estado].contadorLimiteCuadros/ juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
 			if (this.cuadroActual < this.mapa[this.estado].frames - 1) {
 				this.cuadroActual++;
 
@@ -273,11 +279,11 @@ class Enemigo extends Sprite {
 	atacar() {
 		if (
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision >=
-				this.posicion.x + this.offset.x / 2 - this.rectangulocolisionAtaque.ancho &&
+				this.posicion.x + this.offset.x / 2 - Math.ceil(this.rectangulocolisionAtaque.ancho*juego.proporcionResolucion) &&
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 <=
-				this.posicion.x + this.offset.x / 2 + this.anchoColision + this.rectangulocolisionAtaque.ancho &&
-			juego.personaje.posicion.y + juego.personaje.height > this.posicion.y + this.offset.y - this.rectangulocolisionAtaque.alto &&
-			juego.personaje.posicion.y < this.posicion.y + this.offset.y + this.altoColision + this.rectangulocolisionAtaque.alto
+				this.posicion.x + this.offset.x / 2 + this.anchoColision + Math.ceil(this.rectangulocolisionAtaque.ancho*juego.proporcionResolucion) &&
+			juego.personaje.posicion.y + juego.personaje.height > this.posicion.y + this.offset.y - Math.ceil(this.rectangulocolisionAtaque.alto*juego.proporcionResolucion) &&
+			juego.personaje.posicion.y < this.posicion.y + this.offset.y + this.altoColision + Math.ceil(this.rectangulocolisionAtaque.alto*juego.proporcionResolucion)
 		) {
 			juego.personaje.recibirDaño(this.dañoAtaque);
 		}
@@ -327,14 +333,14 @@ class Enemigo extends Sprite {
 		// 	ctx.fillRect(
 		// 		(this.posicion.x + this.offset.x / 2 + this.anchoColision) * flip,
 		// 		this.posicion.y + this.offset.y - this.rectangulocolisionAtaque.alto,
-		// 		this.rectangulocolisionAtaque.ancho * flip,
+		// 		this.rectangulocolisionAtaque.ancho * flip * juego.proporcionResolucion,
 		// 		this.rectangulocolisionAtaque.alto,
 		// 	);
 		// } else {
 		// 	ctx.fillRect(
 		// 		(this.posicion.x + this.offset.x / 2 - this.rectangulocolisionAtaque.ancho) * flip,
 		// 		this.posicion.y + this.offset.y - this.rectangulocolisionAtaque.alto,
-		// 		this.rectangulocolisionAtaque.ancho * flip,
+		// 		this.rectangulocolisionAtaque.ancho * flip * juego.proporcionResolucion,
 		// 		this.rectangulocolisionAtaque.alto,
 		// 	);
 		// }
@@ -371,13 +377,13 @@ class Enemigo extends Sprite {
 		// RECTANGULOS DE PRUEBAS DE COLISIONES
 
 		ctx.fillStyle = 'rgba(255,0,0,.4)';
-		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y + this.offset.y, this.anchoColision, this.altoColision);
+		ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y + this.offset.y, this.anchoColision, this.altoColision);
 
-		// ctx.fillStyle = 'rgba(255,0,255, .2)'
-		// ctx.fillRect(this.posicionInicial - this.alcancePersecucion , this.posicion.y, this.alcancePersecucion * 2, this.alto);
+		ctx.fillStyle = 'rgba(255,0,255, .2)'
+		ctx.fillRect(this.posicionInicial - this.alcancePersecucion , this.posicion.y, this.alcancePersecucion * 2, this.alto);
 
-		// ctx.fillStyle = 'rgba(255,255,0,.6)'
-		// ctx.fillRect(this.posicionInicial - this.alcance , this.posicion.y, this.alcance * 2, this.alto);
+		ctx.fillStyle = 'rgba(255,255,0,.6)'
+		ctx.fillRect(this.posicionInicial - this.alcance , this.posicion.y, this.alcance * 2, this.alto);
 	}
 
 	dibujarMuerte() {
