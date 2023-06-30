@@ -10,7 +10,7 @@ class Jugador extends Sprite {
 		this.height = 32 * juego.proporciones.personaje;
 		this.saltando = false;
 		this.dobleSalto = false;
-		this.cayendo = false
+		this.cayendo = false;
 		this.tiempoRecuperarEnergia = 1000; // cada 300 ms recupera
 		this.tiempoEnergia = 0;
 
@@ -180,17 +180,7 @@ class Jugador extends Sprite {
 			}
 		}
 
-		ctx.drawImage(
-			this.imagenes.tileset,
-			this.mapa[this.estado].x + 32 * this.cuadroActual,
-			this.mapa[this.estado].y,
-			32,
-			32,
-			this.posicion.x * flip,
-			this.posicion.y,
-			32 * juego.proporciones.personaje * flip,
-			32 * juego.proporciones.personaje,
-		);
+		ctx.drawImage(this.imagenes.tileset, this.mapa[this.estado].x + 32 * this.cuadroActual, this.mapa[this.estado].y, 32, 32, this.posicion.x * flip, this.posicion.y, 32 * juego.proporciones.personaje * flip, 32 * juego.proporciones.personaje);
 
 		ctx.restore();
 
@@ -300,8 +290,6 @@ class Jugador extends Sprite {
 		this.contadorLimiteCuadros = Math.ceil(this.mapa[this.estado].contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros);
 
 		if (this.contadorCuadros % this.contadorLimiteCuadros == 0) {
-
-
 			if (this.cuadroActual < this.mapa[this.estado].frames - 1) {
 				this.cuadroActual++;
 
@@ -324,15 +312,12 @@ class Jugador extends Sprite {
 						}, 1000);
 					}
 				}
-				
 
 				if (this.estado == 'caida') {
 					if (this.cuadroActual + 1 >= this.mapa[this.estado].frames - 1) {
-						this.estado == 'inactivo'
+						this.estado == 'inactivo';
 					}
 				}
-
-
 			} else {
 				if (this.estado != 'muerto') {
 					this.cuadroActual = 0;
@@ -462,7 +447,6 @@ class Jugador extends Sprite {
 			}
 			return;
 		}
-		
 
 		if (juego.controles['ArrowLeft'].presionada) {
 			if (this.velocidad.y < 0) {
@@ -525,8 +509,7 @@ class Jugador extends Sprite {
 					this.estado = 'caida';
 					this.cuadroActual = 0;
 				}
-			} 
-			else if (this.estado != 'inactivo') {
+			} else if (this.estado != 'inactivo') {
 				this.estado = 'inactivo';
 				this.cuadroActual = 0;
 			}

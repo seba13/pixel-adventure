@@ -1,13 +1,15 @@
 class Samurai extends Enemigo {
 	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, offset = { x: 0, y: 0 }, proporcion, vida, defensa, armadura, plataforma, puntaje }) {
 		super({ posicion, velocidad, imagenes });
-		
+
+
+		this.proporcion = proporcion;
 		this.puntaje = puntaje
 		this.dañoAtaque = 1
 		this.centrando = false
 		this.liberar = false
         this.plataforma = plataforma;
-        this.alcance = 100  //perimetro donde realiza guardia
+        this.alcance = juego.proporciones.enemigos[this.proporcion].alcanceVigilar  //perimetro donde realiza guardia
         this.alcancePersecucion = 800  // perimetro de persecucion
         this.alcanceAtaque = 70   //distancia donde realiza y puede acertar un golpe
 		this.rectangulocolisionAtaque = {
@@ -27,7 +29,7 @@ class Samurai extends Enemigo {
 		this.armadura = armadura
 		this.totalArmadura = this.armadura
 		this.totalVida = this.vida
-		this.proporcion = proporcion;
+		
         this.tiempo = 0;
         this.posicionInicial = this.posicion.x
         this.tiempoIzquierda = 4000
@@ -54,8 +56,8 @@ class Samurai extends Enemigo {
 
 
         // MEDIDA DE ENEMIGO ESCALADO
-		this.ancho = this.anchoSprite * juego.proporciones.enemigos[this.proporcion];
-		this.alto = this.altoSprite * juego.proporciones.enemigos[this.proporcion];
+		this.ancho = this.anchoSprite * juego.proporciones.enemigos[this.proporcion].proporcion;
+		this.alto = this.altoSprite * juego.proporciones.enemigos[this.proporcion].proporcion;
 
         // ANCHO DE ENEMIGO RESTANDOLE EL OFFSET PARA OBTENER UNA COLISIÓN MAS PRECISA
         this.anchoColision = this.ancho - this.offset.x
