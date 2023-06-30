@@ -3,8 +3,21 @@ class Juego {
 		this.gameStart = false;
 		this.gameOver = false;
 		this.idAnimation = null;
+		this.fps = 60;
+		
 
-		this._gravedad = 0.5;
+		this.proporcionesFPS = {
+			proporcionLimiteCuadros: Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			proporcionMovimiento: Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			proporcionMovimientoEnemigo: Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			proporcionSalto:  Math.round(((1000 / this.fps) * 1) / (1000 / 165))
+		};
+		this._gravedad = 0.9;
+		this.saltoPersonaje = 23.60882
+		this.ultimoTiempo = 1;
+		this.contadorTiempoFps = 0;
+		this.contadorFps = 0;
+		this.deltaTiempo = 0;
 
 		this._controles = {
 			ArrowUp: {
@@ -25,11 +38,17 @@ class Juego {
 		};
 
 		this.proporciones = {
-			personaje: 2,
+			texto: 2,
+			personaje: 4,
 			barraVida: 3,
 			barraEnergia: 3,
 			escenario: 3,
 			bolaFuego: 2,
+			impacto: 4,
+			enemigos: {
+				samurai: 4,
+				humo: 4,
+			},
 			fondo: {
 				montaña_1: 3,
 				montaña_2: 2.5,
@@ -58,7 +77,6 @@ class Juego {
 				frame_2: new Image(),
 				frameActual: this.frame_1,
 				ancho: 210,
-				escalaSprite: 3,
 				plano: 'fondo',
 				posicion: {
 					x: 0,
@@ -72,12 +90,12 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'montaña_1',
 			},
 			montaña_2: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 				frameActual: this.frame_1,
-				escalaSprite: 2.5,
 				plano: 'fondo',
 				ancho: 369,
 				posicion: {
@@ -92,12 +110,12 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'montaña_2',
 			},
 			montaña_3: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 				frameActual: this.frame_1,
-				escalaSprite: 3,
 				ancho: 450,
 				plano: 'medio',
 				posicion: {
@@ -112,12 +130,12 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'montaña_3',
 			},
 			montaña_4: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 				frameActual: this.frame_1,
-				escalaSprite: 3.5,
 				ancho: 450,
 				plano: 'medio',
 				ancho: 450,
@@ -133,12 +151,12 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'montaña_4',
 			},
 			montaña_5: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 				frameActual: this.frame_1,
-				escalaSprite: 4.1,
 				ancho: 450,
 				plano: 'principal',
 				posicion: {
@@ -153,12 +171,12 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'montaña_5',
 			},
 			nube_1: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 				frameActual: this.frame_1,
-				escalaSprite: 2,
 				plano: 'medio',
 				posicion: {
 					x: 0,
@@ -172,12 +190,12 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'nube_1',
 			},
 			nube_2: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 				frameActual: this.frame_1,
-				escalaSprite: 1.5,
 				plano: 'fondo',
 				posicion: {
 					x: 0,
@@ -191,12 +209,12 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'nube_2',
 			},
 			nube_3: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 				frameActual: this.frame_1,
-				escalaSprite: 3,
 				plano: 'principal',
 				posicion: {
 					x: 0,
@@ -210,17 +228,22 @@ class Juego {
 					x: 0,
 					y: 0,
 				},
+				proporcion: 'nube_3',
 			},
+		};
+
+		this.imagenesEnemigos = {
+			samurai: new Image(),
+			muerte: new Image(),
 		};
 
 		this.tilesetJugador = {
 			tileset: new Image(),
 			tilesetVida: new Image(),
 			tilesetEnergia: new Image(),
-			bolaFuego: new Image(),	
+			bolaFuego: new Image(),
+			impactoAtaque: new Image(),
 		};
-
-		
 
 		// tileset escenario
 		this.tilesetEscenario = {
@@ -265,12 +288,22 @@ class Juego {
 		return this._gravedad;
 	}
 
+	set gravedad(gravedad) {
+		this._gravedad = gravedad;
+	}
+
 	get controles() {
 		return this._controles;
 	}
 
 	async cargarAssets() {
-		let cargarAssets = [this.cargarImagenesFondo(), this.cargarTileset(), this.cargarAudios(), this.cargarImagenJugador()];
+		let cargarAssets = [
+			this.cargarImagenesFondo(),
+			this.cargarTileset(),
+			this.cargarAudios(),
+			this.cargarImagenJugador(),
+			this.cargarImagenesEnemigos(),
+		];
 
 		let cargado = await Promise.all(cargarAssets);
 
@@ -295,7 +328,6 @@ class Juego {
 			},
 			imagenes: this.imagenesFondo,
 			contadorLimiteCuadros: 48,
-			escalaSprite: 1.5,
 			escenario: new Escenario({
 				plataformas: [
 					new Plataforma({
@@ -306,10 +338,9 @@ class Juego {
 						},
 						width: 384 * 4,
 						imagenes: this.tilesetEscenario,
-						escalaSprite: 3,
 						offset: {
-							x: 28,
-							y: 28,
+							x: 5 * this.proporciones.plataforma.suelo,
+							y: 9 * this.proporciones.plataforma.suelo,
 						},
 					}),
 
@@ -343,17 +374,12 @@ class Juego {
 				y: 0,
 			},
 			offset: {
-				x: 10,
+				x: 20 * this.proporciones.personaje,
 				y: 0,
 			},
 			imagenes: this.tilesetJugador,
-			escalaSprite: 4,
-			ataques: []
-			
+			ataques: [],
 		});
-
-	
-
 	}
 
 	escucharEventos() {
@@ -418,16 +444,37 @@ class Juego {
 		if (this.gameStart && this.personaje.vida > 0) {
 			if (this.controles[e.key]) {
 				if (e.key === 'ArrowUp') {
-					if (!this.controles[e.key].presionada) {
-						this.personaje.velocidad.y -= 20;
+					if (this.personaje.velocidad.y >= juego.gravedad) {
+						if (!this.controles[e.key].presionada) {
+
+							if(this.personaje.dobleSalto && this.personaje.saltando) {
+								this.personaje.velocidad.y = - this.saltoPersonaje
+								this.personaje.dobleSalto = false
+							}
+
+							if(!this.personaje.saltando){
+
+								console.time('salto');
+
+								this.personaje.saltando = true
+								this.personaje.velocidad.y = -this.saltoPersonaje;
+								this.personaje.dobleSalto = true
+							}
+
+							
+
+
+						}
 					}
 				}
-				if(e.key === ' ') {
-					if(this.personaje.energia > 0) {
+				if (e.key === ' ') {
+					if (this.personaje.energia > 0) {
+					
 						if (!this.controles[e.key].presionada) {
-							this.personaje.velocidad.x = 0
-							this.personaje.energia -=1
-							this.personaje.crearAtaque()
+							this.personaje.realizandoAtaque = true;
+							this.personaje.crearAtaque();
+							this.personaje.velocidad.x = 0;
+							this.personaje.energia -= 1;
 						}
 						
 					}
@@ -474,11 +521,11 @@ class Juego {
 		this.tilesetEscenario.tilesetSuelo.suelo_3_4.src = '/assets/img/fondo/tilesets/tileset-suelo-3-4.png';
 
 		//cascada
-		this.tilesetEscenario.tilesetCascada.cascada_1.src = '/assets/img/fondo/cascada/cascada-1.png';
-		this.tilesetEscenario.tilesetCascada.cascada_2.src = '/assets/img/fondo/cascada/cascada-2.png';
-		this.tilesetEscenario.tilesetCascada.cascada_3.src = '/assets/img/fondo/cascada/cascada-3.png';
-		this.tilesetEscenario.tilesetCascada.cascada_4.src = '/assets/img/fondo/cascada/cascada-4.png';
-		this.tilesetEscenario.tilesetCascada.cascada_5.src = '/assets/img/fondo/cascada/cascada-5.png';
+		this.tilesetEscenario.tilesetCascada.cascada_1.src = '/assets/img/fondo/cascada/cascada-1-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_2.src = '/assets/img/fondo/cascada/cascada-2-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_3.src = '/assets/img/fondo/cascada/cascada-3-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_4.src = '/assets/img/fondo/cascada/cascada-4-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_5.src = '/assets/img/fondo/cascada/cascada-5-test.png';
 
 		let imagenes = Object.values(this.tilesetEscenario).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -575,12 +622,12 @@ class Juego {
 	}
 
 	async cargarImagenJugador() {
-		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje.png';
-		this.tilesetJugador.tilesetVida.src = '/assets/img/personaje/estadisticas/vida.png'
-		this.tilesetJugador.tilesetEnergia.src = '/assets/img/personaje/estadisticas/energia.png'
+		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje-2.png';
+		this.tilesetJugador.tilesetVida.src = '/assets/img/personaje/estadisticas/vida.png';
+		this.tilesetJugador.tilesetEnergia.src = '/assets/img/personaje/estadisticas/energia.png';
 		// this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego.png'
-		this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego-2.png'
-
+		this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego-2.png';
+		this.tilesetJugador.impactoAtaque.src = '/assets/img/personaje/ataque/impacto-ataque-3.png';
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -602,10 +649,29 @@ class Juego {
 		return arrayImg;
 	}
 
+	async cargarImagenesEnemigos() {
+		this.imagenesEnemigos.samurai.src = '/assets/img/enemigos/enemigo-1/samurai.png';
+		this.imagenesEnemigos.muerte.src = '/assets/img/enemigos/muerte/humo-1.png';
 
+		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
+			if (objActual instanceof Image) {
+				arr.push(objActual);
+			}
+			return arr;
+		}, []);
 
-	
+		imagenes = imagenes.map((img) => {
+			return new Promise((resolve, reject) => {
+				img.addEventListener('load', (e) => resolve(e.target));
 
+				img.addEventListener('error', (e) => reject(e.target));
+			});
+		});
+
+		let arrayImg = await Promise.all(imagenes);
+
+		return arrayImg;
+	}
 
 	async cargarAudios() {
 		this.audios = {
@@ -635,23 +701,50 @@ class Juego {
 	}
 
 	iniciar() {
-		this.idAnimation = requestAnimationFrame(() => this.animar());
+		this.idAnimation = requestAnimationFrame((timestamp) => this.animar(timestamp));
 	}
 
-	animar() {
+	animar(timestamp) {
+		this.deltaTiempo = timestamp - this.ultimoTiempo;
+		this.contadorFps++;
+		this.contadorTiempoFps += this.deltaTiempo;
+		this.ultimoTiempo = timestamp;
+
+		if (this.contadorTiempoFps >= 1000) {
+			this.fps = this.contadorFps;
+			this.contadorFps = 0;
+			this.contadorTiempoFps = 0;
+
+			
+			this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
+			this.proporcionesFPS.proporcionSalto =  Math.round(((1000 / this.fps) * 1) / (1000 / 165))
+			
+			if(this.fps > 90) {
+				this.gravedad = .5
+				this.saltoPersonaje = 20
+			}else
+			if(this.fps <=90) {
+				this.gravedad = 2.75
+				this.saltoPersonaje = 46
+			}
+
+		}
+
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		// this.dibujar();
 
-		this.fondo.actualizarSprite();
+		this.fondo.actualizarSprite(this.deltaTiempo);
 
 		// this.escenario.actualizarSprite()
 
 		if (this.gameStart) {
-			this.personaje.actualizarSprite();
+			this.personaje.actualizarSprite(this.deltaTiempo);
 		}
 
 		if (!this.gameOver) {
-			this.idAnimation = requestAnimationFrame(() => this.animar());
+			this.idAnimation = requestAnimationFrame((timestamp) => this.animar(timestamp));
 		}
 	}
 

@@ -1,6 +1,6 @@
 class Plataforma extends Sprite {
-	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, escalaSprite = 1, width, offset }) {
-		super({ posicion, velocidad, imagenes, escalaSprite, offset });
+	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, width, offset }) {
+		super({ posicion, velocidad, imagenes, offset });
 
 		// OFFSET ignorar espacio transparente de imagenes
 		this.width = width;
@@ -8,6 +8,8 @@ class Plataforma extends Sprite {
 
 		this.anchoPixel = 32;
 		this.altoPixel = 32;
+		this.enemigoCreado = false;
+		this.enemigos = [];
 
 		this.tile = {
 			arbol: {
@@ -48,6 +50,7 @@ class Plataforma extends Sprite {
 			},
 			cascada: {
 				x: this.width,
+				y: 0,
 				pintar: false,
 			},
 		};
@@ -80,13 +83,7 @@ class Plataforma extends Sprite {
 		if (this.tile.arbusto.arbusto_2.pintar) {
 			this.dibujarArbusto2();
 		}
-		if (this.tile.cascada.pintar) {
-			this.dibujarCascada();
-
-			if (this.contadorCuadros % this.contadorLimiteCuadros == 0) {
-				this.alternarFrame();
-			}
-		}
+		
 	}
 
 	alternarFrame() {
@@ -122,7 +119,61 @@ class Plataforma extends Sprite {
 
 		this.dibujarElementosPlataforma();
 		this.dibujarPlataforma();
+		if (this.tile.cascada.pintar) {
+			this.dibujarCascada();
+
+			if (this.contadorCuadros % (this.contadorLimiteCuadros/ juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+				this.alternarFrame();
+			}
+		}
+		this.dibujarEnemigosPlataforma()
 	}
+
+	crearEnemigo() {
+
+		
+
+		this.enemigos.push(
+			new Samurai({
+				posicion: {
+					x: this.posicion.x + (this.width*Math.random() - this.width*.5)+ this.width*.4,
+					y: this.posicion.y - (juego.imagenesEnemigos.samurai.height/3 * juego.proporciones.enemigos.samurai),
+				},
+				velocidad: {
+					x: 0,
+					y: 0,
+				},
+				imagenes: {
+					enemigo: juego.imagenesEnemigos.samurai,
+					muerte: juego.imagenesEnemigos.muerte
+				},
+				offset: {
+					x: 48 * juego.proporciones.enemigos.samurai,
+					y: 20 * juego.proporciones.enemigos.samurai,
+				},
+				puntaje: 100,
+				proporcion: 'samurai',
+				vida: 100,
+				defensa: 5,
+				armadura: 100,
+				plataforma: this
+			}),
+		);
+
+	}
+
+
+	dibujarEnemigosPlataforma() {
+
+		this.enemigos = this.enemigos.filter(enemigo => !enemigo.liberar)
+
+		if(this.enemigos.length > 0) {
+
+			this.enemigos.forEach(enemigo => enemigo.actualizar())
+
+		}
+
+	}	
 
 	dibujarCascada() {
 		ctx.drawImage(
@@ -195,7 +246,10 @@ class Plataforma extends Sprite {
 	}
 
 	dibujarPlataforma() {
-		let columnas = Math.ceil(this.width / (this.anchoPixel * juego.proporciones.plataforma.suelo));
+
+		
+		
+			let columnas = Math.ceil(this.width / (this.anchoPixel * juego.proporciones.plataforma.suelo));
 
 		let filas = Math.ceil((canvas.height - this.posicion.y) / (this.altoPixel * juego.proporciones.plataforma.suelo)) + 1;
 
@@ -267,10 +321,10 @@ class Plataforma extends Sprite {
 					0,
 					this.anchoPixel * 1,
 					this.altoPixel,
-					this.posicion.x + this.anchoPixel * j * juego.proporciones.plataforma.suelo - this.offset.x,
+					this.posicion.x + this.anchoPixel * j * juego.proporciones.plataforma.suelo ,
 					this.posicion.y + this.anchoPixel * i * juego.proporciones.plataforma.suelo - this.offset.y * juego.proporciones.plataforma.suelo,
-					this.anchoPixel * this.escalaSprite,
-					this.altoPixel * this.escalaSprite,
+					this.anchoPixel * juego.proporciones.plataforma.suelo,
+					this.altoPixel * juego.proporciones.plataforma.suelo,
 				);
 			}
 		}
@@ -281,11 +335,12 @@ class Plataforma extends Sprite {
 			this.width = anchoPlataforma - this.offset.x - 16;
 		}
 
-		// ctx.fillStyle = 'rgba(255,0,0,.2)';
+		// ctx.fillStyle = 'rgba(0,0,255,.2)';
 
-		// for (let j = 0; j < this.posicion.y / (this.altoPixel * this.escalaSprite); j++) {
-		// 	ctx.fillRect(this.posicion.x, this.posicion.y + this.altoPixel * this.escalaSprite * j, this.width, this.height * this.escalaSprite);
+		// for (let j = 0; j < this.posicion.y / (this.altoPixel * juego.proporciones.plataforma.suelo); j++) {
+		// 	ctx.fillRect(this.posicion.x + this.offset.x, this.posicion.y + this.altoPixel * juego.proporciones.plataforma.suelo * j,this.width - this.offset.x, this.altoPixel * juego.proporciones.plataforma.suelo);
 		// }
+		
 	}
 
 	moverPlataforma() {
@@ -303,63 +358,127 @@ class Plataforma extends Sprite {
 		// }
 
 		if (
-			(juego.controles['ArrowRight'].presionada && juego.personaje.posicion.x > canvas.width * 0.5) ||
-			(juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x < 200)
+			(juego.controles['ArrowRight'].presionada && juego.personaje.posicion.x > canvas.width * 0.6) ||
+			(juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x < canvas.width*.4)
 		) {
-			juego.personaje.velocidad.x = 0;
 			
-			juego.personaje.ataques.forEach(ataque => {
-				if(ataque.velocidad.x > 0) {
-					ataque.velocidad.x = 2
-				}else{
-					ataque.velocidad.x = -2
+
+			juego.personaje.ataques.forEach((ataque) => {
+				
+				if (ataque.velocidad.x > 0) {
+					
+					if(juego.controles['ArrowRight'].presionada){
+						ataque.velocidad.x = (juego.proporcionesFPS.proporcionMovimiento*5) -  (juego.proporcionesFPS.proporcionMovimiento*2)
+					}else 
+					if(juego.controles['ArrowLeft'].presionada){
+						ataque.velocidad.x =  (juego.proporcionesFPS.proporcionMovimiento*5) + (juego.proporcionesFPS.proporcionMovimiento*2)
+					}
+
+				} else {
+					
+					if(juego.controles['ArrowRight'].presionada){
+						ataque.velocidad.x = -(juego.proporcionesFPS.proporcionMovimiento*5) - (juego.proporcionesFPS.proporcionMovimiento*2)
+					}else 
+					if(juego.controles['ArrowRight'].presionada){
+						ataque.velocidad.x = -(juego.proporcionesFPS.proporcionMovimiento*5) + (juego.proporcionesFPS.proporcionMovimiento*2)
+					}
 
 				}
-			})
+			});
 
+			juego.personaje.velocidad.x = 0;
 
 			if (juego.controles['ArrowRight'].presionada) {
-				this.posicion.x += -5;
-				this.tile.arbol.arbol_1.x -= 5;
-				this.tile.arbol.arbol_2.x -= 5;
-				this.tile.arbusto.arbusto_1.x -= 5;
-				this.tile.arbusto.arbusto_2.x -= 5;
-				this.tile.cascada.x -= 5;
+		
+					this.enemigos.forEach((enemigo) => {
+						enemigo.posicion.x += - (juego.proporcionesFPS.proporcionMovimiento*5)
+						enemigo.posicionInicial +=- (juego.proporcionesFPS.proporcionMovimiento*5)
+					})
+				
+				this.posicion.x += -(juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbol.arbol_1.x -= (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbol.arbol_2.x -= (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbusto.arbusto_1.x -= (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbusto.arbusto_2.x -= (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.cascada.x -= (juego.proporcionesFPS.proporcionMovimiento*5);
 			}
 			if (juego.controles['ArrowLeft'].presionada) {
-				this.posicion.x += 5;
-				this.tile.arbol.arbol_1.x += 5;
-				this.tile.arbol.arbol_2.x += 5;
-				this.tile.arbusto.arbusto_1.x += 5;
-				this.tile.arbusto.arbusto_2.x += 5;
-				this.tile.cascada.x += 5;
-			}
-		}else {
-			juego.personaje.ataques.forEach(ataque => {
-				if(ataque.velocidad.x > 0) {
-					ataque.velocidad.x = 7
-				}else{
-					ataque.velocidad.x = -7
 
+			
+					this.enemigos.forEach((enemigo) => {
+						
+						enemigo.posicion.x += (juego.proporcionesFPS.proporcionMovimiento*5)
+						enemigo.posicionInicial += (juego.proporcionesFPS.proporcionMovimiento*5)
+					})
+				
+				
+				this.posicion.x += (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbol.arbol_1.x += (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbol.arbol_2.x += (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbusto.arbusto_1.x += (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.arbusto.arbusto_2.x += (juego.proporcionesFPS.proporcionMovimiento*5);
+				this.tile.cascada.x += (juego.proporcionesFPS.proporcionMovimiento*5);
+			}
+		} else {
+			juego.personaje.ataques.forEach((ataque) => {
+				if (ataque.velocidad.x > 0) {
+					ataque.velocidad.x = (juego.proporcionesFPS.proporcionMovimiento*5) + (juego.proporcionesFPS.proporcionMovimiento*2);
+				} else {
+					ataque.velocidad.x = -(juego.proporcionesFPS.proporcionMovimiento*5) - (juego.proporcionesFPS.proporcionMovimiento*2);
 				}
-			})
+			});
 		}
 	}
 
 	detectarColisionPersonaje() {
+		// if (
+		// 	juego.personaje.posicion.y + juego.personaje.height <= this.posicion.y &&
+		// 	juego.personaje.posicion.y + juego.personaje.height + juego.personaje.velocidad.y >= this.posicion.y &&
+		// 	juego.personaje.posicionXColision + juego.personaje.anchoColision>= this.posicion.x &&
+		// 	juego.personaje.posicion.x <= this.posicion.x + this.width
+		// ) {
+		// 	juego.personaje.velocidad.y = 0;
+		// }
+
 		if (
 			juego.personaje.posicion.y + juego.personaje.height <= this.posicion.y &&
 			juego.personaje.posicion.y + juego.personaje.height + juego.personaje.velocidad.y >= this.posicion.y &&
-			juego.personaje.posicion.x + juego.personaje.width - juego.personaje.offset.x * juego.proporciones.personaje >= this.posicion.x &&
-			juego.personaje.posicion.x <= this.posicion.x + this.width
+			juego.personaje.posicion.x + juego.personaje.width - juego.personaje.offset.x >= this.posicion.x &&
+			juego.personaje.posicion.x <= this.posicion.x + this.width - this.offset.x * juego.proporciones.plataforma.suelo
 		) {
 			juego.personaje.velocidad.y = 0;
+			juego.personaje.saltando = false
+			juego.personaje.dobleSalto = false
+
+			console.timeEnd('salto')
 		}
 	}
 
+
+	detectarColisionEnemigo() {
+
+		if(!juego.personaje.invulnerable) {
+			this.enemigos.forEach(enemigo => {
+
+				if(juego.personaje.posicion.x + juego.personaje.offset.x/2 + juego.personaje.anchoColision > enemigo.posicion.x + enemigo.offset.x/2
+					&& juego.personaje.posicion.x + juego.personaje.offset.x/2 < enemigo.posicion.x + enemigo.offset.x/2 + enemigo.anchoColision
+					&& juego.personaje.posicion.y + juego.personaje.height > enemigo.posicion.y + enemigo.offset.y 
+					&& juego.personaje.posicion.y < enemigo.posicion.y + enemigo.offset.y + enemigo.altoColision) {
+						if(enemigo.vida>0){
+
+							juego.personaje.recibirDaño(enemigo.dañoAtaque)
+						}
+					}
+			})
+		}
+
+
+	}
+
+
 	actualizarSprite() {
 		this.detectarColisionPersonaje();
-
+		this.detectarColisionEnemigo()
 		this.dibujar();
 
 		// this.posicion.x -= this.velocidad.x;

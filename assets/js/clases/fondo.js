@@ -1,6 +1,6 @@
 class Fondo extends Sprite {
-	constructor({ posicion, velocidad, imagenes, contadorLimiteCuadros, escalaSprite, escenario }) {
-		super({ posicion, velocidad, imagenes, escalaSprite });
+	constructor({ posicion, velocidad, imagenes, contadorLimiteCuadros, escenario }) {
+		super({ posicion, velocidad, imagenes });
 
 		this.PLANOS = {
 			principal: 0.8,
@@ -36,7 +36,7 @@ class Fondo extends Sprite {
 		// MONTAÑA 5
 		this.imagenes.montaña_5.frameActual = this.imagenes.montaña_5.frame_1;
 		this.imagenes.montaña_5.posicion.x =
-			(this.imagenes.montaña_5.frameActual.width * juego.proporciones.fondo.montaña_5) / (200 * this.escalaSprite);
+			(this.imagenes.montaña_5.frameActual.width * juego.proporciones.fondo.montaña_5) / (200 * juego.proporciones.fondo.montaña_5);
 		this.imagenes.montaña_5.posicion.y =
 			canvas.height - this.imagenes.montaña_5.frameActual.height * juego.proporciones.fondo.montaña_5 + this.imagenes.montaña_5.offset.y;
 
@@ -89,8 +89,8 @@ class Fondo extends Sprite {
 			this.imagenes.montaña_1.frameActual.height,
 			this.imagenes.montaña_1.posicion.x,
 			this.imagenes.montaña_1.posicion.y,
-			this.imagenes.montaña_1.ancho * this.imagenes.montaña_1.escalaSprite,
-			this.imagenes.montaña_1.frameActual.height * this.imagenes.montaña_1.escalaSprite,
+			this.imagenes.montaña_1.ancho * juego.proporciones.fondo.montaña_1,
+			this.imagenes.montaña_1.frameActual.height * juego.proporciones.fondo.montaña_1,
 		);
 
 		// PLANO FONDO MONTAÑA 2 INFERIOR
@@ -102,8 +102,8 @@ class Fondo extends Sprite {
 			this.imagenes.montaña_2.frameActual.height,
 			this.imagenes.montaña_2.posicion.x,
 			this.imagenes.montaña_2.posicion.y,
-			this.imagenes.montaña_2.ancho * this.imagenes.montaña_2.escalaSprite,
-			this.imagenes.montaña_2.frameActual.height * this.imagenes.montaña_2.escalaSprite,
+			this.imagenes.montaña_2.ancho * juego.proporciones.fondo.montaña_2,
+			this.imagenes.montaña_2.frameActual.height * juego.proporciones.fondo.montaña_2,
 		);
 
 		//PLANO MEDIO Montaña 3 INFERIOR
@@ -115,8 +115,8 @@ class Fondo extends Sprite {
 			this.imagenes.montaña_3.frameActual.height,
 			this.imagenes.montaña_3.posicion.x,
 			this.imagenes.montaña_3.posicion.y,
-			this.imagenes.montaña_3.frameActual.width * this.imagenes.montaña_3.escalaSprite,
-			this.imagenes.montaña_3.frameActual.height * this.imagenes.montaña_3.escalaSprite,
+			this.imagenes.montaña_3.frameActual.width * juego.proporciones.fondo.montaña_3,
+			this.imagenes.montaña_3.frameActual.height * juego.proporciones.fondo.montaña_3,
 		);
 
 		//PLANO MEDIO Montaña 4 INFERIOR
@@ -128,8 +128,8 @@ class Fondo extends Sprite {
 			this.imagenes.montaña_4.frameActual.height,
 			this.imagenes.montaña_4.posicion.x,
 			this.imagenes.montaña_4.posicion.y,
-			this.imagenes.montaña_4.frameActual.width * this.imagenes.montaña_4.escalaSprite,
-			this.imagenes.montaña_4.frameActual.height * this.imagenes.montaña_4.escalaSprite,
+			this.imagenes.montaña_4.frameActual.width * juego.proporciones.fondo.montaña_4,
+			this.imagenes.montaña_4.frameActual.height * juego.proporciones.fondo.montaña_4,
 		);
 
 		// PLANO MEDIO NUBE 1
@@ -141,8 +141,8 @@ class Fondo extends Sprite {
 			this.imagenes.nube_1.frameActual.height,
 			this.imagenes.nube_1.posicion.x,
 			this.imagenes.nube_1.posicion.y,
-			this.imagenes.nube_1.frameActual.width * this.imagenes.nube_1.escalaSprite,
-			this.imagenes.nube_1.frameActual.height * this.imagenes.nube_1.escalaSprite,
+			this.imagenes.nube_1.frameActual.width * juego.proporciones.fondo.nube_1,
+			this.imagenes.nube_1.frameActual.height * juego.proporciones.fondo.nube_1,
 		);
 
 		// Montaña 5 inferior (PLANO Principal)
@@ -154,8 +154,8 @@ class Fondo extends Sprite {
 			this.imagenes.montaña_5.frameActual.height,
 			this.imagenes.montaña_5.posicion.x,
 			this.imagenes.montaña_5.posicion.y,
-			this.imagenes.montaña_5.frameActual.width * this.imagenes.montaña_5.escalaSprite,
-			this.imagenes.montaña_5.frameActual.height * this.imagenes.montaña_5.escalaSprite,
+			this.imagenes.montaña_5.frameActual.width * juego.proporciones.fondo.montaña_5,
+			this.imagenes.montaña_5.frameActual.height * juego.proporciones.fondo.montaña_5,
 		);
 
 		this.escenario.actualizarSprite();
@@ -169,8 +169,8 @@ class Fondo extends Sprite {
 			this.imagenes.nube_3.frameActual.height,
 			this.imagenes.nube_3.posicion.x,
 			this.imagenes.nube_3.posicion.y,
-			this.imagenes.nube_3.frameActual.width * this.imagenes.nube_3.escalaSprite,
-			this.imagenes.nube_3.frameActual.height * this.imagenes.nube_3.escalaSprite,
+			this.imagenes.nube_3.frameActual.width * juego.proporciones.fondo.nube_3,
+			this.imagenes.nube_3.frameActual.height * juego.proporciones.fondo.nube_3,
 		);
 	}
 
@@ -187,9 +187,9 @@ class Fondo extends Sprite {
 	moverFondo(imagen) {
 		if (imagen.frameActual && imagen.frame_1 && imagen.frame_2) {
 
-			
+		
 			// imagen.posicion.x -= this.PLANOS[imagen.plano];
-			if (imagen.posicion.x + imagen.frameActual.width * imagen.escalaSprite < 0) {
+			if (imagen.posicion.x + imagen.frameActual.width * juego.proporciones.fondo[imagen.proporcion] < 0) {
 				imagen.posicion.x = canvas.width;
 			}
 			imagen.posicion.x += imagen.velocidad.x;
@@ -219,7 +219,7 @@ class Fondo extends Sprite {
 	actualizarSprite() {
 		this.contadorCuadros++;
 		// CAMBIAR FOTOGRAMA
-		if (this.contadorCuadros % this.contadorLimiteCuadros === 0) {
+		if (this.contadorCuadros % (this.contadorLimiteCuadros/juego.proporcionesFPS.proporcionLimiteCuadros) === 0) {
 			for (const obj in this.imagenes) {
 				this.alternarFrame(this.imagenes[obj]);
 			}

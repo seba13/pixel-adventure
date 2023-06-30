@@ -94,7 +94,6 @@ botonJugar.addEventListener('click', () => {
 
 botonIniciarJuego.addEventListener('click', (ev) => {
 	function cbOcultarPaneljugar(e) {
-		console.log(e);
 		if (e.animationName === 'desaparecer-texto') {
 			panelJugar.classList.add('ocultar');
 
