@@ -151,7 +151,7 @@ class Enemigo extends Sprite {
 	}
 
 	cambiarEstado() {
-		console.log("acacca");
+
 		if (this.vida <= 0 && this.muriendo) {
 			if (this.estado != 'muerte') {
 				this.estado = 'muerte';

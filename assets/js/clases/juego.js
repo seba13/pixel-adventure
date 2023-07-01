@@ -40,6 +40,13 @@ class Juego {
 		};
 
 		this.proporciones = {
+			ayuda: {
+				libro: Math.ceil(2 * this.proporcionResolucion),
+				botonCerrar: Math.ceil(1 * this.proporcionResolucion),
+				check:  Math.ceil(1 * this.proporcionResolucion),
+				teclas:  Math.ceil(1 * this.proporcionResolucion),
+				cerrar:  Math.ceil(1 * this.proporcionResolucion),
+			},
 			texto: Math.ceil(2 * this.proporcionResolucion),
 			personaje: Math.ceil(4 * this.proporcionResolucion),
 			barraVida: Math.ceil(3 * this.proporcionResolucion),
@@ -77,10 +84,46 @@ class Juego {
 		};
 
 		this.imagenesAyuda = {
-			
-
-
-		}
+			abrirLibro: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+				frame_3: new Image(),
+				frame_4: new Image(),
+				frame_5: new Image(),
+				frame_6: new Image(),
+				frame_7: new Image(),
+				frame_8: new Image(),
+			},
+			cerrarLibro: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+				frame_3: new Image(),
+				frame_4: new Image(),
+				frame_5: new Image(),
+				frame_6: new Image(),
+				frame_7: new Image(),
+				frame_8: new Image(),
+			},
+			botonArriba: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+			},
+			botonDerecha: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+			},
+			botonIzquierda: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+			},
+			botonEspacio: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+			},
+			botonCerrar: new Image(),
+			botonCheck: new Image(),
+			botonUncheck: new Image(),
+		};
 
 		// imagenes de fondo
 		this.imagenesFondo = {
@@ -311,13 +354,13 @@ class Juego {
 	}
 
 	async cargarAssets() {
-		let cargarAssets = [this.cargarImagenesFondo(), this.cargarTileset(), this.cargarAudios(), this.cargarImagenJugador(), this.cargarImagenesEnemigos()];
-
+		let cargarAssets = [this.cargarImagenesFondo(), this.cargarTileset(), this.cargarAudios(), this.cargarImagenJugador(), this.cargarImagenesEnemigos(), this.cargarImagenesAyuda()];
 
 		let cargado = await Promise.all(cargarAssets);
 
 		if (cargado) {
 			this.cargarEscenario();
+			this.cargarAyuda();
 			this.cargarPersonaje();
 			this.escucharEventos();
 		}
@@ -387,6 +430,25 @@ class Juego {
 				y: 0,
 			},
 			imagenes: this.tilesetJugador,
+			ataques: [],
+		});
+	}
+
+	cargarAyuda() {
+		this.ayuda = new Ayuda({
+			posicion: {
+				x: canvas.width / 2 - (this.imagenesAyuda.abrirLibro.frame_1.width / 2) * this.proporciones.ayuda.libro,
+				y: canvas.height / 2 - (this.imagenesAyuda.abrirLibro.frame_1.height / 2) * this.proporciones.ayuda.libro,
+			},
+			velocidad: {
+				x: 0,
+				y: 0,
+			},
+			offset: {
+				x: 20 * this.proporciones.personaje,
+				y: 0,
+			},
+			imagenes: this.imagenesAyuda,
 			ataques: [],
 		});
 	}
@@ -548,6 +610,66 @@ class Juego {
 		return arrayImg;
 	}
 
+	async cargarImagenesAyuda() {
+		this.imagenesAyuda.abrirLibro.frame_1.src = '/assets/img/ayuda/libro/abrir-libro/1.png';
+		this.imagenesAyuda.abrirLibro.frame_2.src = '/assets/img/ayuda/libro/abrir-libro/2.png';
+		this.imagenesAyuda.abrirLibro.frame_3.src = '/assets/img/ayuda/libro/abrir-libro/3.png';
+		this.imagenesAyuda.abrirLibro.frame_4.src = '/assets/img/ayuda/libro/abrir-libro/4.png';
+		this.imagenesAyuda.abrirLibro.frame_5.src = '/assets/img/ayuda/libro/abrir-libro/5.png';
+		this.imagenesAyuda.abrirLibro.frame_6.src = '/assets/img/ayuda/libro/abrir-libro/6.png';
+		this.imagenesAyuda.abrirLibro.frame_7.src = '/assets/img/ayuda/libro/abrir-libro/7.png';
+		this.imagenesAyuda.abrirLibro.frame_8.src = '/assets/img/ayuda/libro/abrir-libro/8.png';
+
+		this.imagenesAyuda.cerrarLibro.frame_1.src = '/assets/img/ayuda/libro/cerrar-libro/1.png';
+		this.imagenesAyuda.cerrarLibro.frame_2.src = '/assets/img/ayuda/libro/cerrar-libro/2.png';
+		this.imagenesAyuda.cerrarLibro.frame_3.src = '/assets/img/ayuda/libro/cerrar-libro/3.png';
+		this.imagenesAyuda.cerrarLibro.frame_4.src = '/assets/img/ayuda/libro/cerrar-libro/4.png';
+		this.imagenesAyuda.cerrarLibro.frame_5.src = '/assets/img/ayuda/libro/cerrar-libro/5.png';
+		this.imagenesAyuda.cerrarLibro.frame_6.src = '/assets/img/ayuda/libro/cerrar-libro/6.png';
+		this.imagenesAyuda.cerrarLibro.frame_7.src = '/assets/img/ayuda/libro/cerrar-libro/7.png';
+		this.imagenesAyuda.cerrarLibro.frame_8.src = '/assets/img/ayuda/libro/cerrar-libro/8.png';
+
+		this.imagenesAyuda.botonArriba.frame_1.src = '/assets/img/ayuda/iconos/boton-arriba-1.png';
+		this.imagenesAyuda.botonArriba.frame_2.src = '/assets/img/ayuda/iconos/boton-arriba-2.png';
+
+		this.imagenesAyuda.botonDerecha.frame_1.src = '/assets/img/ayuda/iconos/boton-derecha-1.png';
+		this.imagenesAyuda.botonDerecha.frame_2.src = '/assets/img/ayuda/iconos/boton-derecha-2.png';
+
+		this.imagenesAyuda.botonIzquierda.frame_1.src = '/assets/img/ayuda/iconos/boton-izquierda-1.png';
+		this.imagenesAyuda.botonIzquierda.frame_2.src = '/assets/img/ayuda/iconos/boton-izquierda-2.png';
+
+		this.imagenesAyuda.botonEspacio.frame_1.src = '/assets/img/ayuda/iconos/boton-espacio-1.png';
+		this.imagenesAyuda.botonEspacio.frame_2.src = '/assets/img/ayuda/iconos/boton-espacio-2.png';
+
+		this.imagenesAyuda.botonCerrar.src = '/assets/img/ayuda/iconos/boton-cerrar.png';
+
+		this.imagenesAyuda.botonCheck.src = '/assets/img/ayuda/iconos/boton-check.png';
+		this.imagenesAyuda.botonUncheck.src = '/assets/img/ayuda/iconos/boton-uncheck.png';
+
+		let imagenes = Object.values(this.imagenesAyuda).reduce((arr, objActual) => {
+			if (objActual instanceof Image) {
+				arr.push(objActual);
+			} else {
+				Object.values(objActual).forEach((img) => {
+					arr.push(img);
+				});
+			}
+			return arr;
+		}, []);
+
+		imagenes = imagenes.map((img) => {
+			return new Promise((resolve, reject) => {
+				img.addEventListener('load', (e) => resolve(e.target));
+
+				img.addEventListener('error', (e) => reject(e.target));
+			});
+		});
+
+		let arrayImg = await Promise.all(imagenes);
+
+		return arrayImg;
+	}
+
 	async cargarImagenesFondo() {
 		// fondo
 		this.imagenesFondo.fondo.src = '/assets/img/fondo/montañas/Background.png';
@@ -653,8 +775,6 @@ class Juego {
 		this.imagenesEnemigos.samurai.src = '/assets/img/enemigos/enemigo-1/samurai.png';
 		this.imagenesEnemigos.muerte.src = '/assets/img/enemigos/muerte/humo-1.png';
 
-
-
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
 				arr.push(objActual);
@@ -672,7 +792,7 @@ class Juego {
 
 		let arrayImg = await Promise.all(imagenes);
 
-		console.log(imagenes);
+	
 
 		return arrayImg;
 	}
@@ -719,7 +839,7 @@ class Juego {
 			this.contadorFps = 0;
 			this.contadorTiempoFps = 0;
 
-			console.log(this.fps);
+			
 			if (this.fps > 90) {
 				this.gravedad = 0.5;
 				this.saltoPersonaje = 20;
@@ -765,6 +885,11 @@ class Juego {
 
 		if (this.gameStart) {
 			this.personaje.actualizarSprite(this.deltaTiempo);
+
+			if (!sessionStorage.getItem('ocultarAyuda')) {
+				this.ayuda.actualizarSprite();
+			}
+
 		}
 
 		if (!this.gameOver) {
@@ -782,6 +907,7 @@ class Juego {
 			};
 
 			this.cargarEscenario();
+			this.cargarAyuda();
 			this.cargarPersonaje();
 			// this.gameStart = false
 
