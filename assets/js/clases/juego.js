@@ -5,6 +5,7 @@ class Juego {
 		this.idAnimation = null;
 		this.fps = 0;
 		this.establecerFPS = false;
+		this.contadorSeg = 0
 
 		// this.proporcionResolucion = Math.min(canvas.width / 1920, canvas.height / 1333);
 		this.proporcionResolucion = Math.round(Math.min(canvas.width / 1920, canvas.height / 1333) * 100) / 100;
@@ -842,6 +843,8 @@ class Juego {
 			this.contadorTiempoFps = 0;
 
 			this.definirProporciones();
+
+			this.contadorSeg++
 		}
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -865,9 +868,13 @@ class Juego {
 	}
 
 	definirProporciones() {
+
+		
 		if (this.fps >= 140 && !this.establecerFPS) {
 			console.log('if 1');
-			this.establecerFPS = true;
+			if(this.contadorSeg >= 2) {
+				this.establecerFPS = true;
+			}
 			this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / 165) * 1) / (1000 / 165));
 			this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / 165) * 1) / (1000 / 165));
 			this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / 165) * 1) / (1000 / 165));
@@ -907,6 +914,10 @@ class Juego {
 			}
 
 		} else if (this.fps >= 80 && this.fps < 140 && !this.establecerFPS) {
+
+			if(this.contadorSeg >= 2) {
+				this.establecerFPS = true;
+			}
 			this.gravedad = (60 * 2.4) / this.fps;
 			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
 
@@ -917,7 +928,7 @@ class Juego {
 
 			if (canvas.width <= 1920 && canvas.width>1366) {
 				console.log('120hz 1920');
-
+				
 				this.proporcionesFPS.proporcionLimiteCuadros =2
 				this.proporcionesFPS.proporcionMovimiento =1.33
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 1.33
@@ -950,7 +961,9 @@ class Juego {
 
 		} else if (this.fps <= 80 && !this.establecerFPS) {
 			console.log('if 3');
-			this.establecerFPS = true;
+			if(this.contadorSeg >= 2) {
+				this.establecerFPS = true;
+			}
 			this.gravedad = 1.3;
 			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
 
