@@ -3,7 +3,8 @@ class Juego {
 		this.gameStart = false;
 		this.gameOver = false;
 		this.idAnimation = null;
-		this.fps = 60;
+		this.fps = 0;
+		this.establecerFPS = false;
 
 		// this.proporcionResolucion = Math.min(canvas.width / 1920, canvas.height / 1333);
 		this.proporcionResolucion = Math.round(Math.min(canvas.width / 1920, canvas.height / 1333) * 100) / 100;
@@ -14,8 +15,11 @@ class Juego {
 			proporcionMovimientoEnemigo: Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
 			proporcionSalto: Math.round(((1000 / this.fps) * 1) / (1000 / 165)),
 		};
-		this._gravedad = 0.9;
-		this.saltoPersonaje = 23.60882;
+
+		this.proporcionesFPS.proporcionMovimiento = (canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560;
+
+		this._gravedad = 1;
+		this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
 		this.ultimoTiempo = 1;
 		this.contadorTiempoFps = 0;
 		this.contadorFps = 0;
@@ -43,9 +47,9 @@ class Juego {
 			ayuda: {
 				libro: Math.ceil(2 * this.proporcionResolucion),
 				botonCerrar: Math.ceil(1 * this.proporcionResolucion),
-				check:  Math.ceil(1 * this.proporcionResolucion),
-				teclas:  Math.ceil(1 * this.proporcionResolucion),
-				cerrar:  Math.ceil(1 * this.proporcionResolucion),
+				check: Math.ceil(1 * this.proporcionResolucion),
+				teclas: Math.ceil(1 * this.proporcionResolucion),
+				cerrar: Math.ceil(1 * this.proporcionResolucion),
 			},
 			texto: Math.ceil(2 * this.proporcionResolucion),
 			personaje: Math.ceil(4 * this.proporcionResolucion),
@@ -792,8 +796,6 @@ class Juego {
 
 		let arrayImg = await Promise.all(imagenes);
 
-	
-
 		return arrayImg;
 	}
 
@@ -839,42 +841,8 @@ class Juego {
 			this.contadorFps = 0;
 			this.contadorTiempoFps = 0;
 
-			
-			if (this.fps > 90) {
-				this.gravedad = 0.5;
-				this.saltoPersonaje = 20;
-
-				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
-				this.proporcionesFPS.proporcionMovimiento = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
-				this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
-				this.proporcionesFPS.proporcionSalto = Math.ceil(((1000 / this.fps) * 1) / (1000 / 165));
-			} else if (this.fps <= 90) {
-				this.gravedad = 2.75;
-				this.saltoPersonaje = 46;
-
-				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
-				this.proporcionesFPS.proporcionMovimiento = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
-				this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
-				this.proporcionesFPS.proporcionSalto = Math.ceil(((1000 / 60) * 1) / (1000 / 165));
-				if (canvas.width < 1920) {
-					this.saltoPersonaje = 45.4375;
-				}
-			}
-
-			if (canvas.width <= 2560) {
-				this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-				this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
-				this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-				this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
-			}
+			this.definirProporciones();
 		}
-		// // cambiar velocidad por la resolucion
-		// if (canvas.width <= 2560) {
-		// 	this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-		// 	this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
-		// 	this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-		// 	this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
-		// }
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		// this.dibujar();
@@ -889,12 +857,138 @@ class Juego {
 			if (!sessionStorage.getItem('ocultarAyuda')) {
 				this.ayuda.actualizarSprite();
 			}
-
 		}
 
 		if (!this.gameOver) {
 			this.idAnimation = requestAnimationFrame((timestamp) => this.animar(timestamp));
 		}
+	}
+
+	definirProporciones() {
+		if (this.fps >= 140 && !this.establecerFPS) {
+			console.log('if 1');
+			this.establecerFPS = true;
+			this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / 165) * 1) / (1000 / 165));
+			this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / 165) * 1) / (1000 / 165));
+			this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / 165) * 1) / (1000 / 165));
+			this.proporcionesFPS.proporcionSalto = Math.round(((1000 / 166) * 1) / (1000 / 165));
+
+			this.gravedad = (60 * 1.2) / this.fps;
+			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
+
+
+			if (canvas.width <= 1920 && canvas > 1366) {
+				console.log('166hz 1920');
+
+
+				this.proporcionesFPS.proporcionLimiteCuadros =1
+				this.proporcionesFPS.proporcionMovimiento =1
+				this.proporcionesFPS.proporcionMovimientoEnemigo = 1
+				this.proporcionesFPS.proporcionSalto = 1
+
+				// this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+				// this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
+				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
+			} else if (canvas.width <= 1366) {
+				console.log('166hz 1366');
+
+
+				this.proporcionesFPS.proporcionLimiteCuadros =1
+				this.proporcionesFPS.proporcionMovimiento = 0.7
+				this.proporcionesFPS.proporcionMovimientoEnemigo =  0.7
+				this.proporcionesFPS.proporcionSalto =  0.7
+
+				
+				// this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((1366 * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+				// this.proporcionesFPS.proporcionMovimiento = Math.ceil((1366 * this.proporcionesFPS.proporcionMovimiento) / 2560);
+				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((1366 * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+				// this.proporcionesFPS.proporcionSalto = Math.ceil((1366 * this.proporcionesFPS.proporcionSalto) / 2560);
+			}
+
+		} else if (this.fps >= 80 && this.fps < 140 && !this.establecerFPS) {
+			this.gravedad = (60 * 2.4) / this.fps;
+			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
+
+			// this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / 165) * 1) / (1000 / 165));
+			// this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / 165) * 1) / (1000 / 165));
+			// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / 165) * 1) / (1000 / 165));
+			// this.proporcionesFPS.proporcionSalto = Math.round(((1000 / 165) * 1) / (1000 / 165));
+
+			if (canvas.width <= 1920 && canvas.width>1366) {
+				console.log('120hz 1920');
+
+				this.proporcionesFPS.proporcionLimiteCuadros =2
+				this.proporcionesFPS.proporcionMovimiento =1.33
+				this.proporcionesFPS.proporcionMovimientoEnemigo = 1.33
+				this.proporcionesFPS.proporcionSalto = 1.33
+
+				// this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+				// this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
+				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
+			} else if (canvas.width <= 1366) {
+				console.log('120 hz 1366');
+
+
+				this.proporcionesFPS.proporcionLimiteCuadros = 2
+				this.proporcionesFPS.proporcionMovimiento = .9
+				this.proporcionesFPS.proporcionMovimientoEnemigo = .9
+				this.proporcionesFPS.proporcionSalto = .9
+
+				// this.proporcionesFPS.proporcionLimiteCuadros =1
+				// this.proporcionesFPS.proporcionMovimiento =1
+				// this.proporcionesFPS.proporcionMovimientoEnemigo = 1
+				// this.proporcionesFPS.proporcionSalto = 1
+
+				// this.proporcionesFPS.proporcionLimiteCuadros = Math.floor((1366 * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+				// this.proporcionesFPS.proporcionMovimiento = Math.floor((1366 * this.proporcionesFPS.proporcionMovimiento) / 2560);
+				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.floor((1366 * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+				// this.proporcionesFPS.proporcionSalto = Math.floor((1366 * this.proporcionesFPS.proporcionSalto) / 2560);
+			}
+
+
+		} else if (this.fps <= 80 && !this.establecerFPS) {
+			console.log('if 3');
+			this.establecerFPS = true;
+			this.gravedad = 1.3;
+			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
+
+			// this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / 60) * 1) / (1000 / 165));
+			// this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / 60) * 1) / (1000 / 165));
+			// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / 60) * 1) / (1000 / 165));
+			// this.proporcionesFPS.proporcionSalto = Math.round(((1000 / 60) * 1) / (1000 / 165));
+
+
+			if (canvas.width <= 1920  && canvas.width > 1366) {
+				console.log('60hz 1920');
+
+
+				this.proporcionesFPS.proporcionLimiteCuadros =4
+				this.proporcionesFPS.proporcionMovimiento =2.66
+				this.proporcionesFPS.proporcionMovimientoEnemigo = 2.66
+				this.proporcionesFPS.proporcionSalto = 2.66
+
+				// this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+				// this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
+				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
+			} else if (canvas.width <= 1366) {
+				console.log('60hz 1366');
+
+
+				this.proporcionesFPS.proporcionLimiteCuadros =4
+				this.proporcionesFPS.proporcionMovimiento = 1.8
+				this.proporcionesFPS.proporcionMovimientoEnemigo = 1.8
+				this.proporcionesFPS.proporcionSalto = 1.8
+				// this.proporcionesFPS.proporcionLimiteCuadros = Math.floor((1366 * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
+				// this.proporcionesFPS.proporcionMovimiento = Math.floor((1366 * this.proporcionesFPS.proporcionMovimiento) / 2560);
+				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.floor((1366 * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
+				// this.proporcionesFPS.proporcionSalto = Math.floor((1366 * this.proporcionesFPS.proporcionSalto) / 2560);
+			}
+		}
+
+		
 	}
 
 	finalizar() {

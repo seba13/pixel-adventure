@@ -132,7 +132,12 @@ class Plataforma extends Sprite {
 		this.enemigos.push(
 			new Samurai({
 				posicion: {
-					x: this.posicion.x + this.offset.x + (this.width*.4*Math.random() - juego.proporciones.enemigos.samurai.alcanceVigilar*2 -(juego.imagenesEnemigos.samurai.width/8) * juego.proporciones.enemigos.samurai.proporcion )+juego.proporciones.enemigos.samurai.alcanceVigilar*3 + (juego.imagenesEnemigos.samurai.width/8) * juego.proporciones.enemigos.samurai.proporcion ,
+					x:
+						this.posicion.x +
+						this.offset.x +
+						(this.width * 0.4 * Math.random() - juego.proporciones.enemigos.samurai.alcanceVigilar * 2 - (juego.imagenesEnemigos.samurai.width / 8) * juego.proporciones.enemigos.samurai.proporcion) +
+						juego.proporciones.enemigos.samurai.alcanceVigilar * 3 +
+						(juego.imagenesEnemigos.samurai.width / 8) * juego.proporciones.enemigos.samurai.proporcion,
 
 					y: this.posicion.y - (juego.imagenesEnemigos.samurai.height / 3) * juego.proporciones.enemigos.samurai.proporcion,
 				},
@@ -324,7 +329,7 @@ class Plataforma extends Sprite {
 			juego.personaje.ataques.forEach((ataque) => {
 				if (ataque.velocidad.x > 0) {
 					if (juego.controles['ArrowRight'].presionada) {
-						ataque.velocidad.x = juego.proporcionesFPS.proporcionMovimiento * 5 - juego.proporcionesFPS.proporcionMovimiento * 2;
+						ataque.velocidad.x = (juego.proporcionesFPS.proporcionMovimiento * 5 - juego.proporcionesFPS.proporcionMovimiento * 2);
 					} else if (juego.controles['ArrowLeft'].presionada) {
 						ataque.velocidad.x = juego.proporcionesFPS.proporcionMovimiento * 5 + juego.proporcionesFPS.proporcionMovimiento * 2;
 					}
@@ -341,29 +346,29 @@ class Plataforma extends Sprite {
 
 			if (juego.controles['ArrowRight'].presionada) {
 				this.enemigos.forEach((enemigo) => {
-					enemigo.posicion.x += -(juego.proporcionesFPS.proporcionMovimiento * 5);
-					enemigo.posicionInicial += -(juego.proporcionesFPS.proporcionMovimiento * 5);
+					enemigo.posicion.x += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+					enemigo.posicionInicial += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 				});
 
-				this.posicion.x += -(juego.proporcionesFPS.proporcionMovimiento * 5);
-				this.tile.arbol.arbol_1.x -= juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.arbol.arbol_2.x -= juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.arbusto.arbusto_1.x -= juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.arbusto.arbusto_2.x -= juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.cascada.x -= juego.proporcionesFPS.proporcionMovimiento * 5;
+				this.posicion.x += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbol.arbol_1.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbol.arbol_2.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbusto.arbusto_1.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbusto.arbusto_2.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.cascada.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 			}
 			if (juego.controles['ArrowLeft'].presionada) {
 				this.enemigos.forEach((enemigo) => {
-					enemigo.posicion.x += juego.proporcionesFPS.proporcionMovimiento * 5;
-					enemigo.posicionInicial += juego.proporcionesFPS.proporcionMovimiento * 5;
+					enemigo.posicion.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+					enemigo.posicionInicial += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 				});
 
-				this.posicion.x += juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.arbol.arbol_1.x += juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.arbol.arbol_2.x += juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.arbusto.arbusto_1.x += juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.arbusto.arbusto_2.x += juego.proporcionesFPS.proporcionMovimiento * 5;
-				this.tile.cascada.x += juego.proporcionesFPS.proporcionMovimiento * 5;
+				this.posicion.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbol.arbol_1.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbol.arbol_2.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbusto.arbusto_1.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.arbusto.arbusto_2.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				this.tile.cascada.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 			}
 		} else {
 			juego.personaje.ataques.forEach((ataque) => {

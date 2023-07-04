@@ -188,7 +188,6 @@ function mostrarPuntuacionesFinJuego() {
 				panelPuntuaciones.classList.remove('ocultar');
 				panelPuntuaciones.classList.remove('animacion-desaparecer');
 				panelPuntuaciones.classList.add('animacion-aparecer');
-
 			}
 		})
 		.catch((err) => {
@@ -223,3 +222,38 @@ botonVolverPuntuaciones.addEventListener('click', (e) => {
 	panelPuntuaciones.classList.remove('animacion-aparecer');
 	panelPuntuaciones.classList.add('animacion-desaparecer');
 });
+
+function obtenerSaltoInicial(alturaMaxima, gravedad = 0.5) {
+	let salto = 0;
+	let sumatoria = -1;
+
+	while (obtenerAlturaMaxima(salto, gravedad) < alturaMaxima) {
+		if (obtenerAlturaMaxima(salto + gravedad, gravedad) <= alturaMaxima) {
+			salto += gravedad;
+		} else {
+			break;
+		}
+	}
+
+	if(alturaMaxima != obtenerAlturaMaxima(salto)) {
+		while (obtenerAlturaMaxima(salto) <= alturaMaxima) {
+			if (obtenerAlturaMaxima(salto + 0.001) <= alturaMaxima) {
+				salto += 0.001;
+			} else {
+				break;
+			}
+		}
+	}
+	return salto;
+}
+
+function obtenerAlturaMaxima(salto, gravedad = 0.5) {
+	let alturaMaxima = 0;
+
+	while (salto > 0) {
+		alturaMaxima += salto;
+		salto = salto - gravedad;
+	}
+
+	return alturaMaxima;
+}
