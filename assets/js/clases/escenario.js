@@ -12,18 +12,44 @@ class Escenario extends Sprite {
 
 			random = random == 1 ? 1 : -1;
 
-			let posicionY = Math.floor(ultimaPlataforma.posicion.y) + (Math.floor(Math.random() * 200) + 1) * random;
+			// let posicionY = Math.floor(ultimaPlataforma.posicion.y) + (Math.floor(Math.random() * 200) + 1) * random;
 
-			if (posicionY <= canvas.height * 0.4 || 410) {
-				posicionY = Math.floor(Math.random() * 300) + 1 + ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50;
-			} else if (posicionY >= canvas.height * 0.8 || canvas.height - posicionY < 410) {
-				posicionY = Math.floor(Math.random() * 300) + 1 + ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50;
+
+			let canvasHeight = canvas.height;
+
+			
+
+			let minY = ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50; 
+			var maxY = canvasHeight * 0.9; // 70% del alto del canvas
+
+			// Generar aleatoriamente la posición Y dentro de los límites
+			let posicionY = Math.round(Math.random() * (maxY - minY) + minY);
+			
+
+			
+			// if (posicionY <= canvas.height * 0.4 ) {
+				
+			// 	posicionY = Math.floor(Math.random() * canvas.height*.5) + 1 + ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50;
+			// } else if (posicionY >= canvas.height * 0.8 || canvas.height - posicionY < canvas.height * 0.4) {
+				
+			// 	posicionY = Math.floor(Math.random() * (canvas.height - posicionY)) + 1 - (ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1) - 50;
+			// }
+
+
+			let distanciaPlataforma = Math.round(Math.random()* (canvas.width*.15 -250) + 250)
+
+			if(distanciaPlataforma > 300) {
+				distanciaPlataforma = 300
 			}
+
+
+			console.log({plataformaPosX: ultimaPlataforma.posicion.x });
+			console.log({plataformaWidth :ultimaPlataforma.width});
 
 			this.plataformas.push(
 				new Plataforma({
 					posicion: {
-						x: ultimaPlataforma.posicion.x + ultimaPlataforma.width + 300,
+						x: ultimaPlataforma.posicion.x + ultimaPlataforma.width + distanciaPlataforma,
 						// y: Math.floor((canvas.height - 535) / 32) * 32
 						y: posicionY,
 					},

@@ -177,13 +177,11 @@ span{
     margin-bottom: .1em;
 }
 
-.boton-volver {
-
-    position: absolute;
-    top: 10%;
-    left: .2em;
-    transform: translateY(-10%);
+.boton-volver-puntuaciones {
+    transform: translateY(-100%);
 }
+
+
 
 
 
