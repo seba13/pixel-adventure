@@ -205,11 +205,11 @@ class Fondo extends Sprite {
 					( (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && juego.personaje.posicion.x > canvas.width * 0.6) ||
 					( (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && juego.personaje.posicion.x < 200)
 				) {
-					if ((juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada)) {
+					if ((juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada)  && !(juego.controles['ArrowLeft'].presionada) && !juego.controles['a'].presionada) {
 						imagen.velocidad.x = -this.PLANOS[imagen.plano];
 					}
 					else
-					if (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) {
+					if ((juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && !(juego.controles['ArrowRight'].presionada) && !juego.controles['d'].presionada){
 						imagen.velocidad.x = this.PLANOS[imagen.plano];
 					}else {
 						imagen.velocidad.x = 0;
