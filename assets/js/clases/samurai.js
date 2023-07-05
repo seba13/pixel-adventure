@@ -70,13 +70,13 @@ class Samurai extends Enemigo {
 				x: 0,
 				y: 0,
 				frames: 8,
-				contadorLimiteCuadros : 12
+				contadorLimiteCuadros : 16
 			},
 			inactivo: {
 				x: 0,
 				y: 48,
 				frames: 5,
-				contadorLimiteCuadros: 12
+				contadorLimiteCuadros: 16
 			},
 			daño: {
 				x: 64 * 5,
@@ -88,13 +88,13 @@ class Samurai extends Enemigo {
 				x: 0,
 				y: 48*2,
 				frames: 8,
-				contadorLimiteCuadros: 12
+				contadorLimiteCuadros: 16
 			},
 			muerte: {
 				x: 0,
 				y: 64 * 8,
 				frames: 11,
-				contadorLimiteCuadros: 12
+				contadorLimiteCuadros: 16
 			},
 		};
 
