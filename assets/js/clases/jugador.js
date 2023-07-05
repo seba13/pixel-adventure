@@ -444,6 +444,14 @@ class Jugador extends Sprite {
 	cambiarEstado() {
 		if (this.vida < 1) {
 			if (this.estado != 'muerto') {
+
+				Object.keys(juego.controles).forEach( tecla => {
+
+					juego.controles[tecla].presionada = false
+
+				})
+
+
 				this.estado = 'muerto';
 				this.cuadroActual = 0;
 			}
