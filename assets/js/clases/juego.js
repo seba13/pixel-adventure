@@ -581,39 +581,39 @@ class Juego {
 	}
 
 	async cargarTileset() {
-		this.tilesetEscenario.tileset.src = '/assets/img/fondo/tilesets/tileset.png';
-		this.tilesetEscenario.tilesetArbol_1.src = '/assets/img/fondo/tilesets/tileset-arbol-1.png';
-		this.tilesetEscenario.tilesetArbol_2.src = '/assets/img/fondo/tilesets/tileset-arbol-2.png';
-		this.tilesetEscenario.tilesetArbusto_1.src = '/assets/img/fondo/tilesets/tileset-arbusto-1.png';
-		this.tilesetEscenario.tilesetArbusto_2.src = '/assets/img/fondo/tilesets/tileset-arbusto-2.png';
+		this.tilesetEscenario.tileset.src = './assets/img/fondo/tilesets/tileset.png';
+		this.tilesetEscenario.tilesetArbol_1.src = './assets/img/fondo/tilesets/tileset-arbol-1.png';
+		this.tilesetEscenario.tilesetArbol_2.src = './assets/img/fondo/tilesets/tileset-arbol-2.png';
+		this.tilesetEscenario.tilesetArbusto_1.src = './assets/img/fondo/tilesets/tileset-arbusto-1.png';
+		this.tilesetEscenario.tilesetArbusto_2.src = './assets/img/fondo/tilesets/tileset-arbusto-2.png';
 
-		this.tilesetEscenario.tilesetSuelo.suelo_0_0.src = '/assets/img/fondo/tilesets/tileset-suelo-0-0.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_0_1.src = '/assets/img/fondo/tilesets/tileset-suelo-0-1.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_0_2.src = '/assets/img/fondo/tilesets/tileset-suelo-0-2.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_0_3.src = '/assets/img/fondo/tilesets/tileset-suelo-0-3.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_0_4.src = '/assets/img/fondo/tilesets/tileset-suelo-0-4.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_1_0.src = '/assets/img/fondo/tilesets/tileset-suelo-1-0.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_1_1.src = '/assets/img/fondo/tilesets/tileset-suelo-1-1.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_1_2.src = '/assets/img/fondo/tilesets/tileset-suelo-1-2.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_1_3.src = '/assets/img/fondo/tilesets/tileset-suelo-1-3.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_1_4.src = '/assets/img/fondo/tilesets/tileset-suelo-1-4.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_2_0.src = '/assets/img/fondo/tilesets/tileset-suelo-2-0.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_2_1.src = '/assets/img/fondo/tilesets/tileset-suelo-2-1.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_2_2.src = '/assets/img/fondo/tilesets/tileset-suelo-2-2.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_2_3.src = '/assets/img/fondo/tilesets/tileset-suelo-2-3.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_2_4.src = '/assets/img/fondo/tilesets/tileset-suelo-2-4.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_3_0.src = '/assets/img/fondo/tilesets/tileset-suelo-3-0.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_3_1.src = '/assets/img/fondo/tilesets/tileset-suelo-3-1.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_3_2.src = '/assets/img/fondo/tilesets/tileset-suelo-3-2.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_3_3.src = '/assets/img/fondo/tilesets/tileset-suelo-3-3.png';
-		this.tilesetEscenario.tilesetSuelo.suelo_3_4.src = '/assets/img/fondo/tilesets/tileset-suelo-3-4.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_0_0.src = './assets/img/fondo/tilesets/tileset-suelo-0-0.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_0_1.src = './assets/img/fondo/tilesets/tileset-suelo-0-1.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_0_2.src = './assets/img/fondo/tilesets/tileset-suelo-0-2.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_0_3.src = './assets/img/fondo/tilesets/tileset-suelo-0-3.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_0_4.src = './assets/img/fondo/tilesets/tileset-suelo-0-4.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_1_0.src = './assets/img/fondo/tilesets/tileset-suelo-1-0.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_1_1.src = './assets/img/fondo/tilesets/tileset-suelo-1-1.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_1_2.src = './assets/img/fondo/tilesets/tileset-suelo-1-2.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_1_3.src = './assets/img/fondo/tilesets/tileset-suelo-1-3.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_1_4.src = './assets/img/fondo/tilesets/tileset-suelo-1-4.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_2_0.src = './assets/img/fondo/tilesets/tileset-suelo-2-0.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_2_1.src = './assets/img/fondo/tilesets/tileset-suelo-2-1.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_2_2.src = './assets/img/fondo/tilesets/tileset-suelo-2-2.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_2_3.src = './assets/img/fondo/tilesets/tileset-suelo-2-3.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_2_4.src = './assets/img/fondo/tilesets/tileset-suelo-2-4.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_3_0.src = './assets/img/fondo/tilesets/tileset-suelo-3-0.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_3_1.src = './assets/img/fondo/tilesets/tileset-suelo-3-1.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_3_2.src = './assets/img/fondo/tilesets/tileset-suelo-3-2.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_3_3.src = './assets/img/fondo/tilesets/tileset-suelo-3-3.png';
+		this.tilesetEscenario.tilesetSuelo.suelo_3_4.src = './assets/img/fondo/tilesets/tileset-suelo-3-4.png';
 
 		//cascada
-		this.tilesetEscenario.tilesetCascada.cascada_1.src = '/assets/img/fondo/cascada/cascada-1-test.png';
-		this.tilesetEscenario.tilesetCascada.cascada_2.src = '/assets/img/fondo/cascada/cascada-2-test.png';
-		this.tilesetEscenario.tilesetCascada.cascada_3.src = '/assets/img/fondo/cascada/cascada-3-test.png';
-		this.tilesetEscenario.tilesetCascada.cascada_4.src = '/assets/img/fondo/cascada/cascada-4-test.png';
-		this.tilesetEscenario.tilesetCascada.cascada_5.src = '/assets/img/fondo/cascada/cascada-5-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_1.src = './assets/img/fondo/cascada/cascada-1-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_2.src = './assets/img/fondo/cascada/cascada-2-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_3.src = './assets/img/fondo/cascada/cascada-3-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_4.src = './assets/img/fondo/cascada/cascada-4-test.png';
+		this.tilesetEscenario.tilesetCascada.cascada_5.src = './assets/img/fondo/cascada/cascada-5-test.png';
 
 		let imagenes = Object.values(this.tilesetEscenario).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -638,49 +638,49 @@ class Juego {
 	}
 
 	async cargarImagenesAyuda() {
-		this.imagenesAyuda.abrirLibro.frame_1.src = '/assets/img/ayuda/libro/abrir-libro/1.png';
-		this.imagenesAyuda.abrirLibro.frame_2.src = '/assets/img/ayuda/libro/abrir-libro/2.png';
-		this.imagenesAyuda.abrirLibro.frame_3.src = '/assets/img/ayuda/libro/abrir-libro/3.png';
-		this.imagenesAyuda.abrirLibro.frame_4.src = '/assets/img/ayuda/libro/abrir-libro/4.png';
-		this.imagenesAyuda.abrirLibro.frame_5.src = '/assets/img/ayuda/libro/abrir-libro/5.png';
-		this.imagenesAyuda.abrirLibro.frame_6.src = '/assets/img/ayuda/libro/abrir-libro/6.png';
-		this.imagenesAyuda.abrirLibro.frame_7.src = '/assets/img/ayuda/libro/abrir-libro/7.png';
-		this.imagenesAyuda.abrirLibro.frame_8.src = '/assets/img/ayuda/libro/abrir-libro/8.png';
+		this.imagenesAyuda.abrirLibro.frame_1.src = './assets/img/ayuda/libro/abrir-libro/1.png';
+		this.imagenesAyuda.abrirLibro.frame_2.src = './assets/img/ayuda/libro/abrir-libro/2.png';
+		this.imagenesAyuda.abrirLibro.frame_3.src = './assets/img/ayuda/libro/abrir-libro/3.png';
+		this.imagenesAyuda.abrirLibro.frame_4.src = './assets/img/ayuda/libro/abrir-libro/4.png';
+		this.imagenesAyuda.abrirLibro.frame_5.src = './assets/img/ayuda/libro/abrir-libro/5.png';
+		this.imagenesAyuda.abrirLibro.frame_6.src = './assets/img/ayuda/libro/abrir-libro/6.png';
+		this.imagenesAyuda.abrirLibro.frame_7.src = './assets/img/ayuda/libro/abrir-libro/7.png';
+		this.imagenesAyuda.abrirLibro.frame_8.src = './assets/img/ayuda/libro/abrir-libro/8.png';
 
-		this.imagenesAyuda.cerrarLibro.frame_1.src = '/assets/img/ayuda/libro/cerrar-libro/1.png';
-		this.imagenesAyuda.cerrarLibro.frame_2.src = '/assets/img/ayuda/libro/cerrar-libro/2.png';
-		this.imagenesAyuda.cerrarLibro.frame_3.src = '/assets/img/ayuda/libro/cerrar-libro/3.png';
-		this.imagenesAyuda.cerrarLibro.frame_4.src = '/assets/img/ayuda/libro/cerrar-libro/4.png';
-		this.imagenesAyuda.cerrarLibro.frame_5.src = '/assets/img/ayuda/libro/cerrar-libro/5.png';
-		this.imagenesAyuda.cerrarLibro.frame_6.src = '/assets/img/ayuda/libro/cerrar-libro/6.png';
-		this.imagenesAyuda.cerrarLibro.frame_7.src = '/assets/img/ayuda/libro/cerrar-libro/7.png';
-		this.imagenesAyuda.cerrarLibro.frame_8.src = '/assets/img/ayuda/libro/cerrar-libro/8.png';
+		this.imagenesAyuda.cerrarLibro.frame_1.src = './assets/img/ayuda/libro/cerrar-libro/1.png';
+		this.imagenesAyuda.cerrarLibro.frame_2.src = './assets/img/ayuda/libro/cerrar-libro/2.png';
+		this.imagenesAyuda.cerrarLibro.frame_3.src = './assets/img/ayuda/libro/cerrar-libro/3.png';
+		this.imagenesAyuda.cerrarLibro.frame_4.src = './assets/img/ayuda/libro/cerrar-libro/4.png';
+		this.imagenesAyuda.cerrarLibro.frame_5.src = './assets/img/ayuda/libro/cerrar-libro/5.png';
+		this.imagenesAyuda.cerrarLibro.frame_6.src = './assets/img/ayuda/libro/cerrar-libro/6.png';
+		this.imagenesAyuda.cerrarLibro.frame_7.src = './assets/img/ayuda/libro/cerrar-libro/7.png';
+		this.imagenesAyuda.cerrarLibro.frame_8.src = './assets/img/ayuda/libro/cerrar-libro/8.png';
 
-		this.imagenesAyuda.botonArriba.frame_1.src = '/assets/img/ayuda/iconos/boton-arriba-1.png';
-		this.imagenesAyuda.botonArriba.frame_2.src = '/assets/img/ayuda/iconos/boton-arriba-2.png';
+		this.imagenesAyuda.botonArriba.frame_1.src = './assets/img/ayuda/iconos/boton-arriba-1.png';
+		this.imagenesAyuda.botonArriba.frame_2.src = './assets/img/ayuda/iconos/boton-arriba-2.png';
 
-		this.imagenesAyuda.botonDerecha.frame_1.src = '/assets/img/ayuda/iconos/boton-derecha-1.png';
-		this.imagenesAyuda.botonDerecha.frame_2.src = '/assets/img/ayuda/iconos/boton-derecha-2.png';
+		this.imagenesAyuda.botonDerecha.frame_1.src = './assets/img/ayuda/iconos/boton-derecha-1.png';
+		this.imagenesAyuda.botonDerecha.frame_2.src = './assets/img/ayuda/iconos/boton-derecha-2.png';
 
-		this.imagenesAyuda.botonIzquierda.frame_1.src = '/assets/img/ayuda/iconos/boton-izquierda-1.png';
-		this.imagenesAyuda.botonIzquierda.frame_2.src = '/assets/img/ayuda/iconos/boton-izquierda-2.png';
+		this.imagenesAyuda.botonIzquierda.frame_1.src = './assets/img/ayuda/iconos/boton-izquierda-1.png';
+		this.imagenesAyuda.botonIzquierda.frame_2.src = './assets/img/ayuda/iconos/boton-izquierda-2.png';
 
-		this.imagenesAyuda.botonW.frame_1.src = '/assets/img/ayuda/iconos/boton-w-1.png';
-		this.imagenesAyuda.botonW.frame_2.src = '/assets/img/ayuda/iconos/boton-w-2.png';
+		this.imagenesAyuda.botonW.frame_1.src = './assets/img/ayuda/iconos/boton-w-1.png';
+		this.imagenesAyuda.botonW.frame_2.src = './assets/img/ayuda/iconos/boton-w-2.png';
 
-		this.imagenesAyuda.botonA.frame_1.src = '/assets/img/ayuda/iconos/boton-a-1.png';
-		this.imagenesAyuda.botonA.frame_2.src = '/assets/img/ayuda/iconos/boton-a-2.png';
+		this.imagenesAyuda.botonA.frame_1.src = './assets/img/ayuda/iconos/boton-a-1.png';
+		this.imagenesAyuda.botonA.frame_2.src = './assets/img/ayuda/iconos/boton-a-2.png';
 
-		this.imagenesAyuda.botonD.frame_1.src = '/assets/img/ayuda/iconos/boton-d-1.png';
-		this.imagenesAyuda.botonD.frame_2.src = '/assets/img/ayuda/iconos/boton-d-2.png';
+		this.imagenesAyuda.botonD.frame_1.src = './assets/img/ayuda/iconos/boton-d-1.png';
+		this.imagenesAyuda.botonD.frame_2.src = './assets/img/ayuda/iconos/boton-d-2.png';
 
-		this.imagenesAyuda.botonEspacio.frame_1.src = '/assets/img/ayuda/iconos/boton-espacio-1.png';
-		this.imagenesAyuda.botonEspacio.frame_2.src = '/assets/img/ayuda/iconos/boton-espacio-2.png';
+		this.imagenesAyuda.botonEspacio.frame_1.src = './assets/img/ayuda/iconos/boton-espacio-1.png';
+		this.imagenesAyuda.botonEspacio.frame_2.src = './assets/img/ayuda/iconos/boton-espacio-2.png';
 
-		this.imagenesAyuda.botonCerrar.src = '/assets/img/ayuda/iconos/boton-cerrar.png';
+		this.imagenesAyuda.botonCerrar.src = './assets/img/ayuda/iconos/boton-cerrar.png';
 
-		this.imagenesAyuda.botonCheck.src = '/assets/img/ayuda/iconos/boton-check.png';
-		this.imagenesAyuda.botonUncheck.src = '/assets/img/ayuda/iconos/boton-uncheck.png';
+		this.imagenesAyuda.botonCheck.src = './assets/img/ayuda/iconos/boton-check.png';
+		this.imagenesAyuda.botonUncheck.src = './assets/img/ayuda/iconos/boton-uncheck.png';
 
 		let imagenes = Object.values(this.imagenesAyuda).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -708,39 +708,39 @@ class Juego {
 
 	async cargarImagenesFondo() {
 		// fondo
-		this.imagenesFondo.fondo.src = '/assets/img/fondo/montañas/Background.png';
+		this.imagenesFondo.fondo.src = './assets/img/fondo/montañas/Background.png';
 
 		// montaña 1
 		this.imagenesFondo.montaña_1.frame_1.src = 'assets/img/fondo/montañas/Layer 1 anim1.png';
-		this.imagenesFondo.montaña_1.frame_2.src = '/assets/img/fondo/montañas/Layer 1 anim2.png';
+		this.imagenesFondo.montaña_1.frame_2.src = './assets/img/fondo/montañas/Layer 1 anim2.png';
 
 		// montaña 2
-		this.imagenesFondo.montaña_2.frame_1.src = '/assets/img/fondo/montañas/Layer 2 anim1.png';
-		this.imagenesFondo.montaña_2.frame_2.src = '/assets/img/fondo/montañas/Layer 2 anim2.png';
+		this.imagenesFondo.montaña_2.frame_1.src = './assets/img/fondo/montañas/Layer 2 anim1.png';
+		this.imagenesFondo.montaña_2.frame_2.src = './assets/img/fondo/montañas/Layer 2 anim2.png';
 
 		// montaña 3
-		this.imagenesFondo.montaña_3.frame_1.src = '/assets/img/fondo/montañas/Layer 3 anim1.png';
-		this.imagenesFondo.montaña_3.frame_2.src = '/assets/img/fondo/montañas/Layer 3 anim2.png';
+		this.imagenesFondo.montaña_3.frame_1.src = './assets/img/fondo/montañas/Layer 3 anim1.png';
+		this.imagenesFondo.montaña_3.frame_2.src = './assets/img/fondo/montañas/Layer 3 anim2.png';
 
 		// montaña 4
-		this.imagenesFondo.montaña_4.frame_1.src = '/assets/img/fondo/montañas/Layer 4 anim1.png';
-		this.imagenesFondo.montaña_4.frame_2.src = '/assets/img/fondo/montañas/Layer 4 anim2.png';
+		this.imagenesFondo.montaña_4.frame_1.src = './assets/img/fondo/montañas/Layer 4 anim1.png';
+		this.imagenesFondo.montaña_4.frame_2.src = './assets/img/fondo/montañas/Layer 4 anim2.png';
 
 		// montaña 5
-		this.imagenesFondo.montaña_5.frame_1.src = '/assets/img/fondo/montañas/Layer 6 anim1.png';
-		this.imagenesFondo.montaña_5.frame_2.src = '/assets/img/fondo/montañas/Layer 6 anim2.png';
+		this.imagenesFondo.montaña_5.frame_1.src = './assets/img/fondo/montañas/Layer 6 anim1.png';
+		this.imagenesFondo.montaña_5.frame_2.src = './assets/img/fondo/montañas/Layer 6 anim2.png';
 
 		// nube 1
-		this.imagenesFondo.nube_1.frame_1.src = '/assets/img/fondo/montañas/Layer 1 clound anim1.png';
-		this.imagenesFondo.nube_1.frame_2.src = '/assets/img/fondo/montañas/Layer 1 clound anim2.png';
+		this.imagenesFondo.nube_1.frame_1.src = './assets/img/fondo/montañas/Layer 1 clound anim1.png';
+		this.imagenesFondo.nube_1.frame_2.src = './assets/img/fondo/montañas/Layer 1 clound anim2.png';
 
 		// nube 2
-		this.imagenesFondo.nube_2.frame_1.src = '/assets/img/fondo/montañas/Layer 3 clound anim1.png';
-		this.imagenesFondo.nube_2.frame_2.src = '/assets/img/fondo/montañas/Layer 3 clound anim2.png';
+		this.imagenesFondo.nube_2.frame_1.src = './assets/img/fondo/montañas/Layer 3 clound anim1.png';
+		this.imagenesFondo.nube_2.frame_2.src = './assets/img/fondo/montañas/Layer 3 clound anim2.png';
 
 		// nube 3
-		this.imagenesFondo.nube_3.frame_1.src = '/assets/img/fondo/montañas/Layer 5 anim1.png';
-		this.imagenesFondo.nube_3.frame_2.src = '/assets/img/fondo/montañas/Layer 5 anim2.png';
+		this.imagenesFondo.nube_3.frame_1.src = './assets/img/fondo/montañas/Layer 5 anim1.png';
+		this.imagenesFondo.nube_3.frame_2.src = './assets/img/fondo/montañas/Layer 5 anim2.png';
 
 		let imagenes = Object.values(this.imagenesFondo).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -779,13 +779,13 @@ class Juego {
 	}
 
 	async cargarImagenJugador() {
-		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje-2.png';
-		this.tilesetJugador.tilesetVida.src = '/assets/img/personaje/estadisticas/vida.png';
-		this.tilesetJugador.tilesetEnergia.src = '/assets/img/personaje/estadisticas/energia.png';
-		this.tilesetJugador.tilesetPuntuacion.src = '/assets/img/personaje/estadisticas/puntuacion.png';
-		// this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego.png'
-		this.tilesetJugador.bolaFuego.src = '/assets/img/personaje/ataque/bola-fuego-2.png';
-		this.tilesetJugador.impactoAtaque.src = '/assets/img/personaje/ataque/impacto-ataque-3.png';
+		this.tilesetJugador.tileset.src = './assets/img/personaje/personaje-2.png';
+		this.tilesetJugador.tilesetVida.src = './assets/img/personaje/estadisticas/vida.png';
+		this.tilesetJugador.tilesetEnergia.src = './assets/img/personaje/estadisticas/energia.png';
+		this.tilesetJugador.tilesetPuntuacion.src = './assets/img/personaje/estadisticas/puntuacion.png';
+		// this.tilesetJugador.bolaFuego.src = './assets/img/personaje/ataque/bola-fuego.png'
+		this.tilesetJugador.bolaFuego.src = './assets/img/personaje/ataque/bola-fuego-2.png';
+		this.tilesetJugador.impactoAtaque.src = './assets/img/personaje/ataque/impacto-ataque-3.png';
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -808,8 +808,8 @@ class Juego {
 	}
 
 	async cargarImagenesEnemigos() {
-		this.imagenesEnemigos.samurai.src = '/assets/img/enemigos/enemigo-1/samurai.png';
-		this.imagenesEnemigos.muerte.src = '/assets/img/enemigos/muerte/humo-1.png';
+		this.imagenesEnemigos.samurai.src = './assets/img/enemigos/enemigo-1/samurai.png';
+		this.imagenesEnemigos.muerte.src = './assets/img/enemigos/muerte/humo-1.png';
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {
@@ -837,9 +837,9 @@ class Juego {
 			audioViento: new Audio('./assets/audio/audio-viento.mp3'),
 			audioFondo_2: new Audio('./assets/audio/audio-fondo-2.ogg'),
 			efectos: {
-				golpear: new Audio('./assets/audio/FX/golpe-jugador_01.wav'),
-				correr: new Audio('./assets/audio/FX/correr01.wav'),
-				recibirDaño: new Audio('./assets/audio/FX/daño02.wav'),
+				ataque: new Audio('./assets/audio/FX/ataque_fuego.wav'),
+				correr: new Audio('./assets/audio/FX/correr.wav'),
+				recibirDaño: new Audio('./assets/audio/FX/recibir_daño.wav'),
 				muerte: new Audio('./assets/audio/FX/daño01.wav'),
 			},
 		};

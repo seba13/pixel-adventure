@@ -147,21 +147,33 @@ class Jugador extends Sprite {
 		this.mapa.ataque.contadorLimiteCuadros = 10 / this.mapa.ataque.frames;
 	}
 	reproducirSonidoAtaque() {
-		this.audios.golpear.pause();
-		this.audios.golpear.volume = 1;
-		this.audios.golpear.play();
+		console.log('Sonido ataque');
+		this.audios.ataque.pause();
+		this.audios.ataque.volume = 1;
+		this.audios.ataque.play();
+		setTimeout(() => {
+			this.audios.ataque.pause();
+			this.audios.ataque.currentTime = 0;
+		}, 250);
 	}
-	reproducirSonidoCaminar() {
-		this.audios.correr.pause();
-		this.audios.correr.volume = 1;
-		this.audios.correr.play();
+	reproducirSonidoCaminar(estado) {
+		if (estado) {
+			this.audios.correr.pause();
+			this.audios.correr.volume = 1;
+			this.audios.correr.play();
+		} else {
+			this.audios.correr.currentTime = 0;
+			this.audios.correr.pause();
+		}
 	}
 	reproducirSonidoDaño() {
+		this.audios.recibirDaño.currentTime = 0;
 		this.audios.recibirDaño.pause();
 		this.audios.recibirDaño.volume = 1;
 		this.audios.recibirDaño.play();
 	}
 	reproducirSonidoMuerte() {
+		this.audios.muerte.currentTime = 0;
 		this.audios.muerte.pause();
 		this.audios.muerte.volume = 1;
 		this.audios.muerte.play();
@@ -402,13 +414,13 @@ class Jugador extends Sprite {
 		if (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) {
 			this.ultimaDireccion = 'derecha';
 			this.velocidad.x = juego.proporcionesFPS.proporcionMovimiento * 5;
-			this.reproducirSonidoCaminar();
+			this.reproducirSonidoCaminar(true);
 		}
 		// personaje moviendo a la izquierda
 		else if (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) {
 			this.ultimaDireccion = 'izquierda';
 			this.velocidad.x = -(juego.proporcionesFPS.proporcionMovimiento * 5);
-			this.reproducirSonidoCaminar();
+			this.reproducirSonidoCaminar(true);
 		}
 		// movimiento en el eje Y se ve desde la clase juego
 		// debido a que es donde se activa el evento keydown
@@ -416,6 +428,7 @@ class Jugador extends Sprite {
 		// personaje estático
 		else {
 			this.velocidad.x = 0;
+			this.reproducirSonidoCaminar(false);
 		}
 	}
 
@@ -465,7 +478,7 @@ class Jugador extends Sprite {
 
 				this.estado = 'muerto';
 				this.cuadroActual = 0;
-				this.reproducirSonidoMuerte();
+				// this.reproducirSonidoMuerte();
 			}
 			return;
 		}
