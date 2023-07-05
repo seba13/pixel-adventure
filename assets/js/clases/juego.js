@@ -30,13 +30,22 @@ class Juego {
 			ArrowUp: {
 				presionada: false,
 			},
+			w: {
+				presionada: false,
+			},
 			ArrowDown: {
 				presionada: false,
 			},
 			ArrowLeft: {
 				presionada: false,
 			},
+			a: {
+				presionada: false,
+			},
 			ArrowRight: {
+				presionada: false,
+			},
+			d: {
 				presionada: false,
 			},
 			' ': {
@@ -48,8 +57,8 @@ class Juego {
 			ayuda: {
 				libro: Math.ceil(2 * this.proporcionResolucion),
 				botonCerrar: Math.ceil(1 * this.proporcionResolucion),
-				check: Math.ceil(1 * this.proporcionResolucion),
-				teclas: Math.ceil(1 * this.proporcionResolucion),
+				check: Math.ceil(2 * this.proporcionResolucion),
+				teclas: Math.ceil(2 * this.proporcionResolucion),
 				cerrar: Math.ceil(1 * this.proporcionResolucion),
 			},
 			texto: Math.ceil(2 * this.proporcionResolucion),
@@ -118,6 +127,18 @@ class Juego {
 				frame_2: new Image(),
 			},
 			botonIzquierda: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+			},
+			botonW: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+			},
+			botonA: {
+				frame_1: new Image(),
+				frame_2: new Image(),
+			},
+			botonD: {
 				frame_1: new Image(),
 				frame_2: new Image(),
 			},
@@ -519,7 +540,7 @@ class Juego {
 		// si el juego ha comenzado el jugador se puede mover
 		if (this.gameStart && this.personaje.vida > 0) {
 			if (this.controles[e.key]) {
-				if (e.key === 'ArrowUp') {
+				if (e.key === 'ArrowUp' || e.key == 'w') {
 					if (this.personaje.velocidad.y >= juego.gravedad) {
 						if (!this.controles[e.key].presionada) {
 							if (this.personaje.dobleSalto && this.personaje.saltando) {
@@ -642,6 +663,15 @@ class Juego {
 
 		this.imagenesAyuda.botonIzquierda.frame_1.src = '/assets/img/ayuda/iconos/boton-izquierda-1.png';
 		this.imagenesAyuda.botonIzquierda.frame_2.src = '/assets/img/ayuda/iconos/boton-izquierda-2.png';
+
+		this.imagenesAyuda.botonW.frame_1.src = '/assets/img/ayuda/iconos/boton-w-1.png';
+		this.imagenesAyuda.botonW.frame_2.src = '/assets/img/ayuda/iconos/boton-w-2.png';
+
+		this.imagenesAyuda.botonA.frame_1.src = '/assets/img/ayuda/iconos/boton-a-1.png';
+		this.imagenesAyuda.botonA.frame_2.src = '/assets/img/ayuda/iconos/boton-a-2.png';
+
+		this.imagenesAyuda.botonD.frame_1.src = '/assets/img/ayuda/iconos/boton-d-1.png';
+		this.imagenesAyuda.botonD.frame_2.src = '/assets/img/ayuda/iconos/boton-d-2.png';
 
 		this.imagenesAyuda.botonEspacio.frame_1.src = '/assets/img/ayuda/iconos/boton-espacio-1.png';
 		this.imagenesAyuda.botonEspacio.frame_2.src = '/assets/img/ayuda/iconos/boton-espacio-2.png';
@@ -837,10 +867,7 @@ class Juego {
 		this.contadorTiempoFps += this.deltaTiempo;
 		this.ultimoTiempo = timestamp;
 
-
-
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 
 		if (this.contadorTiempoFps >= 1000) {
 			this.fps = this.contadorFps;
@@ -853,10 +880,9 @@ class Juego {
 
 			// fps.textContent = this.fps
 
-			ctx.fillText(this.fps + 'fps', 0,0)
+			ctx.fillText(this.fps + 'fps', 0, 0);
 		}
 
-		
 		// this.dibujar();
 
 		this.fondo.actualizarSprite(this.deltaTiempo);
@@ -878,7 +904,6 @@ class Juego {
 
 	definirProporciones() {
 		if (this.fps >= 140 && !this.establecerFPS) {
-			console.log('if 1');
 			if (this.contadorSeg >= 2) {
 				this.establecerFPS = true;
 			}
@@ -889,15 +914,9 @@ class Juego {
 
 			this.gravedad = (60 * 1.2) / this.fps;
 
-			
-
-
-
 			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
 
 			if (canvas.width <= 1920 && canvas > 1366) {
-				console.log('166hz 1920');
-
 				this.proporcionesFPS.proporcionLimiteCuadros = 1;
 				this.proporcionesFPS.proporcionMovimiento = 1;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 1;
@@ -908,8 +927,6 @@ class Juego {
 				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
 				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
 			} else if (canvas.width <= 1366) {
-				console.log('166hz 1366');
-
 				this.proporcionesFPS.proporcionLimiteCuadros = 1;
 				this.proporcionesFPS.proporcionMovimiento = 0.7;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 0.7;
@@ -932,15 +949,12 @@ class Juego {
 			// }
 
 			if (canvas.height < 600) {
-				console.log('entra acacaac');
-				this.gravedad = .5
+				this.gravedad = 0.5;
 			} else {
-				if(canvas.height < 973){
-					console.log("segundo if");
-					this.gravedad = .5
-				}else{
-					console.log("tercer if");
-					this.gravedad = .7
+				if (canvas.height < 973) {
+					this.gravedad = 0.5;
+				} else {
+					this.gravedad = 0.7;
 				}
 			}
 
@@ -952,8 +966,6 @@ class Juego {
 			// this.proporcionesFPS.proporcionSalto = Math.round(((1000 / 165) * 1) / (1000 / 165));
 
 			if (canvas.width <= 1920 && canvas.width > 1366) {
-				console.log('120hz 1920');
-
 				this.proporcionesFPS.proporcionLimiteCuadros = 2;
 				this.proporcionesFPS.proporcionMovimiento = 1.33;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 1.33;
@@ -964,13 +976,10 @@ class Juego {
 				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
 				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
 			} else if (canvas.width <= 1366) {
-				console.log('120 hz 1366');
-
 				this.proporcionesFPS.proporcionLimiteCuadros = 2;
 				this.proporcionesFPS.proporcionMovimiento = 0.9;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 0.9;
 				this.proporcionesFPS.proporcionSalto = 0.9;
-				
 
 				// this.proporcionesFPS.proporcionLimiteCuadros =1
 				// this.proporcionesFPS.proporcionMovimiento =1
@@ -983,19 +992,17 @@ class Juego {
 				// this.proporcionesFPS.proporcionSalto = Math.floor((1366 * this.proporcionesFPS.proporcionSalto) / 2560);
 			}
 		} else if (this.fps <= 80 && !this.establecerFPS) {
-			console.log('if 3');
 			if (this.contadorSeg >= 2) {
 				this.establecerFPS = true;
 			}
 
 			if (canvas.height < 600) {
-				console.log('entra acacaac');
-				this.gravedad = 1.6
+				this.gravedad = 1.6;
 			} else {
-				if(canvas.height < 973){
-					this.gravedad = 1.8
-				}else{
-					this.gravedad = 2.3
+				if (canvas.height < 973) {
+					this.gravedad = 1.8;
+				} else {
+					this.gravedad = 2.3;
 				}
 			}
 			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
@@ -1006,8 +1013,6 @@ class Juego {
 			// this.proporcionesFPS.proporcionSalto = Math.round(((1000 / 60) * 1) / (1000 / 165));
 
 			if (canvas.width <= 1920 && canvas.width > 1366) {
-				console.log('60hz 1920');
-
 				this.proporcionesFPS.proporcionLimiteCuadros = 4;
 				this.proporcionesFPS.proporcionMovimiento = 2.66;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 2.66;
@@ -1018,8 +1023,6 @@ class Juego {
 				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
 				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
 			} else if (canvas.width <= 1366) {
-				console.log('60hz 1366');
-
 				this.proporcionesFPS.proporcionLimiteCuadros = 4;
 				this.proporcionesFPS.proporcionMovimiento = 1.8;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 1.8;

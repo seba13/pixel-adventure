@@ -386,12 +386,12 @@ class Jugador extends Sprite {
 	// cambia la velocidad para mover el personaje e indica la direccion (derecha o izquierda)
 	cambiarVelocidad() {
 		// personaje moviendose a la derecha
-		if (juego.controles['ArrowRight'].presionada) {
+		if (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) {
 			this.ultimaDireccion = 'derecha';
 			this.velocidad.x = juego.proporcionesFPS.proporcionMovimiento * 5;
 		}
 		// personaje moviendo a la izquierda
-		else if (juego.controles['ArrowLeft'].presionada) {
+		else if (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) {
 			this.ultimaDireccion = 'izquierda';
 			this.velocidad.x = -(juego.proporcionesFPS.proporcionMovimiento * 5);
 		}
@@ -491,7 +491,7 @@ class Jugador extends Sprite {
 			return;
 		}
 
-		if (juego.controles['ArrowLeft'].presionada) {
+		if (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) {
 			if (this.velocidad.y < 0) {
 				if (this.estado != 'saltando') {
 					this.estado = 'saltando';
@@ -508,7 +508,7 @@ class Jugador extends Sprite {
 				this.cuadroActual = 0;
 			}
 			return;
-		} else if (juego.controles['ArrowRight'].presionada) {
+		} else if (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) {
 			if (this.velocidad.y < 0) {
 				if (this.estado != 'saltando') {
 					this.estado = 'saltando';
@@ -525,7 +525,7 @@ class Jugador extends Sprite {
 				this.cuadroActual = 0;
 			}
 			return;
-		} else if (juego.controles['ArrowUp'].presionada) {
+		} else if (juego.controles['ArrowUp'].presionada || juego.controles['w'].presionada) {
 			if (this.velocidad.y < 0) {
 				if (this.estado != 'saltando') {
 					this.estado = 'saltando';

@@ -43,8 +43,6 @@ class Escenario extends Sprite {
 			}
 
 
-			console.log({plataformaPosX: ultimaPlataforma.posicion.x });
-			console.log({plataformaWidth :ultimaPlataforma.width});
 
 			this.plataformas.push(
 				new Plataforma({

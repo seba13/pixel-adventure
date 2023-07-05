@@ -325,7 +325,7 @@ class Plataforma extends Sprite {
 		// 	return 0;
 		// }
 
-		if ((juego.controles['ArrowRight'].presionada && juego.personaje.posicion.x > canvas.width * 0.6) || (juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x < canvas.width * 0.4)) {
+		if (( (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && juego.personaje.posicion.x > canvas.width * 0.6) || ( (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && juego.personaje.posicion.x < canvas.width * 0.4)) {
 			juego.personaje.ataques.forEach((ataque) => {
 				if (ataque.velocidad.x > 0) {
 					if (juego.controles['ArrowRight'].presionada) {
@@ -344,7 +344,7 @@ class Plataforma extends Sprite {
 
 			juego.personaje.velocidad.x = 0;
 
-			if (juego.controles['ArrowRight'].presionada) {
+			if (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) {
 				this.enemigos.forEach((enemigo) => {
 					enemigo.posicion.x += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 					enemigo.posicionInicial += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
@@ -357,7 +357,7 @@ class Plataforma extends Sprite {
 				this.tile.arbusto.arbusto_2.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 				this.tile.cascada.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 			}
-			if (juego.controles['ArrowLeft'].presionada) {
+			if (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) {
 				this.enemigos.forEach((enemigo) => {
 					enemigo.posicion.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 					enemigo.posicionInicial += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);

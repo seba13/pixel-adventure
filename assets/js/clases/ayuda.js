@@ -5,23 +5,27 @@ class Ayuda extends Sprite {
 
 		this.mapaLibro = {
 			abrirLibro: {
-				contadorLimiteCuadros: 8,
+				contadorLimiteCuadros: 10,
 				frames: 8,
 			},
 			cerrarLibro: {
-				contadorLimiteCuadros: 8,
+				contadorLimiteCuadros: 10,
 				frames: 8,
 				libroCerrado: false,
 			},
 			botonCerrar: {
 				cuadroActual: 0,
 				contadorCuadros: 0,
-				contadorLimiteCuadros: 8,
+				contadorLimiteCuadros: 10,
 				frames: 5,
 				opacidad: 0,
 				posicion: {
-					x: this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro - this.imagenes.abrirLibro.frame_1.width * 0.21 * juego.proporciones.ayuda.libro - this.imagenes.botonCerrar.width * juego.proporciones.ayuda.cerrar,
-					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.28 * juego.proporciones.ayuda.libro,
+					x:
+						this.posicion.x +
+						this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro -
+						this.imagenes.abrirLibro.frame_1.width * 0.07 * juego.proporciones.ayuda.libro -
+						this.imagenes.botonCerrar.width * juego.proporciones.ayuda.cerrar,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.27 * juego.proporciones.ayuda.libro,
 				},
 				botonActivo: false,
 				eventoCreado: false,
@@ -30,21 +34,42 @@ class Ayuda extends Sprite {
 				cuadroActual: 0,
 				contadorCuadros: 0,
 				contadorLimiteCuadros: 24,
-				frames: 2,
 				posicion: {
-					x: 0,
-					y: 0,
+					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.25 + 16) * juego.proporciones.ayuda.libro - (this.imagenes.botonArriba.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.27 * juego.proporciones.ayuda.libro,
 				},
+				frames: 2,
+			},
+            botonW: {
+				cuadroActual: 0,
+				contadorCuadros: 0,
+				contadorLimiteCuadros: 24,
+				posicion: {
+					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.75 - 8) * juego.proporciones.ayuda.libro - (this.imagenes.botonArriba.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.27 * juego.proporciones.ayuda.libro,
+				},
+				frames: 2,
 			},
 			botonIzquierda: {
 				cuadroActual: 0,
 				contadorCuadros: 0,
 				contadorLimiteCuadros: 24,
 				frames: 2,
+
 				posicion: {
-					x: 0,
-					y: 0,
+					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.13 + 16) * juego.proporciones.ayuda.libro - (this.imagenes.botonIzquierda.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
 				},
+			},
+            botonA: {
+				cuadroActual: 0,
+				contadorCuadros: 0,
+				contadorLimiteCuadros: 24,
+				posicion: {
+					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.63 ) * juego.proporciones.ayuda.libro - (this.imagenes.botonIzquierda.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
+				},
+				frames: 2,
 			},
 			botonDerecha: {
 				cuadroActual: 0,
@@ -52,9 +77,19 @@ class Ayuda extends Sprite {
 				contadorLimiteCuadros: 24,
 				frames: 2,
 				posicion: {
-					x: 0,
-					y: 0,
+					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.5 - (this.imagenes.abrirLibro.frame_1.width * 0.13 ) ) * juego.proporciones.ayuda.libro - (this.imagenes.botonDerecha.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
 				},
+			},
+            botonD: {
+				cuadroActual: 0,
+				contadorCuadros: 0,
+				contadorLimiteCuadros: 24,
+				posicion: {
+					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width - 16  - (this.imagenes.abrirLibro.frame_1.width * 0.13 ) ) * juego.proporciones.ayuda.libro - (this.imagenes.botonDerecha.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
+				},
+				frames: 2,
 			},
 			botonEspacio: {
 				cuadroActual: 0,
@@ -62,8 +97,8 @@ class Ayuda extends Sprite {
 				contadorLimiteCuadros: 24,
 				frames: 2,
 				posicion: {
-					x: 0,
-					y: 0,
+					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.25 + 16) * juego.proporciones.ayuda.libro - (this.imagenes.botonEspacio.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.50 * juego.proporciones.ayuda.libro,
 				},
 			},
 			botonCheck: {
@@ -76,8 +111,8 @@ class Ayuda extends Sprite {
 				eventoCreado: false,
 				imagen: this.imagenes.botonUncheck,
 				posicion: {
-					x: this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23,
-					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro + this.imagenes.botonCheck.height * 4 + 10 * 4,
+					x: this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.08,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.65 * juego.proporciones.ayuda.libro,
 				},
 			},
 		};
@@ -103,6 +138,9 @@ class Ayuda extends Sprite {
 			if (this.cuadroActual >= this.mapaLibro[this.estado].frames - 1) {
 				this.dibujarBotonCerrar();
 				this.dibujarBotonArriba();
+                this.dibujarBotonW()
+                this.dibujarBotonA()
+                this.dibujarBotonD()
 				this.dibujarBotonDerecha();
 				this.dibujarBotonIzquierda();
 				this.dibujarBotonEspacio();
@@ -187,25 +225,96 @@ class Ayuda extends Sprite {
 
 		let imagen = this.mapaLibro.botonArriba.cuadroActual == 0 ? this.imagenes.botonArriba.frame_1 : this.imagenes.botonArriba.frame_2;
 
-		ctx.drawImage(
-			imagen,
-			0,
-			0,
-			imagen.width,
-			imagen.height,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23,
-			this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro,
-			imagen.width * juego.proporciones.ayuda.teclas,
-			imagen.height * juego.proporciones.ayuda.teclas,
-		);
+		ctx.drawImage(imagen, 0, 0, imagen.width, imagen.height, this.mapaLibro.botonArriba.posicion.x, this.mapaLibro.botonArriba.posicion.y, imagen.width * juego.proporciones.ayuda.teclas, imagen.height * juego.proporciones.ayuda.teclas);
 
 		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
 		ctx.fillStyle = 'black';
 
+		let texto = 'Saltar';
+
 		ctx.fillText(
-			`saltar`,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23 + this.imagenes.botonArriba.frame_1.width + 10,
-			this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro + (this.imagenes.botonArriba.frame_1.height / 2) * juego.proporciones.ayuda.teclas + (juego.proporciones.texto * 16) / 2,
+			texto,
+			this.mapaLibro.botonArriba.posicion.x + (this.imagenes.botonArriba.frame_1.width / 2) * juego.proporciones.ayuda.teclas - ctx.measureText(texto).width / 2,
+			this.mapaLibro.botonArriba.posicion.y + this.imagenes.botonArriba.frame_1.height * juego.proporciones.ayuda.teclas + 25,
+		);
+	}
+
+    dibujarBotonW() {
+		this.mapaLibro.botonW.contadorCuadros++;
+
+		if (this.mapaLibro.botonW.contadorCuadros % Math.floor(this.mapaLibro.botonW.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+			if (this.mapaLibro.botonW.cuadroActual < this.mapaLibro.botonW.frames - 1) {
+				this.mapaLibro.botonW.cuadroActual++;
+			} else {
+				this.mapaLibro.botonW.cuadroActual = 0;
+			}
+		}
+
+		let imagen = this.mapaLibro.botonW.cuadroActual == 0 ? this.imagenes.botonW.frame_1 : this.imagenes.botonW.frame_2;
+
+		ctx.drawImage(imagen, 0, 0, imagen.width, imagen.height, this.mapaLibro.botonW.posicion.x, this.mapaLibro.botonW.posicion.y, imagen.width * juego.proporciones.ayuda.teclas, imagen.height * juego.proporciones.ayuda.teclas);
+
+		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
+		ctx.fillStyle = 'black';
+
+		let texto = 'Saltar';
+
+		ctx.fillText(
+			texto,
+			this.mapaLibro.botonW.posicion.x + (this.imagenes.botonW.frame_1.width / 2) * juego.proporciones.ayuda.teclas - ctx.measureText(texto).width / 2,
+			this.mapaLibro.botonW.posicion.y + this.imagenes.botonW.frame_1.height * juego.proporciones.ayuda.teclas + 25,
+		);
+	}
+    dibujarBotonA() {
+		this.mapaLibro.botonA.contadorCuadros++;
+
+		if (this.mapaLibro.botonA.contadorCuadros % Math.floor(this.mapaLibro.botonA.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+			if (this.mapaLibro.botonA.cuadroActual < this.mapaLibro.botonA.frames - 1) {
+				this.mapaLibro.botonA.cuadroActual++;
+			} else {
+				this.mapaLibro.botonA.cuadroActual = 0;
+			}
+		}
+
+		let imagen = this.mapaLibro.botonA.cuadroActual == 0 ? this.imagenes.botonA.frame_1 : this.imagenes.botonA.frame_2;
+
+		ctx.drawImage(imagen, 0, 0, imagen.width, imagen.height, this.mapaLibro.botonA.posicion.x, this.mapaLibro.botonA.posicion.y, imagen.width * juego.proporciones.ayuda.teclas, imagen.height * juego.proporciones.ayuda.teclas);
+
+		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
+		ctx.fillStyle = 'black';
+
+		let texto = 'Mover Izquierda';
+
+		ctx.fillText(
+			texto,
+			this.mapaLibro.botonA.posicion.x + (this.imagenes.botonA.frame_1.width / 2) * juego.proporciones.ayuda.teclas - ctx.measureText(texto).width / 2,
+			this.mapaLibro.botonA.posicion.y + this.imagenes.botonA.frame_1.height * juego.proporciones.ayuda.teclas + 25,
+		);
+	}
+    dibujarBotonD() {
+		this.mapaLibro.botonD.contadorCuadros++;
+
+		if (this.mapaLibro.botonD.contadorCuadros % Math.floor(this.mapaLibro.botonD.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+			if (this.mapaLibro.botonD.cuadroActual < this.mapaLibro.botonD.frames - 1) {
+				this.mapaLibro.botonD.cuadroActual++;
+			} else {
+				this.mapaLibro.botonD.cuadroActual = 0;
+			}
+		}
+
+		let imagen = this.mapaLibro.botonD.cuadroActual == 0 ? this.imagenes.botonD.frame_1 : this.imagenes.botonD.frame_2;
+
+		ctx.drawImage(imagen, 0, 0, imagen.width, imagen.height, this.mapaLibro.botonD.posicion.x, this.mapaLibro.botonD.posicion.y, imagen.width * juego.proporciones.ayuda.teclas, imagen.height * juego.proporciones.ayuda.teclas);
+
+		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
+		ctx.fillStyle = 'black';
+
+		let texto = 'Mover Derecha';
+
+		ctx.fillText(
+			texto,
+			this.mapaLibro.botonD.posicion.x + (this.imagenes.botonD.frame_1.width / 2) * juego.proporciones.ayuda.teclas - ctx.measureText(texto).width / 2,
+			this.mapaLibro.botonD.posicion.y + this.imagenes.botonD.frame_1.height * juego.proporciones.ayuda.teclas + 25,
 		);
 	}
 
@@ -222,30 +331,17 @@ class Ayuda extends Sprite {
 
 		let imagen = this.mapaLibro.botonDerecha.cuadroActual == 0 ? this.imagenes.botonDerecha.frame_1 : this.imagenes.botonDerecha.frame_2;
 
-		ctx.drawImage(
-			imagen,
-			0,
-			0,
-			imagen.width,
-			imagen.height,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23,
-			this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro + this.imagenes.botonDerecha.frame_1.height + 10,
-			imagen.width * juego.proporciones.ayuda.teclas,
-			imagen.height * juego.proporciones.ayuda.teclas,
-		);
+		ctx.drawImage(imagen, 0, 0, imagen.width, imagen.height, this.mapaLibro.botonDerecha.posicion.x, this.mapaLibro.botonDerecha.posicion.y, imagen.width * juego.proporciones.ayuda.teclas, imagen.height * juego.proporciones.ayuda.teclas);
 
 		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
 		ctx.fillStyle = 'black';
 
+		let texto = 'Mover Derecha';
+
 		ctx.fillText(
-			`Mover derecha`,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23 + this.imagenes.botonDerecha.frame_1.width * juego.proporciones.ayuda.teclas + 10,
-			this.posicion.y +
-				this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro +
-				10 +
-				this.imagenes.botonDerecha.frame_1.height * juego.proporciones.ayuda.teclas +
-				(this.imagenes.botonDerecha.frame_1.height / 2) * juego.proporciones.ayuda.teclas +
-				(juego.proporciones.texto * 16) / 2,
+			texto,
+			this.mapaLibro.botonDerecha.posicion.x + (this.imagenes.botonDerecha.frame_1.width / 2) * juego.proporciones.ayuda.teclas - ctx.measureText(texto).width / 2,
+			this.mapaLibro.botonDerecha.posicion.y + this.imagenes.botonDerecha.frame_1.height * juego.proporciones.ayuda.teclas + 25,
 		);
 	}
 
@@ -262,30 +358,17 @@ class Ayuda extends Sprite {
 
 		let imagen = this.mapaLibro.botonIzquierda.cuadroActual == 0 ? this.imagenes.botonIzquierda.frame_1 : this.imagenes.botonIzquierda.frame_2;
 
-		ctx.drawImage(
-			imagen,
-			0,
-			0,
-			imagen.width,
-			imagen.height,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23,
-			this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro + this.imagenes.botonIzquierda.frame_1.height * juego.proporciones.ayuda.teclas * 2 + 10 * 2,
-			imagen.width * juego.proporciones.ayuda.teclas,
-			imagen.height * juego.proporciones.ayuda.teclas,
-		);
+		ctx.drawImage(imagen, 0, 0, imagen.width, imagen.height, this.mapaLibro.botonIzquierda.posicion.x, this.mapaLibro.botonIzquierda.posicion.y, imagen.width * juego.proporciones.ayuda.teclas, imagen.height * juego.proporciones.ayuda.teclas);
 
 		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
 		ctx.fillStyle = 'black';
 
+		let texto = 'Mover Izquierda';
+
 		ctx.fillText(
-			`Mover izquierda`,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23 + this.imagenes.botonIzquierda.frame_1.width + 10,
-			this.posicion.y +
-				this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro +
-				10 * 2 +
-				this.imagenes.botonIzquierda.frame_1.height * 2 * juego.proporciones.ayuda.teclas +
-				(this.imagenes.botonIzquierda.frame_1.height / 2) * juego.proporciones.ayuda.teclas +
-				(juego.proporciones.texto * 16) / 2,
+			texto,
+			this.mapaLibro.botonIzquierda.posicion.x + (this.imagenes.botonIzquierda.frame_1.width / 2) * juego.proporciones.ayuda.teclas - ctx.measureText(texto).width / 2,
+			this.mapaLibro.botonIzquierda.posicion.y + this.imagenes.botonIzquierda.frame_1.height * juego.proporciones.ayuda.teclas + 25,
 		);
 	}
 
@@ -308,8 +391,8 @@ class Ayuda extends Sprite {
 			0,
 			imagen.width,
 			imagen.height,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23,
-			this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro + this.imagenes.botonEspacio.frame_1.height * juego.proporciones.ayuda.teclas * 3 + 10 * 3,
+			this.mapaLibro.botonEspacio.posicion.x,
+			this.mapaLibro.botonEspacio.posicion.y,
 			imagen.width * juego.proporciones.ayuda.teclas,
 			imagen.height * juego.proporciones.ayuda.teclas,
 		);
@@ -317,15 +400,12 @@ class Ayuda extends Sprite {
 		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
 		ctx.fillStyle = 'black';
 
+		let texto = 'Atacar';
+
 		ctx.fillText(
-			`Atacar`,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23 + this.imagenes.botonEspacio.frame_1.width * juego.proporciones.ayuda.teclas + 10,
-			this.posicion.y +
-				this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro +
-				10 * 3 +
-				this.imagenes.botonEspacio.frame_1.height * 3 * juego.proporciones.ayuda.teclas +
-				(this.imagenes.botonEspacio.frame_1.height / 2) * juego.proporciones.ayuda.teclas +
-				(juego.proporciones.texto * 16) / 2,
+			texto,
+			this.mapaLibro.botonEspacio.posicion.x + (this.imagenes.botonEspacio.frame_1.width / 2) * juego.proporciones.ayuda.teclas - ctx.measureText(texto).width / 2,
+			this.mapaLibro.botonEspacio.posicion.y + this.imagenes.botonEspacio.frame_1.height * juego.proporciones.ayuda.teclas + 25,
 		);
 	}
 
@@ -347,15 +427,13 @@ class Ayuda extends Sprite {
 			this.mapaLibro.botonCheck.imagen.height * juego.proporciones.ayuda.check,
 		);
 
+        ctx.font = `${juego.proporciones.texto * 16}px VT323`;
+        let texto = 'No volver a mostrar';
+
 		ctx.fillText(
-			`No volver a mostrar`,
-			this.posicion.x + this.imagenes.abrirLibro.frame_1.width * juego.proporciones.ayuda.libro * 0.23 + this.mapaLibro.botonCheck.imagen.width * juego.proporciones.ayuda.check + 10,
-			this.posicion.y +
-				this.imagenes.abrirLibro.frame_1.height * 0.35 * juego.proporciones.ayuda.libro +
-				10 * 4 +
-				this.mapaLibro.botonCheck.imagen.height * juego.proporciones.ayuda.check * 4 +
-				(this.mapaLibro.botonCheck.imagen.height / 2) * juego.proporciones.ayuda.check +
-				(juego.proporciones.texto * 16) / 2,
+			texto,
+			this.mapaLibro.botonCheck.posicion.x + (this.imagenes.botonCheck.width) * juego.proporciones.ayuda.teclas + 10,
+			this.mapaLibro.botonCheck.posicion.y + this.imagenes.botonCheck.height/2 * juego.proporciones.ayuda.teclas + juego.proporciones.texto*16/2 ,
 		);
 	}
 
