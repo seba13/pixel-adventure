@@ -457,6 +457,7 @@ class Juego {
 			},
 			imagenes: this.tilesetJugador,
 			ataques: [],
+			audios: this.audios.efectos
 		});
 	}
 
@@ -832,9 +833,15 @@ class Juego {
 
 	async cargarAudios() {
 		this.audios = {
-			audioFondo: new Audio('./assets/audio/audio-fondo.ogg'),
-			audioViento: new Audio('./assets/audio/audio-viento.mp3'),
-			audioFondo_2: new Audio('./assets/audio/audio-fondo-2.ogg'),
+			audioFondo: new Audio('/assets/audio/audio-fondo.ogg'),
+			audioViento: new Audio('/assets/audio/audio-viento.mp3'),
+			audioFondo_2: new Audio('/assets/audio/audio-fondo-2.ogg'),
+			efectos: {
+				golpear: new Audio('/assets/audio/FX/golpe-jugador_01.wav'),
+				correr: new Audio('/assets/audio/FX/correr01.wav'),
+				recibirDaño: new Audio('/assets/audio/FX/daño02.wav'),
+				muerte: new Audio('/assets/audio/FX/daño01.wav'),
+			},
 		};
 
 		let audios = Object.values(this.imagenesFondo).reduce((arr, objActual) => {

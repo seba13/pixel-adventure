@@ -1,9 +1,10 @@
 class Jugador extends Sprite {
-	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, offset = { x: 0, y: 0 }, ataques }) {
+	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, offset = { x: 0, y: 0 }, ataques, audios }) {
 		super({ posicion, velocidad, imagenes });
 
+		this.audios = audios;
 		this.ataques = ataques;
-		this.puntuacion = '0000000'
+		this.puntuacion = '0000000';
 		this.vida = 4;
 		this.energia = 4;
 		this.offset = offset;
@@ -145,7 +146,26 @@ class Jugador extends Sprite {
 		this.mapa.muerto.contadorLimiteCuadros = 120 / this.mapa.muerto.frames;
 		this.mapa.ataque.contadorLimiteCuadros = 10 / this.mapa.ataque.frames;
 	}
-
+	reproducirSonidoAtaque() {
+		this.audios.golpear.pause();
+		this.audios.golpear.volume = 1;
+		this.audios.golpear.play();
+	}
+	reproducirSonidoCaminar() {
+		this.audios.correr.pause();
+		this.audios.correr.volume = 1;
+		this.audios.correr.play();
+	}
+	reproducirSonidoDaño() {
+		this.audios.recibirDaño.pause();
+		this.audios.recibirDaño.volume = 1;
+		this.audios.recibirDaño.play();
+	}
+	reproducirSonidoMuerte() {
+		this.audios.muerte.pause();
+		this.audios.muerte.volume = 1;
+		this.audios.muerte.play();
+	}
 	dibujarPersonaje() {
 		let flip = 0;
 
@@ -190,20 +210,14 @@ class Jugador extends Sprite {
 		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y, this.anchoColision, this.height);
 	}
 
-
-
 	agregarPuntaje(puntuacion) {
+		puntuacion = parseInt(this.puntuacion) + puntuacion;
 
-		puntuacion = parseInt(this.puntuacion) + puntuacion
+		if (puntuacion.toString().length < 7) {
+			let cantidadCeros = 7 - puntuacion.toString().length;
 
-		if(puntuacion.toString().length<7){
-
-			let cantidadCeros = 7 - puntuacion.toString().length
-
-			this.puntuacion = '0'.repeat(cantidadCeros) + puntuacion.toString()
-
+			this.puntuacion = '0'.repeat(cantidadCeros) + puntuacion.toString();
 		}
-
 	}
 
 	dibujarVidaPersonaje() {
@@ -226,15 +240,13 @@ class Jugador extends Sprite {
 			this.imagenes.tilesetVida.width / 5,
 			this.imagenes.tilesetVida.height,
 			0,
-			10+ this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
+			10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
 			(this.imagenes.tilesetVida.width / 5) * juego.proporciones.barraVida,
 			this.imagenes.tilesetVida.height * juego.proporciones.barraVida,
 		);
 	}
 
-
 	dibujarPuntuacionPersonaje() {
-
 		ctx.drawImage(
 			this.imagenes.tilesetPuntuacion,
 			0,
@@ -245,17 +257,17 @@ class Jugador extends Sprite {
 			10,
 			this.imagenes.tilesetPuntuacion.width * juego.proporciones.barraPuntuaciones,
 			this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
-		)
+		);
 
-		
 		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
-		ctx.fillStyle = "white";
+		ctx.fillStyle = 'white';
 
-		ctx.fillText(`${this.puntuacion}`, 10 + this.imagenes.tilesetPuntuacion.width* juego.proporciones.barraPuntuaciones - (ctx.measureText(this.puntuacion).width) - (this.imagenes.tilesetPuntuacion.width*0.046 * juego.proporciones.barraPuntuaciones ), 10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones -  (this.imagenes.tilesetPuntuacion.height*.1 * juego.proporciones.barraPuntuaciones));
-		
-
+		ctx.fillText(
+			`${this.puntuacion}`,
+			10 + this.imagenes.tilesetPuntuacion.width * juego.proporciones.barraPuntuaciones - ctx.measureText(this.puntuacion).width - this.imagenes.tilesetPuntuacion.width * 0.046 * juego.proporciones.barraPuntuaciones,
+			10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones - this.imagenes.tilesetPuntuacion.height * 0.1 * juego.proporciones.barraPuntuaciones,
+		);
 	}
-
 
 	dibujarEnergiaPersonaje() {
 		if (this.energia == 4) {
@@ -277,7 +289,7 @@ class Jugador extends Sprite {
 			this.imagenes.tilesetEnergia.width / 5,
 			this.imagenes.tilesetEnergia.height,
 			0 + (this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia - 13 * juego.proporciones.barraEnergia,
-			10  + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
+			10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
 			(this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia,
 			this.imagenes.tilesetEnergia.height * juego.proporciones.barraEnergia,
 		);
@@ -321,7 +333,7 @@ class Jugador extends Sprite {
 		// } else {
 		// 	this.dibujarPersonaje();
 		// }
-		this.dibujarPuntuacionPersonaje()
+		this.dibujarPuntuacionPersonaje();
 		this.dibujarVidaPersonaje();
 		this.dibujarEnergiaPersonaje();
 		this.lanzarAtaques();
@@ -346,6 +358,7 @@ class Jugador extends Sprite {
 					if (this.cuadroActual + 1 >= this.mapa[this.estado].frames - 1) {
 						this.realizandoAtaque = false;
 						this.lanzarAtaques();
+						this.reproducirSonidoAtaque();
 					}
 				}
 				if (this.estado == 'muerto') {
@@ -389,11 +402,13 @@ class Jugador extends Sprite {
 		if (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) {
 			this.ultimaDireccion = 'derecha';
 			this.velocidad.x = juego.proporcionesFPS.proporcionMovimiento * 5;
+			this.reproducirSonidoCaminar();
 		}
 		// personaje moviendo a la izquierda
 		else if (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) {
 			this.ultimaDireccion = 'izquierda';
 			this.velocidad.x = -(juego.proporcionesFPS.proporcionMovimiento * 5);
+			this.reproducirSonidoCaminar();
 		}
 		// movimiento en el eje Y se ve desde la clase juego
 		// debido a que es donde se activa el evento keydown
@@ -420,7 +435,6 @@ class Jugador extends Sprite {
 
 	recibirDaño(dañoRecibido) {
 		this.vida -= dañoRecibido;
-
 		// if (this.vida < 2) {
 		// 	this.vida = 4;
 		// }
@@ -439,21 +453,19 @@ class Jugador extends Sprite {
 			this.posicion.x += 80;
 		}
 		this.velocidad.y = -10;
+		this.reproducirSonidoDaño();
 	}
 
 	cambiarEstado() {
 		if (this.vida < 1) {
 			if (this.estado != 'muerto') {
-
-				Object.keys(juego.controles).forEach( tecla => {
-
-					juego.controles[tecla].presionada = false
-
-				})
-
+				Object.keys(juego.controles).forEach((tecla) => {
+					juego.controles[tecla].presionada = false;
+				});
 
 				this.estado = 'muerto';
 				this.cuadroActual = 0;
+				this.reproducirSonidoMuerte();
 			}
 			return;
 		}
@@ -745,6 +757,7 @@ class Jugador extends Sprite {
 				daño: 20,
 			}),
 		);
+		this.reproducirSonidoAtaque();
 	}
 
 	lanzarAtaques() {
