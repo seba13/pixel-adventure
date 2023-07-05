@@ -482,7 +482,7 @@ class Juego {
 	escucharEventos() {
 		document.addEventListener('keydown', this.moverJugador.bind(this));
 		document.addEventListener('keyup', this.detenerJugador.bind(this));
-
+		window.addEventListener("blur", this.detenerAcciones.bind(this))
 		this.audios.audioFondo.addEventListener(
 			'ended',
 			function () {
@@ -522,6 +522,14 @@ class Juego {
 				}
 			}.bind(this),
 		);
+	}
+
+	detenerAcciones() {
+		Object.keys(this.controles).forEach( tecla => {
+
+			this.controles[tecla].presionada = false
+
+		})
 	}
 
 	reproducirMusicaFondo() {
