@@ -3,16 +3,22 @@ class Jugador extends Sprite {
 		super({ posicion, velocidad, imagenes });
 
 		this.ataques = ataques;
-		this.puntuacion = '0000000'
+		this.puntuacion = '0000000';
+		this.vidaTotal = 4;
 		this.vida = 4;
+		this.anchoVidaActual = 1; // 1=> 100%
+		this.anchoVidaTarget = 1; // 1 => 100%
+		this.energiaTotal = 4;
 		this.energia = 4;
+		this.anchoEnergiaActual = 1; // 1 => 100%
+		this.anchoEnergiaTarget = 1; // 1 => 100%
 		this.offset = offset;
 		this.width = 32 * juego.proporciones.personaje;
 		this.height = 32 * juego.proporciones.personaje;
 		this.saltando = false;
 		this.dobleSalto = false;
 		this.cayendo = false;
-		this.tiempoRecuperarEnergia = 1000; // cada 300 ms recupera
+		this.tiempoRecuperarEnergia = 600; // cada 600 ms recupera
 		this.tiempoEnergia = 0;
 
 		// animacion daño
@@ -190,51 +196,73 @@ class Jugador extends Sprite {
 		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y, this.anchoColision, this.height);
 	}
 
-
-
 	agregarPuntaje(puntuacion) {
+		puntuacion = parseInt(this.puntuacion) + puntuacion;
 
-		puntuacion = parseInt(this.puntuacion) + puntuacion
+		if (puntuacion.toString().length < 7) {
+			let cantidadCeros = 7 - puntuacion.toString().length;
 
-		if(puntuacion.toString().length<7){
-
-			let cantidadCeros = 7 - puntuacion.toString().length
-
-			this.puntuacion = '0'.repeat(cantidadCeros) + puntuacion.toString()
-
+			this.puntuacion = '0'.repeat(cantidadCeros) + puntuacion.toString();
 		}
-
 	}
 
 	dibujarVidaPersonaje() {
-		if (this.vida == 4) {
-			this.mapaVida.vidaActual = 'fullVida';
-		} else if (this.vida == 3) {
-			this.mapaVida.vidaActual = 'tresVidas';
-		} else if (this.vida == 2) {
-			this.mapaVida.vidaActual = 'dosVidas';
-		} else if (this.vida == 1) {
-			this.mapaVida.vidaActual = 'unaVida';
-		} else if (this.vida == 0) {
-			this.mapaVida.vidaActual = 'ceroVida';
-		}
+		// if (this.vida == 4) {
+		// 	this.mapaVida.vidaActual = 'fullVida';
+		// } else if (this.vida == 3) {
+		// 	this.mapaVida.vidaActual = 'tresVidas';
+		// } else if (this.vida == 2) {
+		// 	this.mapaVida.vidaActual = 'dosVidas';
+		// } else if (this.vida == 1) {
+		// 	this.mapaVida.vidaActual = 'unaVida';
+		// } else if (this.vida == 0) {
+		// 	this.mapaVida.vidaActual = 'ceroVida';
+		// }
+
+		// ctx.drawImage(
+		// 	this.imagenes.tilesetVida,
+		// 	this.mapaVida[this.mapaVida.vidaActual].x,
+		// 	this.mapaVida[this.mapaVida.vidaActual].y,
+		// 	this.imagenes.tilesetVida.width / 5,
+		// 	this.imagenes.tilesetVida.height,
+		// 	0,
+		// 	10+ this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
+		// 	(this.imagenes.tilesetVida.width / 5) * juego.proporciones.barraVida,
+		// 	this.imagenes.tilesetVida.height * juego.proporciones.barraVida,
+		// );
 
 		ctx.drawImage(
-			this.imagenes.tilesetVida,
-			this.mapaVida[this.mapaVida.vidaActual].x,
-			this.mapaVida[this.mapaVida.vidaActual].y,
-			this.imagenes.tilesetVida.width / 5,
-			this.imagenes.tilesetVida.height,
+			this.imagenes.contenedorVida,
 			0,
-			10+ this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
-			(this.imagenes.tilesetVida.width / 5) * juego.proporciones.barraVida,
-			this.imagenes.tilesetVida.height * juego.proporciones.barraVida,
+			0,
+			this.imagenes.contenedorVida.width,
+			this.imagenes.contenedorVida.height,
+			10 + 25 * juego.proporciones.barraVida,
+			10 + 6 * juego.proporciones.barraVida,
+			this.imagenes.contenedorVida.width * juego.proporciones.barraVida,
+			this.imagenes.contenedorVida.height * juego.proporciones.barraVida,
 		);
+
+		this.anchoVidaTarget = this.vida / this.vidaTotal;
+
+		ctx.drawImage(
+			this.imagenes.barraVida,
+			0,
+			0,
+			this.imagenes.barraVida.width,
+			this.imagenes.barraVida.height,
+			10 + (25 + 1) * juego.proporciones.barraVida,
+			10 + (6 + 2) * juego.proporciones.barraVida,
+			this.imagenes.barraVida.width * juego.proporciones.barraVida * this.anchoVidaActual,
+			this.imagenes.barraVida.height * juego.proporciones.barraVida,
+		);
+
+		if (this.anchoVidaActual > this.anchoVidaTarget) {
+			this.anchoVidaActual -= 0.05 / this.vidaTotal;
+		}
 	}
 
-
 	dibujarPuntuacionPersonaje() {
-
 		ctx.drawImage(
 			this.imagenes.tilesetPuntuacion,
 			0,
@@ -245,42 +273,85 @@ class Jugador extends Sprite {
 			10,
 			this.imagenes.tilesetPuntuacion.width * juego.proporciones.barraPuntuaciones,
 			this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
-		)
+		);
 
-		
 		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
-		ctx.fillStyle = "white";
+		ctx.fillStyle = 'white';
 
-		ctx.fillText(`${this.puntuacion}`, 10 + this.imagenes.tilesetPuntuacion.width* juego.proporciones.barraPuntuaciones - (ctx.measureText(this.puntuacion).width) - (this.imagenes.tilesetPuntuacion.width*0.046 * juego.proporciones.barraPuntuaciones ), 10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones -  (this.imagenes.tilesetPuntuacion.height*.1 * juego.proporciones.barraPuntuaciones));
-		
-
+		ctx.fillText(
+			`${this.puntuacion}`,
+			10 + this.imagenes.tilesetPuntuacion.width * juego.proporciones.barraPuntuaciones - ctx.measureText(this.puntuacion).width - this.imagenes.tilesetPuntuacion.width * 0.046 * juego.proporciones.barraPuntuaciones,
+			10 + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones - this.imagenes.tilesetPuntuacion.height * 0.1 * juego.proporciones.barraPuntuaciones,
+		);
 	}
 
-
 	dibujarEnergiaPersonaje() {
-		if (this.energia == 4) {
-			this.mapaEnergia.energiaActual = 'fullEnergia';
-		} else if (this.energia == 3) {
-			this.mapaEnergia.energiaActual = 'tresEnergias';
-		} else if (this.energia == 2) {
-			this.mapaEnergia.energiaActual = 'dosEnergias';
-		} else if (this.energia == 1) {
-			this.mapaEnergia.energiaActual = 'unaEnergia';
-		} else if (this.energia == 0) {
-			this.mapaEnergia.energiaActual = 'ceroEnergia';
-		}
+		// if (this.energia == 4) {
+		// 	this.mapaEnergia.energiaActual = 'fullEnergia';
+		// } else if (this.energia == 3) {
+		// 	this.mapaEnergia.energiaActual = 'tresEnergias';
+		// } else if (this.energia == 2) {
+		// 	this.mapaEnergia.energiaActual = 'dosEnergias';
+		// } else if (this.energia == 1) {
+		// 	this.mapaEnergia.energiaActual = 'unaEnergia';
+		// } else if (this.energia == 0) {
+		// 	this.mapaEnergia.energiaActual = 'ceroEnergia';
+		// }
+
+		// ctx.drawImage(
+		// 	this.imagenes.tilesetEnergia,
+		// 	this.mapaEnergia[this.mapaEnergia.energiaActual].x,
+		// 	this.mapaEnergia[this.mapaEnergia.energiaActual].y,
+		// 	this.imagenes.tilesetEnergia.width / 5,
+		// 	this.imagenes.tilesetEnergia.height,
+		// 	0 + (this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia - 13 * juego.proporciones.barraEnergia,
+		// 	10  + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
+		// 	(this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia,
+		// 	this.imagenes.tilesetEnergia.height * juego.proporciones.barraEnergia,
+		// );
 
 		ctx.drawImage(
-			this.imagenes.tilesetEnergia,
-			this.mapaEnergia[this.mapaEnergia.energiaActual].x,
-			this.mapaEnergia[this.mapaEnergia.energiaActual].y,
-			this.imagenes.tilesetEnergia.width / 5,
-			this.imagenes.tilesetEnergia.height,
-			0 + (this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia - 13 * juego.proporciones.barraEnergia,
-			10  + this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
-			(this.imagenes.tilesetEnergia.width / 5) * juego.proporciones.barraEnergia,
-			this.imagenes.tilesetEnergia.height * juego.proporciones.barraEnergia,
+			this.imagenes.contenedorEnergia,
+			0,
+			0,
+			this.imagenes.contenedorEnergia.width,
+			this.imagenes.contenedorEnergia.height,
+			10 + 25 * juego.proporciones.barraEnergia,
+			10 + 12 * juego.proporciones.barraEnergia,
+			this.imagenes.contenedorEnergia.width * juego.proporciones.barraEnergia,
+			this.imagenes.contenedorEnergia.height * juego.proporciones.barraEnergia,
 		);
+
+		this.anchoEnergiaTarget = this.energia / this.energiaTotal;
+
+
+		console.log(this.anchoEnergiaTarget);
+
+		ctx.drawImage(
+			this.imagenes.barraEnergia,
+			0,
+			0,
+			this.imagenes.barraEnergia.width,
+			this.imagenes.barraEnergia.height,
+			10 + (25 + 1) * juego.proporciones.barraEnergia,
+			10 + (12 + 2) * juego.proporciones.barraEnergia,
+			this.imagenes.barraEnergia.width * juego.proporciones.barraEnergia * this.anchoEnergiaActual,
+			this.imagenes.barraEnergia.height * juego.proporciones.barraEnergia,
+		);
+
+		if (this.anchoEnergiaActual > this.anchoEnergiaTarget) {
+			this.anchoEnergiaActual -= 0.1 / this.energiaTotal;
+			this.anchoEnergiaActual = (Math.round(this.anchoEnergiaActual * 1000)/1000);
+		} else if (this.anchoEnergiaActual < this.anchoEnergiaTarget) {
+			if(this.tiempoEnergia >= this.tiempoRecuperarEnergia) {
+				if (this.anchoEnergiaActual >= 0.98) {
+					this.anchoEnergiaActual = 1;
+				} else {
+					this.anchoEnergiaActual += 0.05 / this.energiaTotal;
+					this.anchoEnergiaActual = (Math.round(this.anchoEnergiaActual * 1000)/1000);
+				}
+			}
+		}
 
 		this.recuperarEnergia();
 	}
@@ -297,10 +368,21 @@ class Jugador extends Sprite {
 
 				if (this.tiempoEnergia >= this.tiempoRecuperarEnergia) {
 					this.energia++;
-					this.tiempoEnergia = 0;
+					// this.tiempoEnergia = this.tiempoRecuperarEnergia/2
 				} else {
 					this.tiempoEnergia += juego.deltaTiempo;
 				}
+
+				// if (this.tiempoEnergia >= this.tiempoRecuperarEnergia) {
+				// 	this.energia++;
+				// 	this.tiempoEnergia = 0;
+				// } else {
+				// 	this.tiempoEnergia += juego.deltaTiempo;
+				// }
+
+				// if(this.anchoEnergiaActual <= this.anchoEnergiaTarget) {
+				// 	this.anchoEnergiaActual += 0.05 / this.energiaTotal;
+				// }
 			}
 		} else {
 			this.mapaEnergia.cuadroActual = 0;
@@ -321,8 +403,8 @@ class Jugador extends Sprite {
 		// } else {
 		// 	this.dibujarPersonaje();
 		// }
-		this.dibujarPuntuacionPersonaje()
 		this.dibujarVidaPersonaje();
+		this.dibujarPuntuacionPersonaje();
 		this.dibujarEnergiaPersonaje();
 		this.lanzarAtaques();
 	}
@@ -444,13 +526,9 @@ class Jugador extends Sprite {
 	cambiarEstado() {
 		if (this.vida < 1) {
 			if (this.estado != 'muerto') {
-
-				Object.keys(juego.controles).forEach( tecla => {
-
-					juego.controles[tecla].presionada = false
-
-				})
-
+				Object.keys(juego.controles).forEach((tecla) => {
+					juego.controles[tecla].presionada = false;
+				});
 
 				this.estado = 'muerto';
 				this.cuadroActual = 0;

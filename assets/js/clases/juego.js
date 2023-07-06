@@ -336,6 +336,10 @@ class Juego {
 
 		this.tilesetJugador = {
 			tileset: new Image(),
+			contenedorVida: new Image(),
+			contenedorEnergia: new Image(),
+			barraVida: new Image(),
+			barraEnergia: new Image(),
 			tilesetVida: new Image(),
 			tilesetEnergia: new Image(),
 			tilesetPuntuacion: new Image(),
@@ -800,6 +804,12 @@ class Juego {
 
 	async cargarImagenJugador() {
 		this.tilesetJugador.tileset.src = '/assets/img/personaje/personaje-2.png';
+
+		this.tilesetJugador.contenedorEnergia.src = '/assets/img/personaje/estadisticas/contenedor-energia.png';
+		this.tilesetJugador.contenedorVida.src = '/assets/img/personaje/estadisticas/contenedor-vida.png';
+		this.tilesetJugador.barraEnergia.src = '/assets/img/personaje/estadisticas/barra-energia.png';
+		this.tilesetJugador.barraVida.src = '/assets/img/personaje/estadisticas/barra-vida.png';
+
 		this.tilesetJugador.tilesetVida.src = '/assets/img/personaje/estadisticas/vida.png';
 		this.tilesetJugador.tilesetEnergia.src = '/assets/img/personaje/estadisticas/energia.png';
 		this.tilesetJugador.tilesetPuntuacion.src = '/assets/img/personaje/estadisticas/puntuacion.png';
