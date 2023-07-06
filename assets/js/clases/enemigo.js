@@ -232,12 +232,18 @@ class Enemigo extends Sprite {
 			if (this.cuadroActual < this.mapa[this.estado].frames - 1) {
 				this.cuadroActual++;
 
-				if (this.estado == 'atacar' && juego.personaje.vida > 1) {
+				if (this.estado == 'atacar' && juego.personaje.vida > 0) {
 					if (this.cuadroActual == 2) {
 						this.atacar();
 					}
 					if (this.cuadroActual + 1 >= this.mapa[this.estado].frames - 1) {
 						this.atacando = false;
+					}
+				}else {
+					if(this.estado == 'atacar' && juego.personaje.vida <= 0) {
+						if (this.cuadroActual + 1 >= this.mapa[this.estado].frames - 1) {
+							this.atacando = false;
+						}
 					}
 				}
 
