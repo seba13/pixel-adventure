@@ -1,4 +1,4 @@
-class Samurai extends Enemigo {
+class Minotauro extends Enemigo {
 	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, offset = { x: 0, y: 0 }, proporcion, vida, defensa, armadura, plataforma, puntaje }) {
 		super({ posicion, velocidad, imagenes });
 
@@ -44,8 +44,8 @@ class Samurai extends Enemigo {
         // this.offset.y = offset.y * juego.proporciones.enemigos[this.proporcion];
 
         // MEDIDA DE CADA FOTOGRAMA DENTRO DE LA IMAGEN 
-		this.anchoSprite = this.imagenes.enemigo.width/8 ; //(ESTA IMAGEN TIENE 8 FOTOGRAMAS POR LO QUE SE DIVIDE EN 8)
-		this.altoSprite = this.imagenes.enemigo.height / 3;
+		this.anchoSprite = this.imagenes.enemigo.width/9 ; //(ESTA IMAGEN TIENE 9 FOTOGRAMAS POR LO QUE SE DIVIDE EN 8)
+		this.altoSprite = this.imagenes.enemigo.height / 10;
 
 
 		this.anchoSpriteHumo = 64
@@ -68,25 +68,25 @@ class Samurai extends Enemigo {
 		this.mapa = {
 			caminar: {
 				x: 0,
-				y: 0,
+				y: 95,
 				frames: 8,
 				contadorLimiteCuadros : 16
 			},
 			inactivo: {
 				x: 0,
-				y: 48,
+				y: 0,
 				frames: 5,
 				contadorLimiteCuadros: 16
 			},
 			daño: {
-				x: 64 * 5,
-				y: 48,
+				x: 0,
+				y: 95 * 7,
 				frames: 3,
 				contadorLimiteCuadros: 62
 			},
 			atacar: {
 				x: 0,
-				y: 48*2,
+				y: 95 * 3,
 				frames: 7,
 				contadorLimiteCuadros: 16
 			},
@@ -95,7 +95,7 @@ class Samurai extends Enemigo {
 				y: 64 * 8,
 				frames: 11,
 				contadorLimiteCuadros: 16,
-				offset: {
+                offset: {
 					x: 0,
 					y: 24,
 				}
@@ -105,7 +105,7 @@ class Samurai extends Enemigo {
 		this.mapaPuntaje = {
 			opacidad : 1,
 			tamañoFuente: 12,
-			colorPuntaje: "#b4202a",
+			colorPuntaje: "#3d3d3d",
 			contadorCuadros: 0,
 			cuadroActual : 0,
 			frames: 30, //ultimos 10 frames de opacidad

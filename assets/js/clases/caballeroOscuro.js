@@ -1,4 +1,4 @@
-class Samurai extends Enemigo {
+class CaballeroOscuro extends Enemigo {
 	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, offset = { x: 0, y: 0 }, proporcion, vida, defensa, armadura, plataforma, puntaje }) {
 		super({ posicion, velocidad, imagenes });
 
@@ -95,7 +95,7 @@ class Samurai extends Enemigo {
 				y: 64 * 8,
 				frames: 11,
 				contadorLimiteCuadros: 16,
-				offset: {
+                offset: {
 					x: 0,
 					y: 24,
 				}
@@ -105,7 +105,7 @@ class Samurai extends Enemigo {
 		this.mapaPuntaje = {
 			opacidad : 1,
 			tamañoFuente: 12,
-			colorPuntaje: "#b4202a",
+			colorPuntaje: "#3d3d3d",
 			contadorCuadros: 0,
 			cuadroActual : 0,
 			frames: 30, //ultimos 10 frames de opacidad

@@ -74,6 +74,18 @@ class Juego {
 					proporcion: Math.ceil(4 * this.proporcionResolucion),
 					alcanceVigilar: Math.ceil(100 * this.proporcionResolucion),
 				},
+				jabali: {
+					proporcion: Math.ceil(4 * this.proporcionResolucion),
+					alcanceVigilar: Math.ceil(100 * this.proporcionResolucion),
+				},
+				caballeroOscuro: {
+					proporcion: Math.ceil(4 * this.proporcionResolucion),
+					alcanceVigilar: Math.ceil(100 * this.proporcionResolucion),
+				},
+				minotauro: {
+					proporcion: Math.ceil(4 * this.proporcionResolucion),
+					alcanceVigilar: Math.ceil(100 * this.proporcionResolucion),
+				},
 
 				humo: Math.ceil(4 * this.proporcionResolucion),
 			},
@@ -317,6 +329,9 @@ class Juego {
 		this.imagenesEnemigos = {
 			samurai: new Image(),
 			muerte: new Image(),
+			jabali: new Image(),
+			caballeroOscuro: new Image(),
+			minotauro: new Image(),
 		};
 
 		this.tilesetJugador = {
@@ -482,7 +497,7 @@ class Juego {
 	escucharEventos() {
 		document.addEventListener('keydown', this.moverJugador.bind(this));
 		document.addEventListener('keyup', this.detenerJugador.bind(this));
-		window.addEventListener("blur", this.detenerAcciones.bind(this))
+		window.addEventListener('blur', this.detenerAcciones.bind(this));
 		this.audios.audioFondo.addEventListener(
 			'ended',
 			function () {
@@ -525,11 +540,9 @@ class Juego {
 	}
 
 	detenerAcciones() {
-		Object.keys(this.controles).forEach( tecla => {
-
-			this.controles[tecla].presionada = false
-
-		})
+		Object.keys(this.controles).forEach((tecla) => {
+			this.controles[tecla].presionada = false;
+		});
 	}
 
 	reproducirMusicaFondo() {
@@ -817,6 +830,9 @@ class Juego {
 	async cargarImagenesEnemigos() {
 		this.imagenesEnemigos.samurai.src = '/assets/img/enemigos/enemigo-1/samurai.png';
 		this.imagenesEnemigos.muerte.src = '/assets/img/enemigos/muerte/humo-1.png';
+		this.imagenesEnemigos.jabali.src = '/assets/img/enemigos/enemigo-3/jabali.png';
+		this.imagenesEnemigos.caballeroOscuro.src = '/assets/img/enemigos/enemigo-5/caballero-oscuro.png';
+		this.imagenesEnemigos.minotauro.src = '/assets/img/enemigos/enemigo-4/minotauro.png';
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {

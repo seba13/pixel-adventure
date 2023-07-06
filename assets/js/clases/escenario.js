@@ -72,7 +72,7 @@ class Escenario extends Sprite {
 
 	generarEnemigoPlataforma(plataforma) {
 		if (!plataforma.enemigoCreado) {
-			plataforma.crearEnemigo();
+			plataforma.agregarEnemigos();
 			plataforma.enemigoCreado = true;
 		}
 	}
