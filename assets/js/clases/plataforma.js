@@ -10,7 +10,7 @@ class Plataforma extends Sprite {
 		this.altoPixel = 32;
 		this.enemigoCreado = false;
 		this.enemigos = [];
-
+		this.listaEnemigos = ['jabali', 'samurai', 'caballeroOscuro'];
 		this.tile = {
 			arbol: {
 				arbol_1: {
@@ -128,39 +128,202 @@ class Plataforma extends Sprite {
 		this.dibujarEnemigosPlataforma();
 	}
 
-	crearEnemigo() {
-		this.enemigos.push(
-			new Samurai({
-				posicion: {
-					x:
-						this.posicion.x +
-						this.offset.x +
-						(this.width * 0.4 * Math.random() - juego.proporciones.enemigos.samurai.alcanceVigilar * 2 - (juego.imagenesEnemigos.samurai.width / 8) * juego.proporciones.enemigos.samurai.proporcion) +
-						juego.proporciones.enemigos.samurai.alcanceVigilar * 3 +
-						(juego.imagenesEnemigos.samurai.width / 8) * juego.proporciones.enemigos.samurai.proporcion,
+	agregarEnemigos() {
+		if (parseInt(juego.personaje.puntuacion) < 1000) {
+			this.enemigos.push(this.crearEnemigoJabali());
+		} else if (parseInt(juego.personaje.puntuacion) < 2000) {
+			let numeroEnemigos = Math.random();
 
-					y: this.posicion.y - (juego.imagenesEnemigos.samurai.height / 3) * juego.proporciones.enemigos.samurai.proporcion,
-				},
-				velocidad: {
-					x: 0,
-					y: 0,
-				},
-				imagenes: {
-					enemigo: juego.imagenesEnemigos.samurai,
-					muerte: juego.imagenesEnemigos.muerte,
-				},
-				offset: {
-					x: 48 * juego.proporciones.enemigos.samurai.proporcion,
-					y: 20 * juego.proporciones.enemigos.samurai.proporcion,
-				},
-				puntaje: 100,
-				proporcion: 'samurai',
-				vida: 100,
-				defensa: 5,
-				armadura: 100,
-				plataforma: this,
-			}),
-		);
+			if (numeroEnemigos < 0.2) {
+				this.enemigos.push(this.crearEnemigoJabali());
+				this.enemigos.push(this.crearEnemigoSamurai());
+			} else {
+				let enemigo = Math.round(Math.random() * this.listaEnemigos.length);
+
+				if (enemigo == 0) {
+					this.enemigos.push(this.crearEnemigoJabali());
+				} else {
+					this.enemigos.push(this.crearEnemigoSamurai());
+				}
+			}
+		} else if (parseInt(juego.personaje.puntuacion) < 3000) {
+			let numeroEnemigos = Math.random();
+
+			if (numeroEnemigos < 0.1) {
+				this.enemigos.push(this.crearEnemigoCaballeroOscuro());
+				this.enemigos.push(this.crearEnemigoSamurai());
+			} else if (numeroEnemigos < 0.2) {
+				this.enemigos.push(this.crearEnemigoJabali());
+				this.enemigos.push(this.crearEnemigoSamurai());
+			} else {
+				let enemigo = Math.round(Math.random() * this.listaEnemigos.length);
+
+				if (enemigo == 0) {
+					this.enemigos.push(this.crearEnemigoJabali());
+				} else if (enemigo == 1) {
+					this.enemigos.push(this.crearEnemigoSamurai());
+				} else {
+					this.enemigos.push(this.crearEnemigoCaballeroOscuro());
+				}
+			}
+		} else {
+			let numeroEnemigos = Math.random();
+
+			if (numeroEnemigos < 0.1) {
+				this.enemigos.push(this.crearEnemigoCaballeroOscuro());
+				this.enemigos.push(this.crearEnemigoSamurai());
+			} else if (numeroEnemigos < 0.2) {
+				this.enemigos.push(this.crearEnemigoJabali());
+				this.enemigos.push(this.crearEnemigoSamurai());
+			}
+			if (numeroEnemigos < 0.5) {
+				let enemigo = Math.round(Math.random() * this.listaEnemigos.length);
+
+				if (enemigo == 0) {
+					this.enemigos.push(this.crearEnemigoJabali());
+				} else if (enemigo == 1) {
+					this.enemigos.push(this.crearEnemigoSamurai());
+				} else {
+					this.enemigos.push(this.crearEnemigoCaballeroOscuro());
+				}
+			} else {
+				this.enemigos.push(this.crearEnemigoMinotauro());
+			}
+		}
+
+		// this.enemigos.push(this.crearEnemigoMinotauro())
+	}
+
+	crearEnemigoMinotauro() {
+		return new Minotauro({
+			posicion: {
+				x:
+					this.posicion.x +
+					this.offset.x +
+					(this.width * 0.4 * Math.random() - juego.proporciones.enemigos.minotauro.alcanceVigilar * 2 - (juego.imagenesEnemigos.minotauro.width / 8) * juego.proporciones.enemigos.minotauro.proporcion) +
+					juego.proporciones.enemigos.minotauro.alcanceVigilar * 3 +
+					(juego.imagenesEnemigos.minotauro.width / 8) * juego.proporciones.enemigos.minotauro.proporcion,
+
+				y: this.posicion.y - (juego.imagenesEnemigos.minotauro.height / 10) * juego.proporciones.enemigos.minotauro.proporcion,
+			},
+			velocidad: {
+				x: 0,
+				y: 0,
+			},
+			imagenes: {
+				enemigo: juego.imagenesEnemigos.minotauro,
+				muerte: juego.imagenesEnemigos.muerte,
+			},
+			offset: {
+				x: 72 * juego.proporciones.enemigos.minotauro.proporcion,
+				y: 54 * juego.proporciones.enemigos.minotauro.proporcion,
+			},
+			puntaje: 500,
+			proporcion: 'minotauro',
+			vida: 300,
+			defensa: 10,
+			armadura: 100,
+			plataforma: this,
+		});
+	}
+
+	crearEnemigoCaballeroOscuro() {
+		return new CaballeroOscuro({
+			posicion: {
+				x:
+					this.posicion.x +
+					this.offset.x +
+					(this.width * 0.4 * Math.random() - juego.proporciones.enemigos.caballeroOscuro.alcanceVigilar * 2 - (juego.imagenesEnemigos.caballeroOscuro.width / 8) * juego.proporciones.enemigos.caballeroOscuro.proporcion) +
+					juego.proporciones.enemigos.caballeroOscuro.alcanceVigilar * 3 +
+					(juego.imagenesEnemigos.caballeroOscuro.width / 8) * juego.proporciones.enemigos.caballeroOscuro.proporcion,
+
+				y: this.posicion.y - (juego.imagenesEnemigos.caballeroOscuro.height / 3) * juego.proporciones.enemigos.caballeroOscuro.proporcion,
+			},
+			velocidad: {
+				x: 0,
+				y: 0,
+			},
+			imagenes: {
+				enemigo: juego.imagenesEnemigos.caballeroOscuro,
+				muerte: juego.imagenesEnemigos.muerte,
+			},
+			offset: {
+				x: 48 * juego.proporciones.enemigos.caballeroOscuro.proporcion,
+				y: 20 * juego.proporciones.enemigos.caballeroOscuro.proporcion,
+			},
+			puntaje: 300,
+			proporcion: 'caballeroOscuro',
+			vida: 50,
+			defensa: 10,
+			armadura: 300,
+			plataforma: this,
+		});
+	}
+
+	crearEnemigoSamurai() {
+		return new Samurai({
+			posicion: {
+				x:
+					this.posicion.x +
+					this.offset.x +
+					(this.width * 0.4 * Math.random() - juego.proporciones.enemigos.samurai.alcanceVigilar * 2 - (juego.imagenesEnemigos.samurai.width / 8) * juego.proporciones.enemigos.samurai.proporcion) +
+					juego.proporciones.enemigos.samurai.alcanceVigilar * 3 +
+					(juego.imagenesEnemigos.samurai.width / 8) * juego.proporciones.enemigos.samurai.proporcion,
+
+				y: this.posicion.y - (juego.imagenesEnemigos.samurai.height / 3) * juego.proporciones.enemigos.samurai.proporcion,
+			},
+			velocidad: {
+				x: 0,
+				y: 0,
+			},
+			imagenes: {
+				enemigo: juego.imagenesEnemigos.samurai,
+				muerte: juego.imagenesEnemigos.muerte,
+			},
+			offset: {
+				x: 48 * juego.proporciones.enemigos.samurai.proporcion,
+				y: 20 * juego.proporciones.enemigos.samurai.proporcion,
+			},
+			puntaje: 200,
+			proporcion: 'samurai',
+			vida: 100,
+			defensa: 5,
+			armadura: 50,
+			plataforma: this,
+		});
+	}
+
+	crearEnemigoJabali() {
+		return new Jabali({
+			posicion: {
+				x:
+					this.posicion.x +
+					this.offset.x +
+					(this.width * 0.4 * Math.random() - juego.proporciones.enemigos.jabali.alcanceVigilar * 2 - (juego.imagenesEnemigos.jabali.width / 8) * juego.proporciones.enemigos.jabali.proporcion) +
+					juego.proporciones.enemigos.jabali.alcanceVigilar * 3 +
+					(juego.imagenesEnemigos.jabali.width / 8) * juego.proporciones.enemigos.jabali.proporcion,
+
+				y: this.posicion.y - (juego.imagenesEnemigos.jabali.height / 3) * juego.proporciones.enemigos.jabali.proporcion,
+			},
+			velocidad: {
+				x: 0,
+				y: 0,
+			},
+			imagenes: {
+				enemigo: juego.imagenesEnemigos.jabali,
+				muerte: juego.imagenesEnemigos.muerte,
+			},
+			offset: {
+				x: 48 * juego.proporciones.enemigos.jabali.proporcion,
+				y: 20 * juego.proporciones.enemigos.jabali.proporcion,
+			},
+			puntaje: 100,
+			proporcion: 'jabali',
+			vida: 50,
+			defensa: 2,
+			armadura: 20,
+			plataforma: this,
+		});
 	}
 
 	dibujarEnemigosPlataforma() {
@@ -325,11 +488,14 @@ class Plataforma extends Sprite {
 		// 	return 0;
 		// }
 
-		if (( (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && juego.personaje.posicion.x > canvas.width * 0.6) || ( (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && juego.personaje.posicion.x < canvas.width * 0.4)) {
+		if (
+			((juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && juego.personaje.posicion.x > canvas.width * 0.6) ||
+			((juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && juego.personaje.posicion.x < canvas.width * 0.4)
+		) {
 			juego.personaje.ataques.forEach((ataque) => {
 				if (ataque.velocidad.x > 0) {
 					if (juego.controles['ArrowRight'].presionada) {
-						ataque.velocidad.x = (juego.proporcionesFPS.proporcionMovimiento * 5 - juego.proporcionesFPS.proporcionMovimiento * 2);
+						ataque.velocidad.x = juego.proporcionesFPS.proporcionMovimiento * 5 - juego.proporcionesFPS.proporcionMovimiento * 2;
 					} else if (juego.controles['ArrowLeft'].presionada) {
 						ataque.velocidad.x = juego.proporcionesFPS.proporcionMovimiento * 5 + juego.proporcionesFPS.proporcionMovimiento * 2;
 					}

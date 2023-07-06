@@ -154,7 +154,7 @@ class Ataque extends Sprite {
 						if (
 							this.posicion.x + this.offset.x / 2 + this.anchoColision >= enemigo.posicion.x + enemigo.offset.x / 2 &&
 							this.posicion.x + this.offset.x / 2 <= enemigo.posicion.x + enemigo.offset.x / 2 + enemigo.anchoColision &&
-							this.posicion.y + this.offset.y / 2 + this.altoColision >= enemigo.posicion.y + enemigo.offset.y / 2 &&
+							this.posicion.y + this.offset.y / 2 + this.altoColision >= enemigo.posicion.y + enemigo.offset.y &&
 							this.posicion.y + this.offset.y / 2 <= enemigo.posicion.y + enemigo.offset.y + enemigo.altoColision
 						) {
 							if (enemigo.vida + enemigo.defensa - this.daño < 0) {
