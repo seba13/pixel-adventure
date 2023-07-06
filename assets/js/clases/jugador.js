@@ -158,9 +158,9 @@ class Jugador extends Sprite {
 	}
 	reproducirSonidoCaminar(estado) {
 		if (estado) {
-			this.audios.correr.pause();
 			this.audios.correr.volume = 1;
 			this.audios.correr.play();
+			
 		} else {
 			this.audios.correr.currentTime = 0;
 			this.audios.correr.pause();
