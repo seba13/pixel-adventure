@@ -11,13 +11,13 @@ class Jabali extends Enemigo {
 		this.plataforma = plataforma;
 		this.alcance = juego.proporciones.enemigos[this.proporcion].alcanceVigilar; //perimetro donde realiza guardia
 		this.alcancePersecucion = 800; // perimetro de persecucion
-		this.alcanceAtaque = 70; //distancia donde realiza y puede acertar un golpe
+		this.alcanceAtaque = 80; //distancia donde realiza y puede acertar un golpe
 		this.rectangulocolisionAtaque = {
 			ancho: this.alcanceAtaque + 10,
 			alto: 20,
 		};
-		this.tiempoRecarga = 200;
-		this.tiempoVolverAtacar = 200;
+		this.tiempoRecarga = 100;
+		this.tiempoVolverAtacar = 100;
 		this.cuadroActual = 0;
 		this.atacando = false;
 		this.muriendo = false;

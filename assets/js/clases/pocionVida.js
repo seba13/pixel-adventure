@@ -11,6 +11,8 @@ class PocionVida extends Sprite {
 		this.anchoColision = (this.imagenes.pocion.width - this.offset.x) * juego.proporciones.pocion;
 		this.altoColision = (this.imagenes.pocion.height - this.offset.y) * juego.proporciones.pocion;
 		this.liberar = false;
+		this.contadorLimiteMovimiento = 4;
+		this.contadorMovimiento = 0;
 		this.contadorLimiteCuadros = 4;
 		this.contadorCuadros = 0;
 		this.opacidad = 1;
@@ -43,12 +45,15 @@ class PocionVida extends Sprite {
 	}
 
 	animarSprite() {
-		this.movimiento = this.rango * Math.sin(this.intervalo * 0.04) + this.posicion.y;
-		this.intervalo += 1;
+		this.contadorMovimiento++;
+		if (this.contadorMovimiento % Math.ceil(this.contadorLimiteMovimiento / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+			this.movimiento = this.rango * Math.sin(this.intervalo * 0.04) + this.posicion.y;
+			this.intervalo += 1;
+		}
 
 		if (this.consumir) {
 			this.contadorCuadros++;
-			if (this.contadorCuadros % this.contadorLimiteCuadros == 0) {
+			if (this.contadorCuadros % Math.ceil(this.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
 				if (this.opacidad > 0) {
 					this.opacidad -= 0.2;
 				} else {
