@@ -10,6 +10,7 @@ class Plataforma extends Sprite {
 		this.altoPixel = 32;
 		this.enemigoCreado = false;
 		this.enemigos = [];
+		this.items = [];
 		this.listaEnemigos = ['jabali', 'samurai', 'caballeroOscuro'];
 		this.tile = {
 			arbol: {
@@ -126,6 +127,17 @@ class Plataforma extends Sprite {
 			}
 		}
 		this.dibujarEnemigosPlataforma();
+		this.dibujarItemsPlataforma();
+	}
+
+	dibujarItemsPlataforma() {
+		this.items = this.items.filter((item) => !item.liberar);
+
+		this.items.forEach((item) => {
+			if (item instanceof PocionVida) {
+				item.actualizarSprite();
+			}
+		});
 	}
 
 	agregarEnemigos() {
@@ -195,6 +207,14 @@ class Plataforma extends Sprite {
 	}
 
 	crearEnemigoMinotauro() {
+		let drop = {
+			pocion: false,
+		};
+
+		if (Math.random() < 0.2) {
+			drop.pocion = true;
+		}
+
 		return new Minotauro({
 			posicion: {
 				x:
@@ -224,10 +244,19 @@ class Plataforma extends Sprite {
 			defensa: 10,
 			armadura: 100,
 			plataforma: this,
+			drop,
 		});
 	}
 
 	crearEnemigoCaballeroOscuro() {
+		let drop = {
+			pocion: false,
+		};
+
+		if (Math.random() < 0.2) {
+			drop.pocion = true;
+		}
+
 		return new CaballeroOscuro({
 			posicion: {
 				x:
@@ -257,10 +286,19 @@ class Plataforma extends Sprite {
 			defensa: 10,
 			armadura: 300,
 			plataforma: this,
+			drop,
 		});
 	}
 
 	crearEnemigoSamurai() {
+		let drop = {
+			pocion: false,
+		};
+
+		if (Math.random() < 0.2) {
+			drop.pocion = true;
+		}
+
 		return new Samurai({
 			posicion: {
 				x:
@@ -290,10 +328,19 @@ class Plataforma extends Sprite {
 			defensa: 5,
 			armadura: 50,
 			plataforma: this,
+			drop,
 		});
 	}
 
 	crearEnemigoJabali() {
+		let drop = {
+			pocion: false,
+		};
+
+		if (Math.random() < 0.2) {
+			drop.pocion = true;
+		}
+
 		return new Jabali({
 			posicion: {
 				x:
@@ -323,6 +370,7 @@ class Plataforma extends Sprite {
 			defensa: 2,
 			armadura: 20,
 			plataforma: this,
+			drop,
 		});
 	}
 
@@ -516,6 +564,10 @@ class Plataforma extends Sprite {
 					enemigo.posicionInicial += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 				});
 
+				this.items.forEach((item) => {
+					item.posicion.x += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				});
+
 				this.posicion.x += -Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 				this.tile.arbol.arbol_1.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 				this.tile.arbol.arbol_2.x -= Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
@@ -527,6 +579,10 @@ class Plataforma extends Sprite {
 				this.enemigos.forEach((enemigo) => {
 					enemigo.posicion.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 					enemigo.posicionInicial += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
+				});
+
+				this.items.forEach((item) => {
+					item.posicion.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
 				});
 
 				this.posicion.x += Math.round(juego.proporcionesFPS.proporcionMovimiento * 5);
@@ -586,9 +642,31 @@ class Plataforma extends Sprite {
 		}
 	}
 
+	detectarColisionItem() {
+		this.items.forEach((item) => {
+			if (
+				juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision > item.posicion.x + item.offset.x / 2 &&
+				juego.personaje.posicion.x + juego.personaje.offset.x / 2 < item.posicion.x + item.offset.x / 2 + item.anchoColision &&
+				juego.personaje.posicion.y + juego.personaje.height > item.posicion.y + item.offset.y &&
+				juego.personaje.posicion.y < item.posicion.y + item.offset.y + item.altoColision
+			) {
+				if (item instanceof PocionVida) {
+					if (juego.personaje.vida < 4) {
+						item.consumir = true;
+						if (!item.consumido) {
+							item.consumido = true;
+							juego.personaje.vida += 1;
+						}
+					}
+				}
+			}
+		});
+	}
+
 	actualizarSprite() {
 		this.detectarColisionPersonaje();
 		this.detectarColisionEnemigo();
+		this.detectarColisionItem();
 		this.dibujar();
 
 		// this.posicion.x -= this.velocidad.x;

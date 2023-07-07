@@ -1,8 +1,8 @@
 class Minotauro extends Enemigo {
-	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, offset = { x: 0, y: 0 }, proporcion, vida, defensa, armadura, plataforma, puntaje }) {
+	constructor({ posicion = { x: 0, y: 0 }, velocidad = { x: 0, y: 0 }, imagenes, offset = { x: 0, y: 0 }, proporcion, vida, defensa, armadura, plataforma, puntaje, drop }) {
 		super({ posicion, velocidad, imagenes });
 
-
+        this.drop = drop
 		this.proporcion = proporcion;
 		this.puntaje = puntaje
 		this.dañoAtaque = 1

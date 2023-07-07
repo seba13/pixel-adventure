@@ -49,6 +49,27 @@ class Enemigo extends Sprite {
 			} else {
 				juego.personaje.agregarPuntaje(this.puntaje);
 				this.liberar = true;
+
+				if (this.drop && this.drop.pocion) {
+					this.plataforma.items.push(
+						new PocionVida({
+							posicion: {
+								x: this.posicion.x,
+								y: this.posicion.y + this.offset.y + this.altoColision - juego.imagenesEnemigos.pocion.height * juego.proporciones.pocion,
+							},
+							offset: {
+								x: 6,
+								y: 0,
+							},
+							velocidad: this.velocidad,
+							imagenes: {
+								pocion: juego.imagenesEnemigos.pocion,
+							},
+						}),
+					);
+				} 
+
+				
 			}
 		}
 
@@ -239,8 +260,8 @@ class Enemigo extends Sprite {
 					if (this.cuadroActual + 1 >= this.mapa[this.estado].frames - 1) {
 						this.atacando = false;
 					}
-				}else {
-					if(this.estado == 'atacar' && juego.personaje.vida <= 0) {
+				} else {
+					if (this.estado == 'atacar' && juego.personaje.vida <= 0) {
 						if (this.cuadroActual + 1 >= this.mapa[this.estado].frames - 1) {
 							this.atacando = false;
 						}
@@ -299,9 +320,8 @@ class Enemigo extends Sprite {
 			ctx.save();
 			ctx.scale(1, 1);
 			flip = 1;
-		}	
+		}
 
-	
 		ctx.drawImage(this.imagenes.enemigo, this.mapa[this.estado].x + this.anchoSprite * this.cuadroActual, this.mapa[this.estado].y, this.anchoSprite, this.altoSprite, this.posicion.x * flip, this.posicion.y, this.ancho * flip, this.alto);
 
 		//RECTANGULO DE PRUEBA PARA EL RANGO DE ATAQUE DEL ENEMIGO
@@ -323,29 +343,25 @@ class Enemigo extends Sprite {
 		// 	);
 		// }
 
-
-		
 		this.porcentajeArmadura = this.armadura / this.totalArmadura >= 0 ? this.armadura / this.totalArmadura : 0;
 		this.porcentajeVida = this.vida / this.totalVida >= 0 ? this.vida / this.totalVida : 0;
 
-		this.posicionBarrasX = (this.posicion.x + this.offset.x / 2) 
-		this.posicionBarrasY =  this.posicion.y + this.offset.y - 20
-		this.anchoBarras = this.anchoColision 
-		this.altoBarras = 10
+		this.posicionBarrasX = this.posicion.x + this.offset.x / 2;
+		this.posicionBarrasY = this.posicion.y + this.offset.y - 20;
+		this.anchoBarras = this.anchoColision;
+		this.altoBarras = 10;
 
-		
 		// BARRA FONDO VIDA
 		ctx.fillStyle = 'black';
 		ctx.fillRect(this.posicionBarrasX * flip, this.posicionBarrasY, this.anchoBarras * flip, this.altoBarras);
-		
-		
+
 		// VIDA ENEMIGO
 		ctx.fillStyle = '#e63946';
-		ctx.fillRect(this.posicionBarrasX  * flip, this.posicionBarrasY, this.anchoBarras * this.porcentajeVida * flip, this.altoBarras);
+		ctx.fillRect(this.posicionBarrasX * flip, this.posicionBarrasY, this.anchoBarras * this.porcentajeVida * flip, this.altoBarras);
 
 		// ARMADURA ENEMIGO
 		ctx.fillStyle = '#ffb703';
-		ctx.fillRect(this.posicionBarrasX  * flip, this.posicionBarrasY, this.anchoBarras * this.porcentajeArmadura * flip, this.altoBarras);
+		ctx.fillRect(this.posicionBarrasX * flip, this.posicionBarrasY, this.anchoBarras * this.porcentajeArmadura * flip, this.altoBarras);
 
 		ctx.restore();
 
@@ -354,10 +370,8 @@ class Enemigo extends Sprite {
 		// ctx.fillStyle = 'rgba(255,0,0,.4)';
 		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y + this.offset.y, this.anchoColision, this.altoColision);
 
-
 		// ctx.fillStyle = 'rgba(0,255,0,.4)'
 		// ctx.fillRect(this.posicion.x + this.offset.x/2 - this.anchoHumoEscalado/2 + this.anchoColision/2, this.posicion.y + this.offset.y + this.altoColision - this.altoHumoEscalado, this.anchoHumoEscalado, this.altoHumoEscalado)
-
 
 		// ctx.fillStyle = 'rgba(255,0,255, .2)';
 		// ctx.fillRect(this.posicionInicial - this.alcancePersecucion, this.posicion.y, this.alcancePersecucion * 2, this.alto);
@@ -384,14 +398,11 @@ class Enemigo extends Sprite {
 			this.mapa[this.estado].y,
 			this.anchoSpriteHumo,
 			this.altoSpriteHumo,
-			(this.posicion.x + this.offset.x/2 - this.anchoHumoEscalado/2 + this.anchoColision/2) * flip,
-			this.posicion.y + this.offset.y + this.altoColision - this.altoHumoEscalado + (this.mapa.muerte.offset.y * juego.proporciones.enemigos.humo), 
+			(this.posicion.x + this.offset.x / 2 - this.anchoHumoEscalado / 2 + this.anchoColision / 2) * flip,
+			this.posicion.y + this.offset.y + this.altoColision - this.altoHumoEscalado + this.mapa.muerte.offset.y * juego.proporciones.enemigos.humo,
 			this.anchoHumoEscalado * flip,
 			this.altoHumoEscalado,
 		);
-
-		
-
 
 		ctx.restore();
 	}

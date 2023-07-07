@@ -61,6 +61,7 @@ class Juego {
 				teclas: Math.ceil(2 * this.proporcionResolucion),
 				cerrar: Math.ceil(1 * this.proporcionResolucion),
 			},
+			pocion: Math.ceil(2 * this.proporcionResolucion),
 			texto: Math.ceil(2 * this.proporcionResolucion),
 			personaje: Math.ceil(4 * this.proporcionResolucion),
 			barraVida: Math.ceil(3 * this.proporcionResolucion),
@@ -332,6 +333,7 @@ class Juego {
 			jabali: new Image(),
 			caballeroOscuro: new Image(),
 			minotauro: new Image(),
+			pocion: new Image()
 		};
 
 		this.tilesetJugador = {
@@ -843,6 +845,7 @@ class Juego {
 		this.imagenesEnemigos.jabali.src = '/assets/img/enemigos/enemigo-3/jabali.png';
 		this.imagenesEnemigos.caballeroOscuro.src = '/assets/img/enemigos/enemigo-5/caballero-oscuro.png';
 		this.imagenesEnemigos.minotauro.src = '/assets/img/enemigos/enemigo-4/minotauro.png';
+		this.imagenesEnemigos.pocion.src = '/assets/img/items/pocion.png'
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {

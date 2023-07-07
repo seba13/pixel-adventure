@@ -259,6 +259,12 @@ class Jugador extends Sprite {
 
 		if (this.anchoVidaActual > this.anchoVidaTarget) {
 			this.anchoVidaActual -= 0.05 / this.vidaTotal;
+		} else if (this.anchoVidaActual < this.anchoVidaTarget) {
+			this.anchoVidaActual += 0.05 / this.vidaTotal;
+
+			if (this.anchoVidaTarget - this.anchoVidaActual <= 0.02) {
+				this.anchoVidaActual = this.anchoVidaTarget;
+			}
 		}
 	}
 
@@ -324,8 +330,7 @@ class Jugador extends Sprite {
 
 		this.anchoEnergiaTarget = this.energia / this.energiaTotal;
 
-
-		console.log(this.anchoEnergiaTarget);
+		// console.log(this.anchoEnergiaTarget);
 
 		ctx.drawImage(
 			this.imagenes.barraEnergia,
@@ -341,14 +346,14 @@ class Jugador extends Sprite {
 
 		if (this.anchoEnergiaActual > this.anchoEnergiaTarget) {
 			this.anchoEnergiaActual -= 0.1 / this.energiaTotal;
-			this.anchoEnergiaActual = (Math.round(this.anchoEnergiaActual * 1000)/1000);
+			this.anchoEnergiaActual = Math.round(this.anchoEnergiaActual * 1000) / 1000;
 		} else if (this.anchoEnergiaActual < this.anchoEnergiaTarget) {
-			if(this.tiempoEnergia >= this.tiempoRecuperarEnergia) {
+			if (this.tiempoEnergia >= this.tiempoRecuperarEnergia) {
 				if (this.anchoEnergiaActual >= 0.98) {
 					this.anchoEnergiaActual = 1;
 				} else {
 					this.anchoEnergiaActual += 0.05 / this.energiaTotal;
-					this.anchoEnergiaActual = (Math.round(this.anchoEnergiaActual * 1000)/1000);
+					this.anchoEnergiaActual = Math.round(this.anchoEnergiaActual * 1000) / 1000;
 				}
 			}
 		}
