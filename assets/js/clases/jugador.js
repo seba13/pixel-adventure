@@ -178,11 +178,11 @@ class Jugador extends Sprite {
 		this.audios.recibirDaño.volume = 1;
 		this.audios.recibirDaño.play();
 	}
-	reproducirSonidoMuerte() {
-		this.audios.muerte.currentTime = 0;
-		this.audios.muerte.pause();
-		this.audios.muerte.volume = 1;
-		this.audios.muerte.play();
+	reproducirSonidoSalto() {
+		this.audios.salto.currentTime = 0;
+		this.audios.salto.pause();
+		this.audios.salto.volume = 1;
+		this.audios.salto.play();
 	}
 	dibujarPersonaje() {
 		let flip = 0;
@@ -619,6 +619,7 @@ class Jugador extends Sprite {
 				if (this.estado != 'saltando') {
 					this.estado = 'saltando';
 					this.cuadroActual = 0;
+
 				}
 			} else if (this.velocidad.y > juego.gravedad) {
 				if (this.estado != 'caida') {
@@ -636,6 +637,7 @@ class Jugador extends Sprite {
 				if (this.estado != 'saltando') {
 					this.estado = 'saltando';
 					this.cuadroActual = 0;
+
 				}
 			} else if (this.velocidad.y > juego.gravedad) {
 				if (this.estado != 'caida') {
@@ -653,6 +655,7 @@ class Jugador extends Sprite {
 				if (this.estado != 'saltando') {
 					this.estado = 'saltando';
 					this.cuadroActual = 0;
+
 				}
 			} else if (this.velocidad.y > juego.gravedad) {
 				if (this.estado != 'caida') {
@@ -669,6 +672,7 @@ class Jugador extends Sprite {
 				if (this.estado != 'saltando') {
 					this.estado = 'saltando';
 					this.cuadroActual = 0;
+
 				}
 			} else if (this.velocidad.y > juego.gravedad) {
 				if (this.estado != 'caida') {
