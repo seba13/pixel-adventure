@@ -127,7 +127,7 @@ class Ataque extends Sprite {
 				this.mapaAtaque.cuadroActual++;
 
 				if (this.mapaAtaque.bolaFuego.estadoAtaque == 'impacto') {
-					console.log('estado impacto');
+					// console.log('estado impacto');
 					if (this.mapaAtaque.cuadroActual + 1 >= this.mapaAtaque.bolaFuego[this.mapaAtaque.bolaFuego.estadoAtaque].frames - 1) {
 						this.impactando = false;
 						this.liberar = true;
