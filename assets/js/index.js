@@ -13,5 +13,3 @@ const juego = new Juego();
 		juego.iniciar();
 	}
 })();
-
-

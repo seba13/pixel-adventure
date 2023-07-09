@@ -40,7 +40,7 @@ class Ayuda extends Sprite {
 				},
 				frames: 2,
 			},
-            botonW: {
+			botonW: {
 				cuadroActual: 0,
 				contadorCuadros: 0,
 				contadorLimiteCuadros: 24,
@@ -61,12 +61,12 @@ class Ayuda extends Sprite {
 					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
 				},
 			},
-            botonA: {
+			botonA: {
 				cuadroActual: 0,
 				contadorCuadros: 0,
 				contadorLimiteCuadros: 24,
 				posicion: {
-					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.63 ) * juego.proporciones.ayuda.libro - (this.imagenes.botonIzquierda.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					x: this.posicion.x + this.imagenes.abrirLibro.frame_1.width * 0.63 * juego.proporciones.ayuda.libro - (this.imagenes.botonIzquierda.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
 					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
 				},
 				frames: 2,
@@ -77,16 +77,22 @@ class Ayuda extends Sprite {
 				contadorLimiteCuadros: 24,
 				frames: 2,
 				posicion: {
-					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.5 - (this.imagenes.abrirLibro.frame_1.width * 0.13 ) ) * juego.proporciones.ayuda.libro - (this.imagenes.botonDerecha.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					x:
+						this.posicion.x +
+						(this.imagenes.abrirLibro.frame_1.width * 0.5 - this.imagenes.abrirLibro.frame_1.width * 0.13) * juego.proporciones.ayuda.libro -
+						(this.imagenes.botonDerecha.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
 					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
 				},
 			},
-            botonD: {
+			botonD: {
 				cuadroActual: 0,
 				contadorCuadros: 0,
 				contadorLimiteCuadros: 24,
 				posicion: {
-					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width - 16  - (this.imagenes.abrirLibro.frame_1.width * 0.13 ) ) * juego.proporciones.ayuda.libro - (this.imagenes.botonDerecha.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
+					x:
+						this.posicion.x +
+						(this.imagenes.abrirLibro.frame_1.width - 16 - this.imagenes.abrirLibro.frame_1.width * 0.13) * juego.proporciones.ayuda.libro -
+						(this.imagenes.botonDerecha.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
 					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.38 * juego.proporciones.ayuda.libro,
 				},
 				frames: 2,
@@ -98,7 +104,7 @@ class Ayuda extends Sprite {
 				frames: 2,
 				posicion: {
 					x: this.posicion.x + (this.imagenes.abrirLibro.frame_1.width * 0.25 + 16) * juego.proporciones.ayuda.libro - (this.imagenes.botonEspacio.frame_1.width / 2) * juego.proporciones.ayuda.teclas,
-					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.50 * juego.proporciones.ayuda.libro,
+					y: this.posicion.y + this.imagenes.abrirLibro.frame_1.height * 0.5 * juego.proporciones.ayuda.libro,
 				},
 			},
 			botonCheck: {
@@ -138,9 +144,9 @@ class Ayuda extends Sprite {
 			if (this.cuadroActual >= this.mapaLibro[this.estado].frames - 1) {
 				this.dibujarBotonCerrar();
 				this.dibujarBotonArriba();
-                this.dibujarBotonW()
-                this.dibujarBotonA()
-                this.dibujarBotonD()
+				this.dibujarBotonW();
+				this.dibujarBotonA();
+				this.dibujarBotonD();
 				this.dibujarBotonDerecha();
 				this.dibujarBotonIzquierda();
 				this.dibujarBotonEspacio();
@@ -239,7 +245,7 @@ class Ayuda extends Sprite {
 		);
 	}
 
-    dibujarBotonW() {
+	dibujarBotonW() {
 		this.mapaLibro.botonW.contadorCuadros++;
 
 		if (this.mapaLibro.botonW.contadorCuadros % Math.floor(this.mapaLibro.botonW.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
@@ -265,7 +271,7 @@ class Ayuda extends Sprite {
 			this.mapaLibro.botonW.posicion.y + this.imagenes.botonW.frame_1.height * juego.proporciones.ayuda.teclas + 25,
 		);
 	}
-    dibujarBotonA() {
+	dibujarBotonA() {
 		this.mapaLibro.botonA.contadorCuadros++;
 
 		if (this.mapaLibro.botonA.contadorCuadros % Math.floor(this.mapaLibro.botonA.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
@@ -291,7 +297,7 @@ class Ayuda extends Sprite {
 			this.mapaLibro.botonA.posicion.y + this.imagenes.botonA.frame_1.height * juego.proporciones.ayuda.teclas + 25,
 		);
 	}
-    dibujarBotonD() {
+	dibujarBotonD() {
 		this.mapaLibro.botonD.contadorCuadros++;
 
 		if (this.mapaLibro.botonD.contadorCuadros % Math.floor(this.mapaLibro.botonD.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
@@ -385,17 +391,7 @@ class Ayuda extends Sprite {
 
 		let imagen = this.mapaLibro.botonEspacio.cuadroActual == 0 ? this.imagenes.botonEspacio.frame_1 : this.imagenes.botonEspacio.frame_2;
 
-		ctx.drawImage(
-			imagen,
-			0,
-			0,
-			imagen.width,
-			imagen.height,
-			this.mapaLibro.botonEspacio.posicion.x,
-			this.mapaLibro.botonEspacio.posicion.y,
-			imagen.width * juego.proporciones.ayuda.teclas,
-			imagen.height * juego.proporciones.ayuda.teclas,
-		);
+		ctx.drawImage(imagen, 0, 0, imagen.width, imagen.height, this.mapaLibro.botonEspacio.posicion.x, this.mapaLibro.botonEspacio.posicion.y, imagen.width * juego.proporciones.ayuda.teclas, imagen.height * juego.proporciones.ayuda.teclas);
 
 		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
 		ctx.fillStyle = 'black';
@@ -427,13 +423,13 @@ class Ayuda extends Sprite {
 			this.mapaLibro.botonCheck.imagen.height * juego.proporciones.ayuda.check,
 		);
 
-        ctx.font = `${juego.proporciones.texto * 16}px VT323`;
-        let texto = 'No volver a mostrar';
+		ctx.font = `${juego.proporciones.texto * 16}px VT323`;
+		let texto = 'No volver a mostrar';
 
 		ctx.fillText(
 			texto,
-			this.mapaLibro.botonCheck.posicion.x + (this.imagenes.botonCheck.width) * juego.proporciones.ayuda.teclas + 10,
-			this.mapaLibro.botonCheck.posicion.y + this.imagenes.botonCheck.height/2 * juego.proporciones.ayuda.teclas + juego.proporciones.texto*16/2 ,
+			this.mapaLibro.botonCheck.posicion.x + this.imagenes.botonCheck.width * juego.proporciones.ayuda.teclas + 10,
+			this.mapaLibro.botonCheck.posicion.y + (this.imagenes.botonCheck.height / 2) * juego.proporciones.ayuda.teclas + (juego.proporciones.texto * 16) / 2,
 		);
 	}
 

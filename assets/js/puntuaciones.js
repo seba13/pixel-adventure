@@ -1,7 +1,4 @@
-
-
 async function cargarPuntuaciones() {
-
 	try {
 		let res = await fetch('/scores');
 		let json = (await res.json()).puntuaciones;
@@ -27,7 +24,7 @@ async function cargarPuntuaciones() {
 			const fecha = new Date(arrayPuntuaciones[index].fecha);
 
 			const anio = fecha.getFullYear();
-			const mes = fecha.getMonth() < 10 ? '0' + (+fecha.getMonth()+1) : (+fecha.getMonth()+1);
+			const mes = fecha.getMonth() < 10 ? '0' + (+fecha.getMonth() + 1) : +fecha.getMonth() + 1;
 			const dia = fecha.getDay() < 10 ? '0' + fecha.getDay() : fecha.getDay();
 
 			const horas = fecha.getHours() < 10 ? '0' + fecha.getHours() : fecha.getHours();
@@ -51,14 +48,11 @@ async function cargarPuntuaciones() {
 		}
 		await listaPuntuaciones.append(fragment);
 
-		return true
-		
+		return true;
 	} catch (err) {
 		return err;
 	}
 }
-
-
 
 async function guardarPuntuacion(datosJugador) {
 	const datos = {

@@ -333,7 +333,7 @@ class Juego {
 			jabali: new Image(),
 			caballeroOscuro: new Image(),
 			minotauro: new Image(),
-			pocion: new Image()
+			pocion: new Image(),
 		};
 
 		this.tilesetJugador = {
@@ -845,7 +845,7 @@ class Juego {
 		this.imagenesEnemigos.jabali.src = '/assets/img/enemigos/enemigo-3/jabali.png';
 		this.imagenesEnemigos.caballeroOscuro.src = '/assets/img/enemigos/enemigo-5/caballero-oscuro.png';
 		this.imagenesEnemigos.minotauro.src = '/assets/img/enemigos/enemigo-4/minotauro.png';
-		this.imagenesEnemigos.pocion.src = '/assets/img/items/pocion.png'
+		this.imagenesEnemigos.pocion.src = '/assets/img/items/pocion.png';
 
 		let imagenes = Object.values(this.tilesetJugador).reduce((arr, objActual) => {
 			if (objActual instanceof Image) {

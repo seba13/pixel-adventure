@@ -122,7 +122,7 @@ class Ataque extends Sprite {
 
 	animarAtaque() {
 		this.mapaAtaque.contadorCuados++;
-		if (this.mapaAtaque.contadorCuados % (this.mapaAtaque.bolaFuego[this.mapaAtaque.bolaFuego.estadoAtaque].contadorLimiteCuadros/juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
+		if (this.mapaAtaque.contadorCuados % (this.mapaAtaque.bolaFuego[this.mapaAtaque.bolaFuego.estadoAtaque].contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
 			if (this.mapaAtaque.cuadroActual < this.mapaAtaque.bolaFuego[this.mapaAtaque.bolaFuego.estadoAtaque].frames - 1) {
 				this.mapaAtaque.cuadroActual++;
 

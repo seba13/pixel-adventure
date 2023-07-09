@@ -663,7 +663,6 @@ class Plataforma extends Sprite {
 		});
 	}
 
-
 	actualizarSprite() {
 		this.detectarColisionPersonaje();
 		this.detectarColisionEnemigo();

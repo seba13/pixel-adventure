@@ -235,7 +235,7 @@ function obtenerSaltoInicial(alturaMaxima, gravedad = 0.5) {
 		}
 	}
 
-	if(alturaMaxima != obtenerAlturaMaxima(salto)) {
+	if (alturaMaxima != obtenerAlturaMaxima(salto)) {
 		while (obtenerAlturaMaxima(salto) <= alturaMaxima) {
 			if (obtenerAlturaMaxima(salto + 0.001) <= alturaMaxima) {
 				salto += 0.001;

@@ -25,8 +25,7 @@ class Fondo extends Sprite {
 		// MONTAÑA 3
 		this.imagenes.montaña_3.frameActual = this.imagenes.montaña_3.frame_1;
 		this.imagenes.montaña_3.posicion.x = this.imagenes.montaña_3.frameActual.width / 4;
-		this.imagenes.montaña_3.posicion.y =
-			canvas.height - this.imagenes.montaña_3.frameActual.height * juego.proporciones.fondo.montaña_3 + this.imagenes.montaña_3.offset.y;
+		this.imagenes.montaña_3.posicion.y = canvas.height - this.imagenes.montaña_3.frameActual.height * juego.proporciones.fondo.montaña_3 + this.imagenes.montaña_3.offset.y;
 
 		// MONTAÑA 4
 		this.imagenes.montaña_4.frameActual = this.imagenes.montaña_4.frame_1;
@@ -35,10 +34,8 @@ class Fondo extends Sprite {
 
 		// MONTAÑA 5
 		this.imagenes.montaña_5.frameActual = this.imagenes.montaña_5.frame_1;
-		this.imagenes.montaña_5.posicion.x =
-			(this.imagenes.montaña_5.frameActual.width * juego.proporciones.fondo.montaña_5) / (200 * juego.proporciones.fondo.montaña_5);
-		this.imagenes.montaña_5.posicion.y =
-			canvas.height - this.imagenes.montaña_5.frameActual.height * juego.proporciones.fondo.montaña_5 + this.imagenes.montaña_5.offset.y;
+		this.imagenes.montaña_5.posicion.x = (this.imagenes.montaña_5.frameActual.width * juego.proporciones.fondo.montaña_5) / (200 * juego.proporciones.fondo.montaña_5);
+		this.imagenes.montaña_5.posicion.y = canvas.height - this.imagenes.montaña_5.frameActual.height * juego.proporciones.fondo.montaña_5 + this.imagenes.montaña_5.offset.y;
 
 		// NUBE 1
 		this.imagenes.nube_1.frameActual = this.imagenes.nube_1.frame_1;
@@ -52,16 +49,11 @@ class Fondo extends Sprite {
 
 		// NUBE 3
 		this.imagenes.nube_3.frameActual = this.imagenes.nube_3.frame_1;
-		this.imagenes.nube_3.posicion.y =
-			canvas.height - this.imagenes.nube_3.frameActual.height * juego.proporciones.fondo.nube_3 + this.imagenes.nube_3.offset.y;
+		this.imagenes.nube_3.posicion.y = canvas.height - this.imagenes.nube_3.frameActual.height * juego.proporciones.fondo.nube_3 + this.imagenes.nube_3.offset.y;
 
 		this.contadorLimiteCuadros = contadorLimiteCuadros;
 		this.contadorCuadros = 0;
 	}
-
-
-	
-
 
 	dibujar() {
 		//fondo
@@ -161,8 +153,6 @@ class Fondo extends Sprite {
 		this.escenario.actualizarSprite();
 
 		// Nube 3 inferior (PRIMER PLANO)
-		
-
 	}
 
 	dibujarNube3() {
@@ -191,8 +181,6 @@ class Fondo extends Sprite {
 
 	moverFondo(imagen) {
 		if (imagen.frameActual && imagen.frame_1 && imagen.frame_2) {
-
-		
 			// imagen.posicion.x -= this.PLANOS[imagen.plano];
 			if (imagen.posicion.x + imagen.frameActual.width * juego.proporciones.fondo[imagen.proporcion] < 0) {
 				imagen.posicion.x = canvas.width;
@@ -202,19 +190,17 @@ class Fondo extends Sprite {
 				imagen.velocidad.x = -this.PLANOS[imagen.plano];
 			} else {
 				if (
-					( (juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && juego.personaje.posicion.x > canvas.width * 0.6) ||
-					( (juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && juego.personaje.posicion.x < 200)
+					((juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && juego.personaje.posicion.x > canvas.width * 0.6) ||
+					((juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && juego.personaje.posicion.x < 200)
 				) {
-					if ((juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada)  && !(juego.controles['ArrowLeft'].presionada) && !juego.controles['a'].presionada) {
+					if ((juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && !juego.controles['ArrowLeft'].presionada && !juego.controles['a'].presionada) {
 						imagen.velocidad.x = -this.PLANOS[imagen.plano];
-					}
-					else
-					if ((juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && !(juego.controles['ArrowRight'].presionada) && !juego.controles['d'].presionada){
+					} else if ((juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && !juego.controles['ArrowRight'].presionada && !juego.controles['d'].presionada) {
 						imagen.velocidad.x = this.PLANOS[imagen.plano];
-					}else {
+					} else {
 						imagen.velocidad.x = 0;
 					}
-				}else {
+				} else {
 					imagen.velocidad.x = 0;
 				}
 			}
@@ -224,7 +210,7 @@ class Fondo extends Sprite {
 	actualizarSprite() {
 		this.contadorCuadros++;
 		// CAMBIAR FOTOGRAMA
-		if (this.contadorCuadros % (this.contadorLimiteCuadros/juego.proporcionesFPS.proporcionLimiteCuadros) === 0) {
+		if (this.contadorCuadros % (this.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) === 0) {
 			for (const obj in this.imagenes) {
 				this.alternarFrame(this.imagenes[obj]);
 			}

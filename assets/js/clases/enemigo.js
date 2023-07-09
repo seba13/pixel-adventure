@@ -67,9 +67,7 @@ class Enemigo extends Sprite {
 							},
 						}),
 					);
-				} 
-
-				
+				}
 			}
 		}
 
