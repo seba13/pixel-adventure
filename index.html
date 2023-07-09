@@ -1,69 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pixel Adventure</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="icon" href="assets/img/favicon/favicon-2.png" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Adventure</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="assets/img/favicon/favicon-2.png">
+		<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/index.css" />
+	</head>
 
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/index.css">
-</head>
+	<body>
+		<div class="container-principal animacion-aparecer">
+			<div class="container__alertas"></div>
+			<div class="principal animacion-aparecer">
+				<h1 id="titulo" data-titulo="Pixel Adventure"></h1>
 
-<body>
+				<form action="#" class="panel-jugador">
+					<button tabindex="1" id="boton-jugar">Jugar</button>
+					<button tabindex="2" id="boton-puntuaciones">Puntuaciones</button>
+				</form>
+			</div>
 
-    <div class="container-principal animacion-aparecer">
-        <div class="container__alertas"></div>
-        <div class="principal animacion-aparecer">
-            <h1 id="titulo" data-titulo="Pixel Adventure"></h1>
+			<div class="secundario ocultar">
+				<form action="#" class="formulario-datos-jugador">
+					<label class="label-nombre-jugador">
+						Ingrese Nombre jugador:
+						<input type="text" name="nombre-jugador" id="nombre-jugador" placeholder="#jugador 1" class="input-nombre-jugador" autocomplete="off" />
+					</label>
+					<button id="iniciar-juego" class="boton-partida">JUGAR</button>
+					<button class="boton-partida boton-volver-jugar">MENU PRINCIPAL</button>
+				</form>
+			</div>
 
-            <form action="#" class="panel-jugador">
+			<div class="loader ocultar"></div>
+			<div class="terciario ocultar">
+				<div class="container__puntuaciones">
+					<div class="container__titulo-puntuaciones">
+						<div class="titulo-puntuaciones">
+							<h2>PUNTUACIONES</h2>
+						</div>
+						<div class="subtitulo-puntuaciones">
+							<h3># JUGADOR</h3>
+							<h3>NOMBRE</h3>
+							<h3>FECHA</h3>
+							<h3>PUNTUACIÓN</h3>
+						</div>
+					</div>
+					<ul class="lista__puntuaciones"></ul>
+				</div>
+				<button class="boton-partida boton-volver-puntuaciones">MENU PRINCIPAL</button>
+			</div>
+		</div>
 
-                <button tabindex="1" id="boton-jugar">Jugar</button>
-                <button tabindex="2" id="boton-puntuaciones">Puntuaciones</button>
-            </form>
-        </div>
+		<canvas id="canvas"></canvas>
 
-        <div class="secundario ocultar">
-
-            <form action="#" class="formulario-datos-jugador">
-                <label class="label-nombre-jugador">
-                    Ingrese Nombre jugador:
-                    <input type="text" name="nombre-jugador" id="nombre-jugador" placeholder="#jugador 1"
-                        class="input-nombre-jugador" autocomplete="off">
-                </label>
-                <button id="iniciar-juego" class="boton-partida">JUGAR</button>
-                <button class="boton-partida boton-volver-jugar">MENU PRINCIPAL</button>
-            </form>
-        </div>
-
-        <div class="loader ocultar"></div>
-        <div class="terciario ocultar">
-            <div class="container__puntuaciones">
-                <div class="container__titulo-puntuaciones">
-                    <div class="titulo-puntuaciones">
-                        <h2>PUNTUACIONES</h2>
-                    </div>
-                    <div class="subtitulo-puntuaciones">
-                        <h3># JUGADOR</h3>
-                        <h3>NOMBRE</h3>
-                        <h3>FECHA</h3>
-                        <h3>PUNTUACIÓN</h3>
-                    </div>
-                </div>
-                <ul class="lista__puntuaciones">
-                </ul>
-            </div>
-            <button class="boton-partida boton-volver-puntuaciones">MENU PRINCIPAL</button>
-        </div>
-    </div>
-
-    <canvas id="canvas"></canvas>
-
-    <script src="/assets/js/min.js"></script>
-</body>
-
+		<script src="/assets/js/min/min.js"></script>
+	</body>
 </html>
