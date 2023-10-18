@@ -25,4 +25,5 @@ Para la base de datos se utilizó mondodb teniendo un esquema simple de puntuaci
 ## Instrucciones
 
 npm run build 
+
 npm run start
