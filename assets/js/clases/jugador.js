@@ -203,30 +203,6 @@ class Jugador extends Sprite {
 	}
 
 	dibujarVidaPersonaje() {
-		// if (this.vida == 4) {
-		// 	this.mapaVida.vidaActual = 'fullVida';
-		// } else if (this.vida == 3) {
-		// 	this.mapaVida.vidaActual = 'tresVidas';
-		// } else if (this.vida == 2) {
-		// 	this.mapaVida.vidaActual = 'dosVidas';
-		// } else if (this.vida == 1) {
-		// 	this.mapaVida.vidaActual = 'unaVida';
-		// } else if (this.vida == 0) {
-		// 	this.mapaVida.vidaActual = 'ceroVida';
-		// }
-
-		// ctx.drawImage(
-		// 	this.imagenes.tilesetVida,
-		// 	this.mapaVida[this.mapaVida.vidaActual].x,
-		// 	this.mapaVida[this.mapaVida.vidaActual].y,
-		// 	this.imagenes.tilesetVida.width / 5,
-		// 	this.imagenes.tilesetVida.height,
-		// 	0,
-		// 	10+ this.imagenes.tilesetPuntuacion.height * juego.proporciones.barraPuntuaciones,
-		// 	(this.imagenes.tilesetVida.width / 5) * juego.proporciones.barraVida,
-		// 	this.imagenes.tilesetVida.height * juego.proporciones.barraVida,
-		// );
-
 		ctx.drawImage(
 			this.imagenes.contenedorVida,
 			0,
