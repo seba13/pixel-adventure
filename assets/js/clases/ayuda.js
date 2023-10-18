@@ -179,10 +179,6 @@ class Ayuda extends Sprite {
 	}
 
 	cerrarLibro(e) {
-		// console.log("clickkkkk");
-		// console.log(e);
-
-		// 7 offset x
 		if (
 			e.clientX >= this.mapaLibro.botonCerrar.posicion.x + 7 &&
 			e.clientX <= this.mapaLibro.botonCerrar.posicion.x - 7 + this.imagenes.botonCerrar.width * juego.proporciones.ayuda.botonCerrar &&

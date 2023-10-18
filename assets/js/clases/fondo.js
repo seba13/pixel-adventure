@@ -59,19 +59,6 @@ class Fondo extends Sprite {
 		//fondo
 		ctx.drawImage(this.imagenes.fondo, 0, 0, this.imagenes.fondo.width, this.imagenes.fondo.height, 0, 0, canvas.width, canvas.height);
 
-		// PLANO FONDO NUBE 1 INFERIOR
-		// ctx.drawImage(
-		// 	this.imagenes.nube_1.frameActual,
-		// 	0,
-		// 	0,
-		// 	this.imagenes.nube_1.frameActual.width,
-		// 	this.imagenes.nube_1.frameActual.height,
-		// 	this.imagenes.nube_1.posicion.x,
-		// 	this.imagenes.nube_1.posicion.y,
-		// 	this.imagenes.nube_1.frameActual.width * this.imagenes.nube_1.escalaSprite,
-		// 	this.imagenes.nube_1.frameActual.height * this.imagenes.nube_1.escalaSprite,
-		// );
-
 		//PLANO FONDO MONTAÑA 1 INFERIOR
 		ctx.drawImage(
 			this.imagenes.montaña_1.frameActual,
@@ -181,7 +168,6 @@ class Fondo extends Sprite {
 
 	moverFondo(imagen) {
 		if (imagen.frameActual && imagen.frame_1 && imagen.frame_2) {
-			// imagen.posicion.x -= this.PLANOS[imagen.plano];
 			if (imagen.posicion.x + imagen.frameActual.width * juego.proporciones.fondo[imagen.proporcion] < 0) {
 				imagen.posicion.x = canvas.width;
 			}

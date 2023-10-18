@@ -159,8 +159,6 @@ botonPuntuaciones.addEventListener('click', (e) => {
 					}
 				})
 				.catch((err) => {
-					console.log(err);
-
 					loader.classList.add('ocultar');
 
 					panelPrincipal.classList.add('ocultar');
@@ -191,8 +189,6 @@ function mostrarPuntuacionesFinJuego() {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
-
 			loader.classList.add('ocultar');
 
 			panelPrincipal.classList.add('ocultar');

@@ -12,8 +12,6 @@ class Escenario extends Sprite {
 
 			random = random == 1 ? 1 : -1;
 
-			// let posicionY = Math.floor(ultimaPlataforma.posicion.y) + (Math.floor(Math.random() * 200) + 1) * random;
-
 			let canvasHeight = canvas.height;
 
 			let minY = ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50;
@@ -21,14 +19,6 @@ class Escenario extends Sprite {
 
 			// Generar aleatoriamente la posición Y dentro de los límites
 			let posicionY = Math.round(Math.random() * (maxY - minY) + minY);
-
-			// if (posicionY <= canvas.height * 0.4 ) {
-
-			// 	posicionY = Math.floor(Math.random() * canvas.height*.5) + 1 + ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1 + 50;
-			// } else if (posicionY >= canvas.height * 0.8 || canvas.height - posicionY < canvas.height * 0.4) {
-
-			// 	posicionY = Math.floor(Math.random() * (canvas.height - posicionY)) + 1 - (ultimaPlataforma.imagenes.tilesetArbol_1.height * juego.proporciones.plataforma.arbol_1) - 50;
-			// }
 
 			let distanciaPlataforma = Math.round(Math.random() * (canvas.width * 0.15 - 250) + 250);
 
@@ -148,11 +138,6 @@ class Escenario extends Sprite {
 		plataforma.tile.arbusto.arbusto_1.pintar = true;
 		plataforma.tile.arbusto.arbusto_2.pintar = true;
 		plataforma.tile.cascada.pintar = true;
-
-		// if(!plataforma.enemigoCreado && juego.gameStart) {
-		// 	plataforma.crearEnemigo()
-		// 	plataforma.enemigoCreado = true
-		// }
 	}
 
 	actualizarSprite() {

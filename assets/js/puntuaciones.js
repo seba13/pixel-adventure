@@ -5,8 +5,6 @@ async function cargarPuntuaciones() {
 		let fragment = document.createDocumentFragment();
 		let arrayPuntuaciones = Object.values(json);
 
-		// console.log(json);
-
 		while (listaPuntuaciones.firstChild) {
 			listaPuntuaciones.removeChild(listaPuntuaciones.firstChild);
 		}

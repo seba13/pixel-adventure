@@ -442,21 +442,6 @@ class Juego {
 							y: 28,
 						},
 					}),
-
-					// new Plataforma({
-					// 	posicion: {
-					// 		x: 384*4 + 800 + 350,
-					// 		// y: Math.floor((canvas.height - 535) / 32) * 32
-					// 		y: Math.floor((canvas.height - 150) )
-					// 	},
-					// 	width: 380 ,
-					// 	imagenes: this.tilesetEscenario,
-					// 	escalaSprite:3,
-					// 	offset : {
-					// 		x: 16,
-					// 		y: 28
-					// 	}
-					// }),
 				],
 			}),
 		});
@@ -968,22 +953,11 @@ class Juego {
 				this.proporcionesFPS.proporcionMovimiento = 0.7;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 0.7;
 				this.proporcionesFPS.proporcionSalto = 0.7;
-
-				// this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((1366 * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-				// this.proporcionesFPS.proporcionMovimiento = Math.ceil((1366 * this.proporcionesFPS.proporcionMovimiento) / 2560);
-				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((1366 * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-				// this.proporcionesFPS.proporcionSalto = Math.ceil((1366 * this.proporcionesFPS.proporcionSalto) / 2560);
 			}
 		} else if (this.fps >= 80 && this.fps < 140 && !this.establecerFPS) {
 			if (this.contadorSeg >= 2) {
 				this.establecerFPS = true;
 			}
-			// if (canvas.height < 600) {
-			// 	console.log('entra acacaac');
-			// 	this.gravedad = (60 * 1.2) / this.fps;
-			// } else {
-			// 	this.gravedad = (60 * 1.36) / this.fps;
-			// }
 
 			if (canvas.height < 600) {
 				this.gravedad = 0.5;
@@ -997,36 +971,16 @@ class Juego {
 
 			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
 
-			// this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / 165) * 1) / (1000 / 165));
-			// this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / 165) * 1) / (1000 / 165));
-			// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / 165) * 1) / (1000 / 165));
-			// this.proporcionesFPS.proporcionSalto = Math.round(((1000 / 165) * 1) / (1000 / 165));
-
 			if (canvas.width <= 1920 && canvas.width > 1366) {
 				this.proporcionesFPS.proporcionLimiteCuadros = 2;
 				this.proporcionesFPS.proporcionMovimiento = 1.33;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 1.33;
 				this.proporcionesFPS.proporcionSalto = 1.33;
-
-				// this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-				// this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
-				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
 			} else if (canvas.width <= 1366) {
 				this.proporcionesFPS.proporcionLimiteCuadros = 2;
 				this.proporcionesFPS.proporcionMovimiento = 0.9;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 0.9;
 				this.proporcionesFPS.proporcionSalto = 0.9;
-
-				// this.proporcionesFPS.proporcionLimiteCuadros =1
-				// this.proporcionesFPS.proporcionMovimiento =1
-				// this.proporcionesFPS.proporcionMovimientoEnemigo = 1
-				// this.proporcionesFPS.proporcionSalto = 1
-
-				// this.proporcionesFPS.proporcionLimiteCuadros = Math.floor((1366 * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-				// this.proporcionesFPS.proporcionMovimiento = Math.floor((1366 * this.proporcionesFPS.proporcionMovimiento) / 2560);
-				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.floor((1366 * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-				// this.proporcionesFPS.proporcionSalto = Math.floor((1366 * this.proporcionesFPS.proporcionSalto) / 2560);
 			}
 		} else if (this.fps <= 80 && !this.establecerFPS) {
 			if (this.contadorSeg >= 2) {
@@ -1044,30 +998,16 @@ class Juego {
 			}
 			this.saltoPersonaje = obtenerSaltoInicial((canvas.height * obtenerAlturaMaxima(obtenerSaltoInicial(410, this.gravedad))) / 1333);
 
-			// this.proporcionesFPS.proporcionLimiteCuadros = Math.round(((1000 / 60) * 1) / (1000 / 165));
-			// this.proporcionesFPS.proporcionMovimiento = Math.round(((1000 / 60) * 1) / (1000 / 165));
-			// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.round(((1000 / 60) * 1) / (1000 / 165));
-			// this.proporcionesFPS.proporcionSalto = Math.round(((1000 / 60) * 1) / (1000 / 165));
-
 			if (canvas.width <= 1920 && canvas.width > 1366) {
 				this.proporcionesFPS.proporcionLimiteCuadros = 4;
 				this.proporcionesFPS.proporcionMovimiento = 2.66;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 2.66;
 				this.proporcionesFPS.proporcionSalto = 2.66;
-
-				// this.proporcionesFPS.proporcionLimiteCuadros = Math.ceil((canvas.width * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-				// this.proporcionesFPS.proporcionMovimiento = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimiento) / 2560);
-				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.ceil((canvas.width * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-				// this.proporcionesFPS.proporcionSalto = Math.ceil((canvas.width * this.proporcionesFPS.proporcionSalto) / 2560);
 			} else if (canvas.width <= 1366) {
 				this.proporcionesFPS.proporcionLimiteCuadros = 4;
 				this.proporcionesFPS.proporcionMovimiento = 1.8;
 				this.proporcionesFPS.proporcionMovimientoEnemigo = 1.8;
 				this.proporcionesFPS.proporcionSalto = 1.8;
-				// this.proporcionesFPS.proporcionLimiteCuadros = Math.floor((1366 * this.proporcionesFPS.proporcionLimiteCuadros) / 2560);
-				// this.proporcionesFPS.proporcionMovimiento = Math.floor((1366 * this.proporcionesFPS.proporcionMovimiento) / 2560);
-				// this.proporcionesFPS.proporcionMovimientoEnemigo = Math.floor((1366 * this.proporcionesFPS.proporcionMovimientoEnemigo) / 2560);
-				// this.proporcionesFPS.proporcionSalto = Math.floor((1366 * this.proporcionesFPS.proporcionSalto) / 2560);
 			}
 		}
 	}
@@ -1084,7 +1024,6 @@ class Juego {
 			this.cargarEscenario();
 			this.cargarAyuda();
 			this.cargarPersonaje();
-			// this.gameStart = false
 
 			this.audios.audioFondo_2.pause();
 			this.audios.audioFondo_2.currentTime = 0;

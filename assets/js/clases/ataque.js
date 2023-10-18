@@ -10,7 +10,6 @@ class Ataque extends Sprite {
 		this.mostrarImpacto = true;
 
 		this.direcion = direccion;
-		// this.posicion.y =
 		this.mapaAtaque = {
 			bolaFuego: {
 				ataque: {
@@ -25,12 +24,10 @@ class Ataque extends Sprite {
 					frames: 4,
 					contadorLimiteCuadros: 24,
 				},
-				// framesTotales: 60,
 				estadoAtaque: 'ataque',
 			},
 			cuadroActual: 0,
 			contadorCuados: 0,
-			// contadorLimiteCuadros: 48
 		};
 		this.alcanceAtaque = {
 			bolaFuego: {
@@ -74,22 +71,6 @@ class Ataque extends Sprite {
 			this.mapaAtaque.bolaFuego.ataque.width * juego.proporciones.bolaFuego * flip,
 			this.mapaAtaque.bolaFuego.ataque.height * juego.proporciones.bolaFuego,
 		);
-		// ctx.drawImage(
-		// 	this.imagenes.tileset,
-		// 	this.mapa[this.estado].x + 32 * this.cuadroActual,
-		// 	this.mapa[this.estado].y,
-		// 	32,
-		// 	32,
-		// 	(this.posicion.x - this.offset.x * this.escalaSprite) * flip,
-		// 	this.posicion.y,
-		// 	32 * this.escalaSprite * flip,
-		// 	32 * this.escalaSprite,
-		// );
-
-		// RECTANGULO DE PRUEBA DE COLISION DE PROYECTIL DE ATAQUE DEL PERSONAJE
-		// ctx.fillStyle = 'rgba(0,0,255,.5)';
-		// ctx.fillRect( (this.posicion.x + this.offset.x/2)*flip, this.posicion.y + this.offset.y/2, this.anchoColision *flip , this.altoColision);
-
 		ctx.restore();
 	}
 
@@ -136,13 +117,6 @@ class Ataque extends Sprite {
 			} else {
 				this.mapaAtaque.cuadroActual = 0;
 			}
-			// else
-			// {
-			//     this.mapaAtaque.cuadroActual = 0
-			//     if(this.mapaAtaque.bolaFuego.estadoAtaque = 'impacto') {
-			//         this.liberar = true
-			//     }
-			// }
 		}
 	}
 

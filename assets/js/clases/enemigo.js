@@ -33,9 +33,6 @@ class Enemigo extends Sprite {
 	}
 
 	dibujarPuntaje() {
-		// this.mapaPuntaje.y = this.posicion.y + this.offset.y + this.altoColision
-		// this.mapaPuntaje.y = this.posicion.y - this.offset.y + juego.proporciones.texto * this.mapaPuntaje.tamañoFuente
-
 		this.mapaPuntaje.contadorCuadros++;
 		if (this.mapaPuntaje.contadorCuadros % Math.ceil(this.mapaPuntaje.contadorLimiteCuadros / juego.proporcionesFPS.proporcionLimiteCuadros) == 0) {
 			if (this.mapaPuntaje.cuadroActual < this.mapaPuntaje.frames - 1) {
@@ -81,8 +78,6 @@ class Enemigo extends Sprite {
 	}
 
 	realizarGuardia() {
-		// console.log('GUARDIA!!!');
-
 		this.tiempo += juego.deltaTiempo / 1000;
 		this.velocidad.x = 0;
 
@@ -90,14 +85,13 @@ class Enemigo extends Sprite {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 >= this.posicionInicial - this.alcance) {
 				this.ultimaDireccion = 'izquierda';
 				this.velocidad.x = -juego.proporcionesFPS.proporcionMovimientoEnemigo;
-				// console.log('GUARDIA DIR IZQ');
 			}
 		} else if (this.tiempo < this.tiempoIzquierda + this.tiempoInactivo) {
 			this.velocidad.x = 0;
 		} else if (this.tiempo > this.tiempoIzquierda + this.tiempoInactivo && this.tiempo < this.tiempoCentrarIzquierda) {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 + this.anchoColision <= this.posicionInicial) {
 				this.ultimaDireccion = 'derecha';
-				// console.log('GUARDIA DIR IZQ CENTRO');
+
 				this.velocidad.x = juego.proporcionesFPS.proporcionMovimientoEnemigo;
 			}
 		} else if (this.tiempo < this.tiempoCentrarIzquierda + this.tiempoInactivo) {
@@ -105,7 +99,7 @@ class Enemigo extends Sprite {
 		} else if (this.tiempo < this.tiempoDerecha) {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 + this.anchoColision <= this.posicionInicial + this.alcance) {
 				this.ultimaDireccion = 'derecha';
-				// console.log('GUARDIA DIR DER');
+
 				this.velocidad.x = juego.proporcionesFPS.proporcionMovimientoEnemigo;
 			}
 		} else if (this.tiempo < this.tiempoDerecha + this.tiempoInactivo) {
@@ -113,7 +107,7 @@ class Enemigo extends Sprite {
 		} else if (this.tiempo < this.tiempoCentrarDerecha) {
 			if (this.posicion.x + this.velocidad.x + this.offset.x / 2 >= this.posicionInicial) {
 				this.ultimaDireccion = 'izquierda';
-				// console.log('GUARDIA DIR CENTRO DER');
+
 				this.velocidad.x = -juego.proporcionesFPS.proporcionMovimientoEnemigo;
 			}
 		} else {
@@ -122,7 +116,6 @@ class Enemigo extends Sprite {
 	}
 
 	rangoPersecucion() {
-		// console.log("CONDICION");
 		if (
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision >= this.posicionInicial - this.alcancePersecucion &&
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 < this.posicionInicial + this.alcancePersecucion
@@ -133,8 +126,6 @@ class Enemigo extends Sprite {
 	}
 
 	perseguirJugador() {
-		// console.log("PERSECUCION");
-
 		if (
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 + juego.personaje.anchoColision >= this.posicionInicial - this.alcancePersecucion &&
 			juego.personaje.posicion.x + juego.personaje.offset.x / 2 < this.posicionInicial + this.alcancePersecucion
@@ -275,7 +266,6 @@ class Enemigo extends Sprite {
 				if (this.estado == 'muerte') {
 					if (this.cuadroActual + 1 >= this.mapa[this.estado].frames - 1) {
 						this.muriendo = false;
-						// this.liberar = true;
 					}
 				}
 			} else {
@@ -322,25 +312,6 @@ class Enemigo extends Sprite {
 
 		ctx.drawImage(this.imagenes.enemigo, this.mapa[this.estado].x + this.anchoSprite * this.cuadroActual, this.mapa[this.estado].y, this.anchoSprite, this.altoSprite, this.posicion.x * flip, this.posicion.y, this.ancho * flip, this.alto);
 
-		//RECTANGULO DE PRUEBA PARA EL RANGO DE ATAQUE DEL ENEMIGO
-
-		// ctx.fillStyle = 'rgba(255,0,255, .2)';
-		// if (this.ultimaDireccion === 'derecha') {
-		// 	ctx.fillRect(
-		// 		(this.posicion.x + this.offset.x / 2 + this.anchoColision) * flip,
-		// 		this.posicion.y + this.offset.y - this.rectangulocolisionAtaque.alto,
-		// 		this.rectangulocolisionAtaque.ancho * flip * juego.proporcionResolucion,
-		// 		this.rectangulocolisionAtaque.alto,
-		// 	);
-		// } else {
-		// 	ctx.fillRect(
-		// 		(this.posicion.x + this.offset.x / 2 - this.rectangulocolisionAtaque.ancho) * flip,
-		// 		this.posicion.y + this.offset.y - this.rectangulocolisionAtaque.alto,
-		// 		this.rectangulocolisionAtaque.ancho * flip * juego.proporcionResolucion,
-		// 		this.rectangulocolisionAtaque.alto,
-		// 	);
-		// }
-
 		this.porcentajeArmadura = this.armadura / this.totalArmadura >= 0 ? this.armadura / this.totalArmadura : 0;
 		this.porcentajeVida = this.vida / this.totalVida >= 0 ? this.vida / this.totalVida : 0;
 
@@ -362,20 +333,6 @@ class Enemigo extends Sprite {
 		ctx.fillRect(this.posicionBarrasX * flip, this.posicionBarrasY, this.anchoBarras * this.porcentajeArmadura * flip, this.altoBarras);
 
 		ctx.restore();
-
-		// RECTANGULOS DE PRUEBAS DE COLISIONES
-
-		// ctx.fillStyle = 'rgba(255,0,0,.4)';
-		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y + this.offset.y, this.anchoColision, this.altoColision);
-
-		// ctx.fillStyle = 'rgba(0,255,0,.4)'
-		// ctx.fillRect(this.posicion.x + this.offset.x/2 - this.anchoHumoEscalado/2 + this.anchoColision/2, this.posicion.y + this.offset.y + this.altoColision - this.altoHumoEscalado, this.anchoHumoEscalado, this.altoHumoEscalado)
-
-		// ctx.fillStyle = 'rgba(255,0,255, .2)';
-		// ctx.fillRect(this.posicionInicial - this.alcancePersecucion, this.posicion.y, this.alcancePersecucion * 2, this.alto);
-
-		// ctx.fillStyle = 'rgba(255,255,0,.6)';
-		// ctx.fillRect(this.posicionInicial - this.alcance, this.posicion.y, this.alcance * 2, this.alto);
 	}
 
 	dibujarMuerte() {

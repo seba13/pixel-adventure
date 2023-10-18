@@ -109,14 +109,6 @@ class Plataforma extends Sprite {
 	}
 
 	dibujar() {
-		// console.log(288 + this.imagenes.tileset.width/this.anchoPixel);
-
-		// ctx.fillRect(this.posicion.x, this.posicion.y, this.width, this.height);
-
-		// for (let j = 0; j < this.posicion.y / (this.altoPixel * this.escalaSprite); j++) {
-		// 	ctx.fillRect(this.posicion.x, this.posicion.y + this.altoPixel * this.escalaSprite * j, this.width, this.height * this.escalaSprite);
-		// }
-
 		this.dibujarElementosPlataforma();
 		this.dibujarPlataforma();
 		if (this.tile.cascada.pintar) {
@@ -202,8 +194,6 @@ class Plataforma extends Sprite {
 				this.enemigos.push(this.crearEnemigoMinotauro());
 			}
 		}
-
-		// this.enemigos.push(this.crearEnemigoMinotauro())
 	}
 
 	crearEnemigoMinotauro() {
@@ -514,28 +504,9 @@ class Plataforma extends Sprite {
 		if (this.width < anchoPlataforma) {
 			this.width = anchoPlataforma - this.offset.x - 16;
 		}
-
-		// ctx.fillStyle = 'rgba(0,0,255,.2)';
-
-		// for (let j = 0; j < this.posicion.y / (this.altoPixel * juego.proporciones.plataforma.suelo); j++) {
-		// 	ctx.fillRect(this.posicion.x + this.offset.x, this.posicion.y + this.altoPixel * juego.proporciones.plataforma.suelo * j,this.width - this.offset.x, this.altoPixel * juego.proporciones.plataforma.suelo);
-		// }
 	}
 
 	moverPlataforma() {
-		// if (juego.controles['ArrowRight'].presionada && juego.personaje.posicion.x + juego.personaje.width + 800 >= this.posicion.x) {
-		// 	// this.velocidad.x = 2;
-		// 	return 1;
-		// } else if (juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x < 100) {
-		// 	return 0;
-		// } else if (juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x <= this.posicion.x + this.width + 800) {
-		// 	// this.velocidad.x = -2;
-		// 	return -1;
-		// } else {
-		// 	// this.velocidad.x = 0;
-		// 	return 0;
-		// }
-
 		if (
 			((juego.controles['ArrowRight'].presionada || juego.controles['d'].presionada) && juego.personaje.posicion.x > canvas.width * 0.6) ||
 			((juego.controles['ArrowLeft'].presionada || juego.controles['a'].presionada) && juego.personaje.posicion.x < canvas.width * 0.4)
@@ -604,15 +575,6 @@ class Plataforma extends Sprite {
 	}
 
 	detectarColisionPersonaje() {
-		// if (
-		// 	juego.personaje.posicion.y + juego.personaje.height <= this.posicion.y &&
-		// 	juego.personaje.posicion.y + juego.personaje.height + juego.personaje.velocidad.y >= this.posicion.y &&
-		// 	juego.personaje.posicionXColision + juego.personaje.anchoColision>= this.posicion.x &&
-		// 	juego.personaje.posicion.x <= this.posicion.x + this.width
-		// ) {
-		// 	juego.personaje.velocidad.y = 0;
-		// }
-
 		if (
 			juego.personaje.posicion.y + juego.personaje.height <= this.posicion.y &&
 			juego.personaje.posicion.y + juego.personaje.height + juego.personaje.velocidad.y >= this.posicion.y &&
@@ -668,15 +630,5 @@ class Plataforma extends Sprite {
 		this.detectarColisionEnemigo();
 		this.detectarColisionItem();
 		this.dibujar();
-
-		// this.posicion.x -= this.velocidad.x;
-
-		// if (juego.controles['ArrowRight'].presionada && juego.personaje.posicion.x + juego.personaje.width >= this.posicion.x  > 0) {
-		// 	this.velocidad.x = 2;
-		// } else if (juego.controles['ArrowLeft'].presionada && juego.personaje.posicion.x <= this.posicion.x + this.width &&  juego.personaje.posicion.x) {
-		// 	this.velocidad.x = -2;
-		// } else {
-		// 	this.velocidad.x = 0;
-		// }
 	}
 }

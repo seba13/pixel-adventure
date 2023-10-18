@@ -190,10 +190,6 @@ class Jugador extends Sprite {
 		ctx.drawImage(this.imagenes.tileset, this.mapa[this.estado].x + 32 * this.cuadroActual, this.mapa[this.estado].y, 32, 32, this.posicion.x * flip, this.posicion.y, 32 * juego.proporciones.personaje * flip, 32 * juego.proporciones.personaje);
 
 		ctx.restore();
-
-		// RECTANGULO DE PRUEBA PARA DETERMINAR COLISIONES
-		// ctx.fillStyle = 'rgba(0,255,0,.2)';
-		// ctx.fillRect(this.posicion.x + this.offset.x / 2, this.posicion.y, this.anchoColision, this.height);
 	}
 
 	agregarPuntaje(puntuacion) {
@@ -397,17 +393,7 @@ class Jugador extends Sprite {
 
 	dibujar() {
 		this.dibujarPersonaje();
-		// if (this.invulnerable) {
-		// 	if (this.parpadeando && this.vida > 0) {
-		// 		if (!this.parpadear) {
-		// 			this.dibujarPersonaje();
-		// 		}
-		// 	} else {
-		// 		this.dibujarPersonaje();
-		// 	}
-		// } else {
-		// 	this.dibujarPersonaje();
-		// }
+
 		this.dibujarVidaPersonaje();
 		this.dibujarPuntuacionPersonaje();
 		this.dibujarEnergiaPersonaje();
@@ -491,26 +477,8 @@ class Jugador extends Sprite {
 		}
 	}
 
-	// actualizarPosicionAtaques() {
-
-	// 	this.ataques.forEach( ataque => {
-
-	// 		if(this.ultimaDireccion == 'derecha') {
-	// 			ataque.posicion.x = this.posicion.x + this.offset.x/2 + this.anchoColision
-	// 		}else {
-	// 			ataque.posicion.x = this.posicion.x - this.offset.x/2 - this.anchoColision
-	// 		}
-
-	// 	})
-
-	// }
-
 	recibirDaño(dañoRecibido) {
 		this.vida -= dañoRecibido;
-
-		// if (this.vida < 2) {
-		// 	this.vida = 4;
-		// }
 
 		this.recibiendoDaño = true;
 		this.parpadeando = true;
@@ -541,39 +509,6 @@ class Jugador extends Sprite {
 			return;
 		}
 
-		// if (this.recibiendoDaño) {
-		// 	console.log(this.tiempoInvulnerableTranscurrido);
-		// 	console.log(this.invulnerable);
-
-		// 	if (this.tiempoInvulnerableTranscurrido >= this.tiempoInvulnerabilidad) {
-		// 		// this.tiempoInvulnerableTranscurrido = 0;
-		// 		// this.tiempoParpadeoTranscurrido = 0;
-		// 		this.invulnerable = false;
-		// 		this.parpadeando = false;
-
-		// 		console.log('entra acacaaacaacacac');
-		// 	} else {
-		// 		this.tiempoInvulnerableTranscurrido += juego.deltaTiempo;
-		// 	}
-
-		// 	// if (this.tiempoParpadeoTranscurrido <= this.tiempoParpadeoDaño) {
-		// 	// 	this.parpadear = !this.parpadear;
-
-		// 	// 	this.tiempoParpadeoTranscurrido += juego.deltaTiempo;
-		// 	// } else {
-		// 	// 	this.tiempoParpadeoTranscurrido = 0;
-		// 	// 	this.parpadeando = false;
-		// 	// }
-		// }
-		// if (juego.controles[' '].presionada) {
-		// 	if (this.realizandoAtaque) {
-		// 		if (this.estado != 'ataque') {
-		// 			this.estado = 'ataque';
-		// 			this.cuadroActual = 0;
-		// 		}
-		// 		return;
-		// 	}
-		// }
 		if (this.realizandoAtaque) {
 			if (this.estado != 'ataque') {
 				this.estado = 'ataque';
@@ -650,151 +585,6 @@ class Jugador extends Sprite {
 		}
 	}
 
-	// Cambia el estado que referencia al sprite de animacion
-	// cambiarEstado() {
-	// 	if (this.vida < 1) {
-	// 		if (this.estado != 'muerto') {
-	// 			this.estado = 'muerto';
-	// 			this.cuadroActual = 0;
-	// 		}
-	// 		return
-	// 	}
-	// 	if(this.recibirDaño){
-
-	// 		if(this.estado != 'daño' && this.tiempoRecibirDaño >= this.intervaloRecibirDaño ) {
-	// 			this.estado = 'daño'
-	// 			this.cuadroActual = 0
-	// 			this.tiempoRecibirDaño = 0
-	// 			this.desplazado = false
-	// 		}else {
-	// 			this.recibirDaño = false
-	// 		}
-	// 		return
-	// 	}
-	// 	if (!this.realizarAtaque) {
-	// 		if (juego.controles['ArrowRight'].presionada || juego.controles['ArrowLeft'].presionada) {
-	// 			if (juego.controles['ArrowRight'].presionada) {
-	// 				this.ultimaDireccion = 'derecha';
-	// 			} else if (juego.controles['ArrowLeft'].presionada) {
-	// 				this.ultimaDireccion = 'izquierda';
-	// 			}
-
-	// 			if (this.velocidad.y < 0) {
-	// 				if (this.estado != 'saltando') {
-	// 					this.estado = 'saltando';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 				else
-	// 				if (juego.controles[' '].presionada) {
-	// 					if (this.estado != 'ataque') {
-	// 						this.realizarAtaque = true;
-	// 						this.estado = 'ataque';
-	// 						this.cuadroActual = 0;
-	// 					}
-	// 				}
-	// 			}
-	// 			// cuando se está presionando el boton saltar y está cayendo por la gravedad
-	// 			else if (this.velocidad.y > juego.gravedad) {
-
-	// 				if (this.estado != 'caida') {
-	// 					this.estado = 'caida';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 				else
-	// 				if (juego.controles[' '].presionada) {
-	// 					if (this.estado != 'ataque') {
-	// 						this.realizarAtaque = true;
-	// 						this.estado = 'ataque';
-	// 						this.cuadroActual = 0;
-	// 					}
-	// 				}
-
-	// 			}
-	// 			else
-	// 			if (juego.controles[' '].presionada) {
-	// 				if (this.estado != 'ataque') {
-	// 					this.realizarAtaque = true;
-	// 					this.estado = 'ataque';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 			}
-	// 			// else
-	// 			// {
-	// 				else
-	// 				if (this.estado != 'corriendo') {
-	// 					this.estado = 'corriendo';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 			// }
-
-	// 			// siempre comenzara por la animacion inactiva
-	// 			this.cicloAnimacion = 0;
-	// 		} else if (juego.controles['ArrowUp'].presionada) {
-	// 			// siempre comenzara por la animacion inactiva
-	// 			this.cicloAnimacion = 0;
-
-	// 			// cuando se está presionando el boton saltar y se está elevenado
-	// 			if (this.velocidad.y < 0) {
-	// 				if (this.estado != 'saltando') {
-	// 					this.estado = 'saltando';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 			}
-	// 			// cuando se está presionando el boton saltar y está cayendo por la gravedad
-	// 			else if (this.velocidad.y > juego.gravedad) {
-	// 				if (this.estado != 'caida') {
-	// 					this.estado = 'caida';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 			}
-	// 			// cuando se está presionando el boton saltar pero ya caido al suelo
-	// 			else {
-	// 				if (this.estado != 'inactivo') {
-	// 					this.estado = 'inactivo';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 			}
-	// 		} else if (juego.controles[' '].presionada) {
-	// 			if (this.estado != 'ataque') {
-	// 				this.realizarAtaque = true;
-	// 				this.estado = 'ataque';
-	// 				this.cuadroActual = 0;
-	// 			}
-	// 		}
-	// 		// cuando se deja de pulsar cualquier boton
-	// 		else {
-	// 			// cuanto está cayendo por gravedad
-	// 			if (this.velocidad.y > juego.gravedad) {
-	// 				if (this.estado != 'caida') {
-	// 					this.estado = 'caida';
-	// 					this.cuadroActual = 0;
-	// 				}
-	// 			}
-	// 			// cuando ya ha caido al suelo o no se ha realizado alguna acción
-	// 			else if (this.estado != 'inactivo') {
-	// 				if (this.cicloAnimacion < 2) {
-	// 					this.estado = 'inactivo';
-	// 					this.cuadroActual = 0;
-	// 				} else {
-	// 					// si cicloAnimacion > 2 cambiar a la animacion inactiva
-	// 					if (this.cicloAnimacion > 2) {
-	// 						this.cicloAnimacion = 0;
-	// 					}
-	// 				}
-	// 				// this.cicloAnimacion = 0
-	// 			} else {
-	// 				// si cicloAnimacion es 2 cambiar a la animacion pestañear
-	// 				if (this.cicloAnimacion == 2) {
-	// 					if (this.estado != 'parpadear') {
-	// 						this.estado = 'parpadear';
-	// 						this.cuadroActual = 0;
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
-
 	crearAtaque() {
 		let posX = 0;
 		let velX = 0;
@@ -846,8 +636,6 @@ class Jugador extends Sprite {
 		this.posicion.y += this.velocidad.y;
 
 		this.posicion.x += this.velocidad.x;
-
-		// console.log({"INVULNERABLE":this.invulnerable });
 
 		// CONTROLADOR DE ANIMACION DE PARPADEO AL RECIBIR DAÑO Y VARIABLE DE INVULNERABILIDAD DE DAÑO
 		if (this.parpadeando) {

@@ -41,7 +41,6 @@ class Minotauro extends Enemigo {
 		// MEDIDA QUE SE LE RESTA AL ANCHO/ALTO Y POSICION DE LA IMAGEN
 		this.offset = offset;
 		this.offset.x = offset.x;
-		// this.offset.y = offset.y * juego.proporciones.enemigos[this.proporcion];
 
 		// MEDIDA DE CADA FOTOGRAMA DENTRO DE LA IMAGEN
 		this.anchoSprite = this.imagenes.enemigo.width / 9; //(ESTA IMAGEN TIENE 9 FOTOGRAMAS POR LO QUE SE DIVIDE EN 8)
