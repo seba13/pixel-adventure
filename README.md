@@ -20,3 +20,9 @@ Para la base de datos se utilizó mondodb teniendo un esquema simple de puntuaci
 
 ## Preview Juego
 ![image](https://github.com/seba13/pixel-adventure/assets/5369573/a5ee7a5d-943d-49ba-b5bd-38f546b0a0bc)
+
+
+## Instrucciones
+
+npm run build 
+npm run start
