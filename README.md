@@ -7,7 +7,7 @@ Se utilizaron clases para implementar un modelo de programación orientada a obj
 Para el backend se utilizó nodeJS en conjunto de la libreria Express para montar el servidor y servir las peticiones y respuestas del sitio y 
 de almacenado de puntajes en la base de datos.
 
-Para la base de datos se utilizó mondodb teniendo un esquema simple de puntuaciones de los jugadores, esta base de datos fue alojada en mongodb Atlas.
+Para la base de datos se utilizó mongodb, teniendo un esquema simple de puntuaciones de los jugadores, esta base de datos fue alojada en mongodb Atlas.
 
 ## Pantalla Principial
 ![image](https://github.com/seba13/pixel-adventure/assets/5369573/1c3c4209-9c64-48c0-8b4e-558ec7f9a174)
